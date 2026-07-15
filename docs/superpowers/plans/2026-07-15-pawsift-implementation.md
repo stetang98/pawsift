@@ -19,6 +19,7 @@
 - The public UI and API must use the same domain engine and checked-in fixtures.
 - No tracked secret, private key, fake payment, fake sale, or unsupported chain claim.
 - The demo must be no longer than 90 seconds and must match the deployed product.
+- The operator console must translate the live Bybit homepage's measured visual language into PawSift without copying Bybit trademarks or exchange content: Inter, black canvas, charcoal panels, white data, `#ff9c2e` primary actions, compact rows, and semantic green/red states.
 
 ---
 
@@ -353,7 +354,7 @@ Always show verdict text and icon, not color alone. Findings show stable rule ID
 
 - [ ] **Step 5: Implement responsive layout**
 
-Desktop: compact two-column workspace with a sticky result pane.
+Desktop: compact two-column trading-terminal workspace with a 56 px dark command bar, low-contrast dividers, an audit ticket on the left, and a sticky result/receipt panel on the right. Use the checked-in Bybit captures as visual grounding; keep radii at 8 px or less and avoid a marketing hero.
 
 Mobile: one-column flow with form before result, no horizontal scrolling, 44 px minimum touch targets, and no overlapping fixed elements.
 
@@ -375,8 +376,8 @@ git commit -m "feat: build PawSift audit console"
 ### Task 6: Brand Asset and Visual QA
 
 **Files:**
-- Create: `public/brand/pawsift-logo-512-v1.png`
-- Create: `public/brand/pawsift-mark-512-v1.png`
+- Create: `public/brand/pawsift-logo-512-v2.png`
+- Create: `public/brand/pawsift-mark-512-v2.png`
 - Create: `public/screens/pawsift-console-desktop-v1.png`
 - Create: `public/screens/pawsift-console-mobile-v1.png`
 - Modify: `app/layout.tsx`
@@ -388,7 +389,7 @@ git commit -m "feat: build PawSift audit console"
 
 - [ ] **Step 1: Generate the original logo with ImageGen**
 
-Art direction: a precise black-and-white sieve/check motif shaped by two paw pads, one restrained lime signal, no mascot face, no gradient, no text in the mark, legible at 48 px, square 512 px raster output.
+Art direction: a precise black-and-white sieve/check motif shaped by two paw pads, one restrained `#ff9c2e` signal, no mascot face, no gradient, no text in the mark, legible at 48 px, square 512 px raster output.
 
 - [ ] **Step 2: Integrate the asset at measured sizes**
 
@@ -400,7 +401,7 @@ Viewport targets: 1440x1024 and 390x844. Capture the loaded collar example with 
 
 - [ ] **Step 4: Compare and fix**
 
-Inspect for cropped controls, bad padding, text overflow, weak contrast, font-weight inconsistency, nested cards, and layout shifts. Record final checks in `docs/DESIGN_QA.md`.
+Compare the same viewport and loaded-fixture state against the checked-in Bybit visual references. Inspect for cropped controls, bad padding, text overflow, weak contrast, font-weight inconsistency, nested cards, wrong accent treatment, and layout shifts. Record final checks in both `design-qa.md` and `docs/DESIGN_QA.md`; the blocking result must say `final result: passed`.
 
 - [ ] **Step 5: Commit**
 
@@ -541,4 +542,3 @@ Use the literal fields from `ops/HACKQUEST_SUBMISSION.md`. Treat each final subm
 - [ ] **Step 7: Final verification**
 
 Verify the ASP is live, the X post is public, the video plays signed out, the HackQuest project renders its images, the Google form confirms receipt, and public claims match `proof.json`.
-

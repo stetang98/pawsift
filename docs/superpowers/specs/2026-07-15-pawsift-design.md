@@ -120,8 +120,16 @@ The public web console uses realistic fixtures and calls the same production API
 
 - Next.js App Router and TypeScript.
 - Responsive operator console with a compact input workspace and result pane.
-- Original black/white interface with lime action accents and semantic green/amber/red status colors.
+- Bybit-inspired trading-terminal visual language grounded in the live homepage captured on 2026-07-15: black canvas, charcoal tools, white data, warm orange primary actions, and semantic green/red states.
+- Inter typography, compact 14 px operational copy, disciplined 8 px-or-smaller radii, thin low-contrast dividers, and dense rows that favor scanning over marketing composition.
+- Desktop uses a restrained 56 px dark command bar, an audit ticket on the left, and a sticky verdict/receipt market panel on the right. Mobile collapses to a single form-then-result flow.
+- The first viewport is the usable audit console. It does not reproduce Bybit trademarks, exchange copy, charts, token symbols, or source assets.
 - No decorative gradients, oversized marketing hero, nested cards, or ornamental blobs.
+
+Visual references:
+
+- `docs/references/bybit-home-desktop-top-2026-07-15.png`
+- `docs/references/bybit-home-desktop-cards-2026-07-15.png`
 
 ### A2MCP API
 
