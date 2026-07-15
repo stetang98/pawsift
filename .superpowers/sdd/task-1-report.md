@@ -134,5 +134,19 @@ Completed with concerns.
    - Outcome: passed with zero findings; the prior Next/PostCSS moderate warning no longer appears.
 
 8. Patch-shape verification:
+    - Command: `git diff --check`
+    - Outcome: passed with no whitespace or patch-shape issues.
+
+## Fix Wave 2
+
+1. Added automated Chromium provisioning for E2E and verified the clean-cache path:
+   - Command: `rm -rf /tmp/pawsift-playwright-fresh && PLAYWRIGHT_BROWSERS_PATH=/tmp/pawsift-playwright-fresh npm run test:e2e`
+   - Outcome: passed; `pretest:e2e` downloaded Chromium, FFmpeg, and headless shell into `/tmp/pawsift-playwright-fresh`, then Playwright ran `1` chromium test and passed in `8.2s`.
+
+2. Consolidated project verification:
+   - Command: `npm run check`
+   - Outcome: passed.
+
+3. Patch-shape verification:
    - Command: `git diff --check`
    - Outcome: passed with no whitespace or patch-shape issues.
