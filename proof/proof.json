@@ -7,15 +7,119 @@
     "license": "MIT"
   },
   "source": {
-    "auditedCommit": "40bfbd04d6b9220acb7fd1a0400f2699a5057b9f",
-    "generatedAt": "2026-07-15T18:58:29-04:00",
+    "auditedCommit": "79b65f666695daaf488da6fe7c41efca4a0c8272",
+    "generatedAt": "2026-07-15T19:35:12-04:00",
     "rulesetVersion": "2026.07.1",
     "rulesSource": "src/domain/rules.ts",
-    "fixtureSource": "src/domain/fixtures.ts"
+    "fixtureSource": "src/domain/fixtures.ts",
+    "files": [
+      {
+        "path": "docs/SAFETY.md",
+        "gitBlob": "99a82bf37f0011ad99b87356579fcb46d0558ab3",
+        "sha256": "4e925efc48ec3efb065052761c13a4803d585f201f10aa8a6f73440ccde88f81"
+      },
+      {
+        "path": "ops/DEPLOYMENT.md",
+        "gitBlob": "6df29489831296d3e1a4f9af179008e54d1358c0",
+        "sha256": "244c57d9c3c22c9ffee2bb7dd744498b1129a0eed6754a09fbe6c42d58a430f7"
+      },
+      {
+        "path": "package.json",
+        "gitBlob": "dd2e3fd570a1edc864490fe1235b97b133d16700",
+        "sha256": "3bb800d1110986a3c8be6d9f570c3de7d1b355c7c8e41dab7a36c249e87ee9f1"
+      },
+      {
+        "path": "scripts/export-proof.ts",
+        "gitBlob": "26a8f6842642a885bf53003580582c6a8e6e5dc2",
+        "sha256": "457c08f11ed596f7dec16632a2b767a39dca96520721980b37d2960eefa30918"
+      },
+      {
+        "path": "src/domain/audit.ts",
+        "gitBlob": "aaf27de01290f2e67d8e306929af2a56dd7bbf32",
+        "sha256": "14024380a7f981d0f225c347aa889dc0dc7803d225d0110d2fbcb2764a58bc6d"
+      },
+      {
+        "path": "src/domain/canonical-json.ts",
+        "gitBlob": "3c261a97b39b23c187d7d5beccbbb4b2670c136b",
+        "sha256": "fe9fc8b3ad70fafe8abc75b7f7891f44d8859319cf53ffe3aeafb51ad9f02631"
+      },
+      {
+        "path": "src/domain/canonical.ts",
+        "gitBlob": "f05900396aebab3173bb92e89ad9e2104460d73c",
+        "sha256": "d318e4485529f1b6d9e30ecbca6459ce0b1896cf6b51db71b531183818e86326"
+      },
+      {
+        "path": "src/domain/fixtures.ts",
+        "gitBlob": "9efabcfee7bbc71bc5d0d301f86ed4d67e356221",
+        "sha256": "4c7860199c900b6a9d4b8b83b6f36fda2e4be823c94dd56283b8157cdbd64e09"
+      },
+      {
+        "path": "src/domain/rules.ts",
+        "gitBlob": "248f50e8c03a3d85073b6086c16c63bd8fa8a92f",
+        "sha256": "cf9dae07a9a9341c8d56ac350b9bde896c37ba2d1b6819f358853926885f225d"
+      },
+      {
+        "path": "src/domain/schemas.ts",
+        "gitBlob": "dffe41d27be384709ec894cf453b921f50b4f66e",
+        "sha256": "41d2ae1061c1e01236a925370c49310bc0f65bf0e90dcd789276a9675fe437e8"
+      },
+      {
+        "path": "src/proof/exporter.ts",
+        "gitBlob": "07dae40f27c706b55f4cbdb2c59de4c7987a4030",
+        "sha256": "e05cfb2008e92df879da1db63fb5508db7a0669fb1f1fff83a20dcbe0582319f"
+      },
+      {
+        "path": "src/proof/git-provenance.ts",
+        "gitBlob": "627bf8b268626b9da28ffb6066255fa19590e660",
+        "sha256": "eebebc59ca648edf9e43fc646be02abefdc3f29cfd28f4fd42641bc1bcd644ae"
+      },
+      {
+        "path": "src/proof/proof.ts",
+        "gitBlob": "b64dc0c4d977d2d6cdff319095da56b73a3d266b",
+        "sha256": "12a8acbb4aca62d438c90106f9a2f2a7b91539afd5addeecd2e0a4148b83dd57"
+      },
+      {
+        "path": "tests/domain/canonical.test.ts",
+        "gitBlob": "7456f6ef2494647af5b18bc8796ea302614f47e1",
+        "sha256": "ddb1bc3af5ae44c2b3caf7990675f59eeff736ef30569a0bf9c3be49f8c415f8"
+      },
+      {
+        "path": "tests/domain/rules.test.ts",
+        "gitBlob": "196a25accea83a6456e20f8eaa1e5deaf231f873",
+        "sha256": "2483baeec8c9c5c0a9c024f95c11c3548e6e865da3c21f26446a187413a50fe4"
+      },
+      {
+        "path": "tests/proof/git-provenance.test.ts",
+        "gitBlob": "10b6a48dc1f7c26b3a9791b461dda902487cbca4",
+        "sha256": "d63abbc12cff2bcbed38747e0281fab7298d51b0ece6b82255b9e94aab10cbfd"
+      },
+      {
+        "path": "tests/proof/proof.test.ts",
+        "gitBlob": "4876514f98c6211e9b073b5782f3d7bd8c0cdcb0",
+        "sha256": "7b21f40944187abfca1c8a32f2abdbf6023be61f45174c002f9f69c330504f85"
+      }
+    ]
   },
   "deployment": {
-    "status": "pending",
-    "paymentMode": "free_launch"
+    "status": "live",
+    "endpoint": "https://pawsift.vercel.app",
+    "paymentMode": "free_launch",
+    "verification": {
+      "endpoint": "https://pawsift.vercel.app",
+      "verifiedAt": "2026-07-15T23:10:27Z",
+      "health": {
+        "url": "https://pawsift.vercel.app/api/v1/health",
+        "status": "ok",
+        "rulesetVersion": "2026.07.1"
+      },
+      "fixture": {
+        "id": "clear-cat-collar",
+        "inputHash": "f8ab57435e1fb63b7fda95d06437c263ef87e1c63051e723e39ee56797eff5ff",
+        "reportHash": "fed257dc7065eea1bb30f3082d72e29f3467ec03eccedd056b154d5ff59b7f3b"
+      },
+      "evidencePath": "ops/DEPLOYMENT.md",
+      "evidenceSha256": "244c57d9c3c22c9ffee2bb7dd744498b1129a0eed6754a09fbe6c42d58a430f7"
+    }
   },
   "payments": {
     "mode": "free_launch",
@@ -187,5 +291,5 @@
       "npm test -- --run tests/proof/proof.test.ts"
     ]
   },
-  "documentHash": "85ca92415dca2b62f76f0846f66f51d17b4b90c270e4195c12b47692ff89c2ef"
+  "documentHash": "c0b81b46d8367eace5e3740f30e680ad39e7c98d722cb86751ef300e7a584c1f"
 }

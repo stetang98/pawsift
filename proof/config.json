@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "auditedCommit": "79b65f666695daaf488da6fe7c41efca4a0c8272",
+  "deployment": {
+    "status": "live",
+    "endpoint": "https://pawsift.vercel.app",
+    "verifiedAt": "2026-07-15T23:10:27Z",
+    "health": {
+      "url": "https://pawsift.vercel.app/api/v1/health",
+      "status": "ok",
+      "rulesetVersion": "2026.07.1"
+    },
+    "fixture": {
+      "id": "clear-cat-collar",
+      "inputHash": "f8ab57435e1fb63b7fda95d06437c263ef87e1c63051e723e39ee56797eff5ff",
+      "reportHash": "fed257dc7065eea1bb30f3082d72e29f3467ec03eccedd056b154d5ff59b7f3b"
+    },
+    "evidencePath": "ops/DEPLOYMENT.md"
+  }
+}
