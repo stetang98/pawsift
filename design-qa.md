@@ -15,7 +15,8 @@
 ## Review
 
 - The black canvas, compact command bar, orange primary action, muted panel borders, and green/red semantic data match the captured Bybit visual language without copying its product content.
-- The PawSift lockup uses a real generated image asset and remains legible on the dark header.
+- The header uses the generated square mark at exactly 32 px with a text label; favicon and social metadata reuse the 512 px source.
+- Product and reference screenshots are real PNG payloads at the documented dimensions.
 - The audit input, example selection, submission, verdict, JSON copy, and JSON download controls are functional.
 - Desktop has no visible overlap, clipping, or horizontal overflow at 1440 x 1024.
 - Mobile has no horizontal overflow at 390 x 844; controls reflow into one column and touch targets remain at least 44 px.

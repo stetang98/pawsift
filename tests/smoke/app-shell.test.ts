@@ -5,9 +5,15 @@ import HomePage from "../../app/page";
 
 describe("application shell", () => {
   it("publishes the PawSift identity", () => {
+    const configuredBase =
+      process.env.NEXT_PUBLIC_SITE_URL ??
+      (process.env.VERCEL_PROJECT_PRODUCTION_URL
+        ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+        : "http://localhost:3000");
+
     expect(metadata.title).toBe("PawSift | Pet product fit, explained");
     expect(metadata.description).toContain("non-ingestible pet supplies");
-    expect(metadata.metadataBase?.toString()).toBe("http://localhost:3000/");
+    expect(metadata.metadataBase?.toString()).toBe(new URL(configuredBase).toString());
     expect(metadata.icons).toEqual({
       icon: "/brand/pawsift-mark-512-v2.png"
     });
@@ -27,7 +33,8 @@ describe("application shell", () => {
     expect(markup).toContain("<main");
     expect(markup).toContain("<h1");
     expect(markup).toContain("PawSift");
-    expect(markup).toContain("pawsift-logo-512-v2.png");
+    expect(markup).toContain("pawsift-mark-512-v2.png");
+    expect(markup).toContain('width="32" height="32"');
     expect(markup).toContain('id="audit-console-root"');
   });
 });

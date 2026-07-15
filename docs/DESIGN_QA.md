@@ -12,6 +12,6 @@ PawSift was visually checked against the live Bybit home page rather than a pros
 | Layout integrity | No overlap, clipped controls, or horizontal overflow | Pass |
 | Visual constraints | Dark neutral palette, orange action, semantic data colors, radius <= 8 px, no gradients | Pass |
 
-The final header uses `public/brand/pawsift-logo-512-v2.png`; favicon and social metadata use the square `public/brand/pawsift-mark-512-v2.png`.
+The final header renders `public/brand/pawsift-mark-512-v2.png` at 32 x 32 px with a text label; favicon and social metadata use the same 512 px source. The horizontal lockup remains available at `public/brand/pawsift-logo-512-v2.png` for submission materials.
 
 final result: passed
