@@ -1,13 +1,5 @@
 import { createHash } from "node:crypto";
 
-type CanonicalValue =
-  | null
-  | boolean
-  | number
-  | string
-  | CanonicalValue[]
-  | { [key: string]: CanonicalValue };
-
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   if (value === null || typeof value !== "object" || Array.isArray(value)) {
     return false;
@@ -15,6 +7,33 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
 
   const prototype = Object.getPrototypeOf(value);
   return prototype === Object.prototype || prototype === null;
+}
+
+function compareCodeUnits(left: string, right: string): number {
+  const limit = Math.min(left.length, right.length);
+
+  for (let index = 0; index < limit; index += 1) {
+    const leftCodeUnit = left.charCodeAt(index);
+    const rightCodeUnit = right.charCodeAt(index);
+
+    if (leftCodeUnit < rightCodeUnit) {
+      return -1;
+    }
+
+    if (leftCodeUnit > rightCodeUnit) {
+      return 1;
+    }
+  }
+
+  if (left.length < right.length) {
+    return -1;
+  }
+
+  if (left.length > right.length) {
+    return 1;
+  }
+
+  return 0;
 }
 
 function toCanonicalString(value: unknown): string {
@@ -56,7 +75,7 @@ function toCanonicalString(value: unknown): string {
   }
 
   return `{${Object.keys(value)
-    .sort((left, right) => left.localeCompare(right))
+    .sort(compareCodeUnits)
     .map((key) => `${JSON.stringify(key)}:${toCanonicalString(value[key])}`)
     .join(",")}}`;
 }

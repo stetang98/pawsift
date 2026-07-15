@@ -18,6 +18,18 @@ describe("canonicalize", () => {
     );
   });
 
+  it("uses a deterministic code-unit order for case, punctuation, and non-ASCII keys", () => {
+    expect(
+      canonicalize({
+        z: 1,
+        A: 2,
+        "!": 3,
+        é: 4,
+        a: 5
+      })
+    ).toBe('{"!":3,"A":2,"a":5,"z":1,"é":4}');
+  });
+
   it("rejects undefined values anywhere in the input graph", () => {
     expect(() => canonicalize(undefined)).toThrow();
     expect(() => canonicalize({ ok: 1, bad: undefined })).toThrow();
