@@ -58,15 +58,17 @@ main.audit-page {
 
 main.audit-page > h1 {
   position: absolute;
-  top: 18px;
+  top: 10px;
   left: 24px;
   z-index: 2;
   margin: 0;
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0;
-  line-height: 1.2;
+}
+
+.audit-brand-logo {
+  display: block;
+  width: 112px;
+  height: 37px;
+  object-fit: contain;
 }
 
 #audit-console-root {
@@ -84,7 +86,7 @@ main.audit-page > h1 {
   justify-content: space-between;
   gap: 12px;
   min-height: 56px;
-  padding: 8px 16px 8px 128px;
+  padding: 8px 16px 8px 152px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(18, 18, 20, 0.98);
 }
@@ -532,15 +534,19 @@ main.audit-page > h1 {
   }
 
   main.audit-page > h1 {
-    top: 18px;
+    top: 12px;
     left: 18px;
-    font-size: 0.95rem;
+  }
+
+  .audit-brand-logo {
+    width: 92px;
+    height: 31px;
   }
 
   .audit-command-bar {
     flex-direction: column;
     align-items: flex-start;
-    padding: 8px 12px 10px 104px;
+    padding: 8px 8px 10px 112px;
   }
 
   .audit-command-links {
