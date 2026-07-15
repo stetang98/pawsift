@@ -3,7 +3,6 @@ import { ZodError } from "zod";
 import { auditProduct } from "../../../../src/domain/audit";
 import { auditRequestSchema } from "../../../../src/domain/schemas";
 import {
-  getBodyByteLength,
   internalErrorResponse,
   invalidJsonResponse,
   invalidRequestResponse,
@@ -11,6 +10,8 @@ import {
   MAX_AUDIT_BODY_BYTES,
   optionsResponse,
   payloadTooLargeResponse,
+  readRawRequestBody,
+  unsupportedMethodHandler,
   unsupportedScopeResponse
 } from "../../../../src/http/errors";
 
@@ -22,16 +23,24 @@ function isUnsupportedScope(report: { findings: Array<{ ruleId: string }> }): bo
 
 export async function POST(request: Request): Promise<Response> {
   try {
-    const rawBody = await request.text();
+    const rawBody = await readRawRequestBody(request, MAX_AUDIT_BODY_BYTES);
 
-    if (getBodyByteLength(rawBody) > MAX_AUDIT_BODY_BYTES) {
+    if (!rawBody.ok) {
+      if (rawBody.reason === "payload_too_large") {
+        return payloadTooLargeResponse(AUDIT_METHODS);
+      }
+
+      return invalidJsonResponse(AUDIT_METHODS);
+    }
+
+    if (rawBody.body.length > MAX_AUDIT_BODY_BYTES) {
       return payloadTooLargeResponse(AUDIT_METHODS);
     }
 
     let parsedBody: unknown;
 
     try {
-      parsedBody = JSON.parse(rawBody);
+      parsedBody = JSON.parse(rawBody.body);
     } catch {
       return invalidJsonResponse(AUDIT_METHODS);
     }
@@ -56,3 +65,8 @@ export async function POST(request: Request): Promise<Response> {
 export function OPTIONS(): Response {
   return optionsResponse(AUDIT_METHODS);
 }
+
+export const GET = unsupportedMethodHandler(AUDIT_METHODS);
+export const PUT = unsupportedMethodHandler(AUDIT_METHODS);
+export const PATCH = unsupportedMethodHandler(AUDIT_METHODS);
+export const DELETE = unsupportedMethodHandler(AUDIT_METHODS);

@@ -4,7 +4,8 @@ import {
   OPENAPI_ENDPOINT,
   SERVICE_METADATA,
   jsonResponse,
-  optionsResponse
+  optionsResponse,
+  unsupportedMethodHandler
 } from "../../../src/http/errors";
 
 const WELL_KNOWN_METHODS = "GET, OPTIONS";
@@ -25,3 +26,8 @@ export function GET(): Response {
 export function OPTIONS(): Response {
   return optionsResponse(WELL_KNOWN_METHODS);
 }
+
+export const POST = unsupportedMethodHandler(WELL_KNOWN_METHODS);
+export const PUT = unsupportedMethodHandler(WELL_KNOWN_METHODS);
+export const PATCH = unsupportedMethodHandler(WELL_KNOWN_METHODS);
+export const DELETE = unsupportedMethodHandler(WELL_KNOWN_METHODS);

@@ -1,6 +1,11 @@
 import { auditProduct } from "../../../../src/domain/audit";
 import { AUDIT_FIXTURES } from "../../../../src/domain/fixtures";
-import { SERVICE_METADATA, jsonResponse, optionsResponse } from "../../../../src/http/errors";
+import {
+  SERVICE_METADATA,
+  jsonResponse,
+  optionsResponse,
+  unsupportedMethodHandler
+} from "../../../../src/http/errors";
 
 const EXAMPLES_METHODS = "GET, OPTIONS";
 
@@ -26,3 +31,8 @@ export function GET(): Response {
 export function OPTIONS(): Response {
   return optionsResponse(EXAMPLES_METHODS);
 }
+
+export const POST = unsupportedMethodHandler(EXAMPLES_METHODS);
+export const PUT = unsupportedMethodHandler(EXAMPLES_METHODS);
+export const PATCH = unsupportedMethodHandler(EXAMPLES_METHODS);
+export const DELETE = unsupportedMethodHandler(EXAMPLES_METHODS);

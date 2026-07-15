@@ -116,3 +116,149 @@ Route (app)
 ## Concerns
 
 - None at handoff.
+
+## Fix Wave
+
+### Scope
+
+- Fixed all three Task 4 Important findings across the owned Task 4 route/helper/test surfaces plus `app/openapi.json/route.ts`.
+- Left the existing untracked `public/` assets untouched.
+- Added one new helper file at `src/http/openapi.ts` to centralize the OpenAPI contract and keep route/runtime parity maintainable.
+
+### Fix 1: Raw-byte streaming guard and early cancel
+
+- Replaced decoded-string sizing in `app/api/v1/audit/route.ts` with `readRawRequestBody(...)` in `src/http/errors.ts`.
+- The new reader:
+  - consumes `request.body` as streamed `Uint8Array` chunks,
+  - counts raw bytes before decoding,
+  - calls `reader.cancel(...)` immediately once the total exceeds `32768`,
+  - only UTF-8 decodes after the byte cap passes,
+  - rejects invalid UTF-8 as the same sanitized `400 INVALID_JSON` surface instead of leaking decoder details.
+- This closes the BOM hole where `Request.text()` normalization could shrink the decoded body below the limit after the raw wire payload already exceeded it.
+
+### Fix 2: Public-route 405 contract
+
+- Added explicit unsupported-method exports on every public route instead of relying on framework-generated bare `405` responses:
+  - `app/api/v1/audit/route.ts`
+  - `app/api/v1/health/route.ts`
+  - `app/api/v1/examples/route.ts`
+  - `app/openapi.json/route.ts`
+  - `app/.well-known/pawsift.json/route.ts`
+- Added shared `methodNotAllowedResponse(...)` and `unsupportedMethodHandler(...)` helpers in `src/http/errors.ts`.
+- The new `405` responses now consistently include:
+  - JSON body,
+  - `cache-control: no-store`,
+  - `x-pawsift-ruleset`,
+  - public CORS headers,
+  - `allow` with the route’s allowed methods.
+
+### Fix 3: OpenAPI/runtime parity
+
+- Moved the OpenAPI document into `src/http/openapi.ts` and rebuilt it from shared schemas where practical via local Zod 4 `toJSONSchema(...)`.
+- The published document now:
+  - derives `AuditRequest` and `AuditResponse` from shared Zod schemas,
+  - derives exact metadata response schemas for health/examples/well-known/OpenAPI responses,
+  - declares shared response headers centrally in `components.headers`,
+  - declares `OPTIONS 204` operations on every public route,
+  - declares sanitized `405` responses on public operations,
+  - keeps fixture/report examples derived from checked-in fixtures plus `auditProduct(...)`,
+  - documents runtime-only normalization and cross-field semantics with explicit extensions:
+    - `x-pawsift-normalization: "trim"`
+    - `x-pawsift-constraints: [{ kind: "min_lte_max", minField: "minWeightKg", maxField: "maxWeightKg" }]`
+- This preserves the exact runtime behavior that JSON Schema alone cannot express, while still deriving the rest of the contract from the same Zod sources.
+
+### Test Coverage Added
+
+- `tests/routes/audit-route.test.ts`
+  - exact `32768` byte request accepted past the size gate,
+  - exact `32769` byte request rejected with `413`,
+  - BOM-prefixed oversize request rejected by raw-byte counting,
+  - invalid UTF-8 returns sanitized `400 INVALID_JSON`,
+  - chunked oversize request cancels after the second chunk instead of draining the stream.
+- `tests/routes/metadata-routes.test.ts`
+  - explicit `OPTIONS` coverage for examples and OpenAPI routes,
+  - sanitized `405` coverage for every public route,
+  - OpenAPI parity checks for defaults, trim metadata, min/max constraint metadata, shared headers, and live metadata response-schema validation.
+
+### Fresh Verification Evidence
+
+#### Tests
+
+Command:
+
+```bash
+npm test -- tests/routes tests/domain
+```
+
+Result:
+
+```text
+Test Files  6 passed (6)
+Tests  73 passed (73)
+```
+
+#### Lint
+
+Command:
+
+```bash
+npm run lint
+```
+
+Result:
+
+```text
+exit 0
+```
+
+#### Typecheck
+
+Command:
+
+```bash
+npm run typecheck
+```
+
+Result:
+
+```text
+exit 0
+```
+
+#### Build
+
+Command:
+
+```bash
+npm run build
+```
+
+Result:
+
+```text
+Compiled successfully
+Route (app)
+/.well-known/pawsift.json
+/api/v1/audit
+/api/v1/examples
+/api/v1/health
+/openapi.json
+```
+
+#### Whitespace / patch hygiene
+
+Command:
+
+```bash
+git diff --check
+```
+
+Result:
+
+```text
+exit 0
+```
+
+### Remaining Concerns
+
+- None. The implemented fix wave matches the requested conservative approach.
