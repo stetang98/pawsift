@@ -6,6 +6,12 @@ export default defineConfig({
   test: {
     css: true,
     environment: "jsdom",
-    include: ["tests/**/*.test.ts"]
+    include: ["tests/**/*.test.ts"],
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
+      reportsDirectory: "./coverage",
+      include: ["app/**/*.tsx"]
+    }
   }
 });
