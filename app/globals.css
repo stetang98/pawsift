@@ -1,8 +1,9 @@
 :root {
-  color-scheme: light;
+  color-scheme: dark;
   font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+    Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #000000;
+  color: #ffffff;
 }
 
 * {
@@ -16,25 +17,545 @@ body {
 }
 
 body {
-  background: #f5f7fb;
-  color: #111827;
+  background: #000000;
+  color: #ffffff;
 }
 
-main {
-  display: grid;
-  gap: 1rem;
-  margin: 0 auto;
-  max-width: 72rem;
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+select,
+input,
+textarea,
+a {
+  outline: none;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  box-shadow: 0 0 0 1px #000000, 0 0 0 3px rgba(255, 156, 46, 0.75);
+}
+
+main.audit-page {
+  position: relative;
   min-height: 100vh;
-  padding: 2rem;
+  padding: 0 16px 24px;
+  background: #000000;
 }
 
-h1 {
-  font-size: 2rem;
-  line-height: 1.1;
+main.audit-page > h1 {
+  position: absolute;
+  top: 18px;
+  left: 24px;
+  z-index: 2;
   margin: 0;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.2;
 }
 
 #audit-console-root {
-  min-height: 28rem;
+  display: none;
+}
+
+.audit-shell {
+  width: min(1440px, 100%);
+  margin: 0 auto;
+}
+
+.audit-command-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 56px;
+  padding: 8px 16px 8px 128px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(18, 18, 20, 0.98);
+}
+
+.audit-command-status,
+.audit-command-links,
+.audit-example-grid,
+.audit-action-row,
+.audit-checkbox-row,
+.audit-verdict-heading-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.audit-command-links {
+  justify-content: flex-end;
+}
+
+.audit-command-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 10px;
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.audit-command-links a:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.audit-status-pill,
+.audit-score-pill,
+.audit-verdict-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  font-size: 0.78rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.audit-status-pill {
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+}
+
+.audit-status-pill-muted,
+.audit-score-pill {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.audit-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 16px;
+  padding-top: 16px;
+}
+
+.audit-ticket,
+.audit-market-panel {
+  background: #121214;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+
+.audit-ticket {
+  display: flex;
+  flex-direction: column;
+}
+
+.audit-section,
+.audit-subsection,
+.audit-verdict-summary,
+.audit-empty-state {
+  padding: 16px;
+}
+
+.audit-section + .audit-section,
+.audit-subsection + .audit-subsection,
+.audit-verdict-summary + .audit-subsection,
+.audit-subsection + .audit-boundary-note {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.audit-section-header,
+.audit-subsection-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.audit-section-header h2,
+.audit-subsection h3,
+.audit-verdict-summary h2,
+.audit-empty-state h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.audit-subsection h3 {
+  font-size: 0.95rem;
+}
+
+.audit-eyebrow {
+  margin: 0 0 6px;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.audit-section-copy,
+.audit-summary-copy,
+.audit-empty-state p,
+.audit-example-summary p,
+.audit-muted-copy {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.audit-example-grid {
+  margin-bottom: 12px;
+}
+
+.audit-example-button,
+.audit-primary-button,
+.audit-secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+}
+
+.audit-example-button {
+  justify-content: space-between;
+  flex: 1 1 220px;
+  background: #17181b;
+  color: #ffffff;
+}
+
+.audit-example-button[aria-pressed="true"] {
+  border-color: rgba(255, 156, 46, 0.45);
+  box-shadow: inset 0 0 0 1px rgba(255, 156, 46, 0.25);
+}
+
+.audit-primary-button {
+  background: #ff9c2e;
+  border-color: #ff9c2e;
+  color: #121214;
+  font-weight: 600;
+}
+
+.audit-primary-button:disabled {
+  cursor: progress;
+  opacity: 0.75;
+}
+
+.audit-secondary-button {
+  background: transparent;
+  color: #ffffff;
+}
+
+.audit-form-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.audit-form-grid-two-up {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.audit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.86rem;
+}
+
+.audit-field legend,
+.audit-field > span {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+.audit-field-full {
+  grid-column: 1 / -1;
+}
+
+.audit-field input,
+.audit-field select,
+.audit-field textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  background: #0a0b0d;
+  color: #ffffff;
+}
+
+.audit-field textarea {
+  min-height: 88px;
+  resize: vertical;
+}
+
+.audit-field fieldset {
+  border: 0;
+  padding: 0;
+}
+
+.audit-checkbox-row {
+  min-height: 44px;
+}
+
+.audit-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  background: #0a0b0d;
+}
+
+.audit-checkbox input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.audit-market-panel {
+  position: sticky;
+  top: 16px;
+  align-self: start;
+}
+
+.audit-empty-state {
+  display: grid;
+  gap: 12px;
+}
+
+.audit-empty-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.audit-verdict-summary h2 {
+  margin-top: 12px;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.audit-summary-grid,
+.audit-receipt-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+  margin-top: 16px;
+}
+
+.audit-summary-grid dt,
+.audit-receipt-grid dt {
+  margin-bottom: 4px;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 0.74rem;
+}
+
+.audit-summary-grid dd,
+.audit-receipt-grid dd {
+  margin: 0;
+  color: #ffffff;
+  font-size: 0.84rem;
+  overflow-wrap: anywhere;
+}
+
+.audit-inline-message {
+  margin: 0 16px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.audit-inline-error {
+  background: rgba(255, 91, 91, 0.12);
+  color: #ff8d8d;
+}
+
+.audit-inline-warning {
+  margin-top: 16px;
+  background: rgba(255, 156, 46, 0.12);
+  color: #ffd09a;
+}
+
+.audit-finding-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.audit-finding-item {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  background: #0f1012;
+}
+
+.audit-finding-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.audit-finding-item h3,
+.audit-finding-item p,
+.audit-inline-list {
+  margin: 0;
+}
+
+.audit-inline-list {
+  display: grid;
+  gap: 6px;
+  padding-left: 18px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.audit-remediation {
+  color: #ffffff;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.audit-boundary-note {
+  margin: 0;
+  padding: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.audit-receipt-grid {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.audit-json-block {
+  margin: 0;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  background: #090a0b;
+  color: rgba(255, 255, 255, 0.88);
+  font-family:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+  font-size: 0.76rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.audit-verdict-clear {
+  color: #51d99a;
+  border-color: rgba(81, 217, 154, 0.2);
+  background: rgba(81, 217, 154, 0.08);
+}
+
+.audit-verdict-caution {
+  color: #ffbe63;
+  border-color: rgba(255, 190, 99, 0.2);
+  background: rgba(255, 190, 99, 0.08);
+}
+
+.audit-verdict-block {
+  color: #ff6b6b;
+  border-color: rgba(255, 107, 107, 0.2);
+  background: rgba(255, 107, 107, 0.08);
+}
+
+.audit-verdict-human_review {
+  color: #8ab4ff;
+  border-color: rgba(138, 180, 255, 0.2);
+  background: rgba(138, 180, 255, 0.08);
+}
+
+@media (max-width: 1023px) {
+  .audit-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .audit-market-panel {
+    position: static;
+  }
+}
+
+@media (max-width: 767px) {
+  main.audit-page {
+    padding: 0 12px 20px;
+  }
+
+  main.audit-page > h1 {
+    top: 18px;
+    left: 18px;
+    font-size: 0.95rem;
+  }
+
+  .audit-command-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 12px 10px 104px;
+  }
+
+  .audit-command-links {
+    justify-content: flex-start;
+  }
+
+  .audit-form-grid-two-up,
+  .audit-summary-grid,
+  .audit-receipt-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .audit-example-button {
+    flex-basis: 100%;
+  }
+
+  .audit-section,
+  .audit-subsection,
+  .audit-verdict-summary,
+  .audit-empty-state {
+    padding: 14px;
+  }
+
+  .audit-section-header,
+  .audit-subsection-header {
+    flex-direction: column;
+  }
 }
