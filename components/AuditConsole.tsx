@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import {
   Activity,
@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 
 import { clearCatCollarFixture } from "../src/domain/fixtures";
+import { buildReceiptEnvelope } from "../src/domain/receipt-envelope";
 import { BOUNDARY_TEXT, RULESET_VERSION } from "../src/domain/rules";
 import type {
   AuditRequest,
@@ -234,37 +235,6 @@ function requestFromDraft(draft: AuditDraft): AuditRequest {
   };
 }
 
-function escapeJsonString(value: string): string {
-  return JSON.stringify(value);
-}
-
-function stableStringify(value: unknown): string {
-  if (value === null) {
-    return "null";
-  }
-
-  if (typeof value === "string") {
-    return escapeJsonString(value);
-  }
-
-  if (typeof value === "number" || typeof value === "boolean") {
-    return JSON.stringify(value);
-  }
-
-  if (Array.isArray(value)) {
-    return `[${value.map((item) => stableStringify(item)).join(",")}]`;
-  }
-
-  if (typeof value !== "object") {
-    return "null";
-  }
-
-  const objectValue = value as Record<string, unknown>;
-  const keys = Object.keys(objectValue).sort();
-
-  return `{${keys.map((key) => `${escapeJsonString(key)}:${stableStringify(objectValue[key])}`).join(",")}}`;
-}
-
 function cloneExampleRequest(example: ExampleRecord): AuditDraft {
   return draftFromRequest(example.request);
 }
@@ -285,6 +255,8 @@ export function AuditConsole() {
   const [scopeMessage, setScopeMessage] = useState<string | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
   const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle");
+  const hasManualDraftEditsRef = useRef(false);
+  const draftRevisionRef = useRef(0);
 
   const selectedExample =
     examples.find((example) => example.id === selectedExampleId) ?? null;
@@ -317,7 +289,7 @@ export function AuditConsole() {
           payload.examples.find((example) => example.id === DEFAULT_EXAMPLE_ID) ??
           payload.examples[0];
 
-        if (initialExample) {
+        if (initialExample && !hasManualDraftEditsRef.current) {
           setSelectedExampleId(initialExample.id);
           setDraft(cloneExampleRequest(initialExample));
         }
@@ -344,11 +316,22 @@ export function AuditConsole() {
       return "";
     }
 
-    return stableStringify({
-      request: submittedRequest,
-      response: report
-    });
+    return JSON.stringify(buildReceiptEnvelope(submittedRequest, report), null, 2);
   }, [report, submittedRequest]);
+
+  function clearAuditResult() {
+    setReport(null);
+    setSubmittedRequest(null);
+    setScopeMessage(null);
+    setCopyState("idle");
+  }
+
+  function invalidateDraft(manualEdit: boolean) {
+    draftRevisionRef.current += 1;
+    hasManualDraftEditsRef.current = manualEdit;
+    clearAuditResult();
+    setFormError(null);
+  }
 
   function updatePetField(
     field: keyof AuditDraft["pet"],
@@ -361,8 +344,7 @@ export function AuditConsole() {
         [field]: value
       }
     }));
-    setFormError(null);
-    setCopyState("idle");
+    invalidateDraft(true);
   }
 
   function updateProductField(
@@ -376,8 +358,7 @@ export function AuditConsole() {
         [field]: value
       }
     }));
-    setFormError(null);
-    setCopyState("idle");
+    invalidateDraft(true);
   }
 
   function toggleIntendedSpecies(species: Species) {
@@ -395,33 +376,24 @@ export function AuditConsole() {
         }
       };
     });
-    setFormError(null);
-    setCopyState("idle");
+    invalidateDraft(true);
   }
 
   function resetDraft() {
     if (selectedExample) {
       setDraft(cloneExampleRequest(selectedExample));
-      setFormError(null);
-      setScopeMessage(null);
-      setCopyState("idle");
+      invalidateDraft(false);
       return;
     }
 
     setDraft(DEFAULT_DRAFT);
-    setFormError(null);
-    setScopeMessage(null);
-    setCopyState("idle");
+    invalidateDraft(false);
   }
 
   function loadExample(example: ExampleRecord) {
     setSelectedExampleId(example.id);
     setDraft(cloneExampleRequest(example));
-    setReport(null);
-    setSubmittedRequest(null);
-    setScopeMessage(null);
-    setFormError(null);
-    setCopyState("idle");
+    invalidateDraft(false);
   }
 
   async function handleCopyJson() {
@@ -451,6 +423,7 @@ export function AuditConsole() {
     }
 
     const nextRequest = requestFromDraft(draft);
+    const submissionRevision = draftRevisionRef.current;
     setSubmittedRequest(nextRequest);
 
     try {
@@ -463,6 +436,10 @@ export function AuditConsole() {
       });
 
       const payload = (await response.json()) as AuditResponse & AuditApiError;
+
+      if (draftRevisionRef.current !== submissionRevision) {
+        return;
+      }
 
       if (response.ok) {
         setReport(payload);
@@ -530,22 +507,23 @@ export function AuditConsole() {
                 public contract uses.
               </p>
             </div>
-            <div className="audit-example-grid" role="list" aria-label="Example fixtures">
+            <ul className="audit-example-grid" aria-label="Example fixtures">
               {examples.map((example) => (
-                <button
-                  key={example.id}
-                  type="button"
-                  className="audit-example-button"
-                  aria-pressed={selectedExampleId === example.id}
-                  onClick={() => loadExample(example)}
-                >
-                  <span>{example.label}</span>
-                  <span className={`audit-verdict-chip audit-verdict-${example.expectedVerdict.toLowerCase()}`}>
-                    {example.expectedVerdict}
-                  </span>
-                </button>
+                <li key={example.id}>
+                  <button
+                    type="button"
+                    className="audit-example-button"
+                    aria-pressed={selectedExampleId === example.id}
+                    onClick={() => loadExample(example)}
+                  >
+                    <span>{example.label}</span>
+                    <span className={`audit-verdict-chip audit-verdict-${example.expectedVerdict.toLowerCase()}`}>
+                      {example.expectedVerdict}
+                    </span>
+                  </button>
+                </li>
               ))}
-            </div>
+            </ul>
             <div className="audit-example-summary" aria-live="polite">
               <p>{selectedExample?.summary ?? "Fixture deck will populate as soon as the local examples endpoint responds."}</p>
               <div className="audit-action-row">

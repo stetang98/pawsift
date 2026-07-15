@@ -108,7 +108,9 @@ main.audit-page > h1 {
 .audit-command-links a {
   display: inline-flex;
   align-items: center;
-  min-height: 32px;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
   padding: 0 10px;
   border-radius: 6px;
   color: rgba(255, 255, 255, 0.78);
@@ -218,7 +220,15 @@ main.audit-page > h1 {
 }
 
 .audit-example-grid {
-  margin-bottom: 12px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.audit-example-grid li {
+  display: flex;
+  flex: 1 1 220px;
+  min-width: 0;
 }
 
 .audit-example-button,
@@ -236,8 +246,8 @@ main.audit-page > h1 {
 }
 
 .audit-example-button {
+  width: 100%;
   justify-content: space-between;
-  flex: 1 1 220px;
   background: #17181b;
   color: #ffffff;
 }
@@ -544,6 +554,10 @@ main.audit-page > h1 {
   }
 
   .audit-example-button {
+    width: 100%;
+  }
+
+  .audit-example-grid li {
     flex-basis: 100%;
   }
 
