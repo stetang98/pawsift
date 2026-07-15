@@ -1,0 +1,60 @@
+# Reviewer handoff
+
+## Competition
+
+- Event: [OKX.AI Genesis Hackathon](https://www.hackquest.io/zh-cn/hackathons/OKXAI-Genesis-Hackathon)
+- Deadline: 2026-07-17 23:59 UTC
+- Primary track: Lifestyle Companion
+- Project: PawSift
+
+Review the competition rules before evaluating the repository. An ASP that is not approved and live on OKX.AI is not submission-ready even if the code is complete.
+
+## Product
+
+PawSift is a deterministic fit and listing-quality audit for non-ingestible cat and dog supplies. It accepts structured pet and product facts and returns `CLEAR`, `CAUTION`, `BLOCK`, or `HUMAN_REVIEW`, stable rule findings, missing facts, owner questions, listing patches, and SHA-256 receipt hashes.
+
+## Current external status
+
+| Item | Status |
+| --- | --- |
+| Public GitHub repository | Pending publication |
+| Vercel HTTPS deployment | Pending |
+| OKX.AI identity and Agent ID | Pending owner confirmation in official CLI |
+| ASP review/live listing | Pending |
+| Demo and X post | Pending |
+| HackQuest and Google Form | Pending |
+
+Do not convert a pending row into a completed claim without public evidence.
+
+## Review commands
+
+```bash
+npm ci
+npm run check
+npm run test:e2e
+npm run proof
+npm test -- --run tests/proof/proof.test.ts
+git diff --check
+```
+
+## Critical review targets
+
+1. Confirm the public web console and `POST /api/v1/audit` call the same domain engine and fixtures.
+2. Recompute receipt hashes from the exact downloaded canonical preimages.
+3. Mutate proof fields and confirm fake sales, transaction hashes, unsupported claims, wrong ruleset, stale hashes, and non-HTTPS live URLs fail validation.
+4. Confirm all out-of-scope medical and ingestible wording routes to `HUMAN_REVIEW` or is rejected.
+5. Check that deployment, listing, sales, payment, and transaction claims match public evidence.
+6. Exercise desktop and 390 px mobile layouts for overflow, overlap, keyboard use, and 44 px controls.
+7. Scan tracked text for secrets, private keys, wallet material, and real API tokens.
+
+## Expected honest launch state
+
+- Payment mode: `free_launch`.
+- Observed sales: `0`.
+- Transaction hashes: none.
+- No wallet or chain receipt is required for the service result.
+- `CLEAR` is a rule result from supplied facts, not a medical safety certification.
+
+## Feedback format
+
+Return findings first, ordered `Blocker`, `High`, `Medium`, `Low`, with exact file and line references. End with one verdict: `not ready`, `ready after fixes`, or `ready to submit`. For every fix cycle, send the final verdict back to the PawSift implementation task so it can be evaluated and applied.

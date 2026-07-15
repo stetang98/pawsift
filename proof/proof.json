@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "1.0.0",
+  "project": {
+    "name": "PawSift",
+    "track": "Lifestyle Companion",
+    "repository": "https://github.com/stetang98/pawsift",
+    "license": "MIT"
+  },
+  "source": {
+    "auditedCommit": "40bfbd04d6b9220acb7fd1a0400f2699a5057b9f",
+    "generatedAt": "2026-07-15T18:58:29-04:00",
+    "rulesetVersion": "2026.07.1",
+    "rulesSource": "src/domain/rules.ts",
+    "fixtureSource": "src/domain/fixtures.ts"
+  },
+  "deployment": {
+    "status": "pending",
+    "paymentMode": "free_launch"
+  },
+  "payments": {
+    "mode": "free_launch",
+    "observedSales": 0,
+    "transactionHashes": []
+  },
+  "claims": [
+    {
+      "statement": "All ten published fixtures reproduce their expected verdicts and stable rule identifiers.",
+      "sourcePaths": [
+        "src/domain/fixtures.ts",
+        "tests/domain/rules.test.ts"
+      ]
+    },
+    {
+      "statement": "Each audit receipt hashes canonical input and report JSON with lowercase SHA-256.",
+      "sourcePaths": [
+        "src/domain/audit.ts",
+        "src/domain/canonical-json.ts",
+        "tests/domain/canonical.test.ts"
+      ]
+    },
+    {
+      "statement": "PawSift is a non-veterinary product-fit audit and routes unsupported medical or ingestible claims to human review.",
+      "sourcePaths": [
+        "src/domain/rules.ts",
+        "docs/SAFETY.md"
+      ]
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "clear-cat-collar",
+      "expectedVerdict": "CLEAR",
+      "actualVerdict": "CLEAR",
+      "expectedRuleIds": [
+        "PS-010"
+      ],
+      "actualRuleIds": [
+        "PS-010"
+      ],
+      "inputHash": "f8ab57435e1fb63b7fda95d06437c263ef87e1c63051e723e39ee56797eff5ff",
+      "reportHash": "fed257dc7065eea1bb30f3082d72e29f3467ec03eccedd056b154d5ff59b7f3b"
+    },
+    {
+      "id": "species-mismatch",
+      "expectedVerdict": "BLOCK",
+      "actualVerdict": "BLOCK",
+      "expectedRuleIds": [
+        "PS-001"
+      ],
+      "actualRuleIds": [
+        "PS-001"
+      ],
+      "inputHash": "6468cb34a367c898ad4a8226478fe7a22c18b9152f87a87ec862e4aafa94e4f9",
+      "reportHash": "5fbd71dfb507861ff5b975991fe8058f3c52f7e27d7568549e77eabb9d1e2022"
+    },
+    {
+      "id": "weight-range-mismatch",
+      "expectedVerdict": "BLOCK",
+      "actualVerdict": "BLOCK",
+      "expectedRuleIds": [
+        "PS-002"
+      ],
+      "actualRuleIds": [
+        "PS-002"
+      ],
+      "inputHash": "97af4122c408a023b0aacec99f82e4cd6cedb90165f3ebd49a8a6067509b6de7",
+      "reportHash": "5c404df3a4d8fbb177f263d2ad3d192d99baebb24b06a4f59ce3fe39b1ee219d"
+    },
+    {
+      "id": "missing-materials",
+      "expectedVerdict": "CAUTION",
+      "actualVerdict": "CAUTION",
+      "expectedRuleIds": [
+        "PS-003"
+      ],
+      "actualRuleIds": [
+        "PS-003"
+      ],
+      "inputHash": "ef42c2356d2e0583a537784427b7b3485e0ca992523e050cdcf9124cba2ebe72",
+      "reportHash": "66baf51fe479865dd96b46cebb94395ac71acc27cf206a792d2a25ec253daeda"
+    },
+    {
+      "id": "unsafe-toy",
+      "expectedVerdict": "CAUTION",
+      "actualVerdict": "CAUTION",
+      "expectedRuleIds": [
+        "PS-004"
+      ],
+      "actualRuleIds": [
+        "PS-004"
+      ],
+      "inputHash": "695e4ef2fb40299d79d7406e1bbab6953b2bafc491a1c3872b3e7e7e63582792",
+      "reportHash": "90b11980623b51829d72befdf8411898e4a65c410a92533d9b5bfa62252aaa2c"
+    },
+    {
+      "id": "magnetic-toy",
+      "expectedVerdict": "HUMAN_REVIEW",
+      "actualVerdict": "HUMAN_REVIEW",
+      "expectedRuleIds": [
+        "PS-005"
+      ],
+      "actualRuleIds": [
+        "PS-005"
+      ],
+      "inputHash": "bbde60c8b2fc926bfa6fd6b08ce1d81f9ec877ee955d35a905f435af41e98895",
+      "reportHash": "0a2a2a88c0060d4b903f5ab70c40e6711fcfed9d4ef1d87f0242fbcb1b873b45"
+    },
+    {
+      "id": "missing-breakaway",
+      "expectedVerdict": "CAUTION",
+      "actualVerdict": "CAUTION",
+      "expectedRuleIds": [
+        "PS-006"
+      ],
+      "actualRuleIds": [
+        "PS-006"
+      ],
+      "inputHash": "6aa38756164b8dac550ec55b657626c6f444282d99578cd8af16bfa6105ffaa2",
+      "reportHash": "a5c2b28e012caf6e92275ed00d87970efd6d6982d5fc43af3580562fa901215a"
+    },
+    {
+      "id": "overweight-carrier",
+      "expectedVerdict": "BLOCK",
+      "actualVerdict": "BLOCK",
+      "expectedRuleIds": [
+        "PS-007"
+      ],
+      "actualRuleIds": [
+        "PS-007"
+      ],
+      "inputHash": "4267965a53be71d67e01451589e8b822840da83df0bc81ea074fc0f781f43ec7",
+      "reportHash": "f88e1eb85b348be9b192c27bc864cd9971732579a8b562d29c0c6dbab2a878dd"
+    },
+    {
+      "id": "unsupported-claim",
+      "expectedVerdict": "HUMAN_REVIEW",
+      "actualVerdict": "HUMAN_REVIEW",
+      "expectedRuleIds": [
+        "PS-008"
+      ],
+      "actualRuleIds": [
+        "PS-008"
+      ],
+      "inputHash": "d0342f9b7179d3360b7569f400fb8e08cd5a2471faab7d7e7052ff7c8b02a4ff",
+      "reportHash": "9744b6291002bedcba605f04a5b517b9925477b2519108744ae667199a2a6995"
+    },
+    {
+      "id": "missing-care",
+      "expectedVerdict": "CAUTION",
+      "actualVerdict": "CAUTION",
+      "expectedRuleIds": [
+        "PS-009"
+      ],
+      "actualRuleIds": [
+        "PS-009"
+      ],
+      "inputHash": "82dfffdebbb0113e431116c416e720e9482f64d54d4f325f4b5474dbb5f6352f",
+      "reportHash": "264e9262ae52828b827c74a1f8b27dd17d05c59912ac6b74a26e54289b293f27"
+    }
+  ],
+  "verification": {
+    "commands": [
+      "npm ci",
+      "npm run check",
+      "npm run test:e2e",
+      "npm run proof",
+      "npm test -- --run tests/proof/proof.test.ts"
+    ]
+  },
+  "documentHash": "85ca92415dca2b62f76f0846f66f51d17b4b90c270e4195c12b47692ff89c2ef"
+}
