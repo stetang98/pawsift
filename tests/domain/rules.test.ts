@@ -152,6 +152,23 @@ describe("auditProduct", () => {
     expect(report.findings[0]?.evidence).toContain("claim=safe to eat");
   });
 
+  it.each(["food", "treat", "medication", "pesticide"])(
+    "routes the explicitly excluded %s scope to PS-008",
+    (claim) => {
+      const report = auditProduct({
+        pet: clearCatCollarFixture.pet,
+        product: {
+          ...clearCatCollarFixture.product,
+          claims: [claim]
+        }
+      });
+
+      expect(report.verdict).toBe("HUMAN_REVIEW");
+      expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-008"]);
+      expect(report.findings[0]?.evidence).toContain(`claim=${claim}`);
+    }
+  );
+
   it("does not flag unrelated words just because they contain a broad substring", () => {
     const report = auditProduct({
       pet: {

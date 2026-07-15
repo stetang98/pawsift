@@ -14,6 +14,15 @@ PawSift includes or uses the following direct dependencies. Their licenses remai
 | TypeScript | Type checking and compilation | Apache-2.0 |
 | Vite | Test transformation runtime | MIT |
 | tsx | TypeScript proof exporter runtime | MIT |
+| @next/eslint-plugin-next | Next.js lint rules | MIT |
+| @types/node | Node.js type declarations | MIT |
+| @types/react / @types/react-dom | React type declarations | MIT |
+| @typescript-eslint/eslint-plugin / parser | TypeScript lint rules and parser | MIT |
+| @vitejs/plugin-react | React transform support for Vite | MIT |
+| @vitest/coverage-v8 | V8 coverage support for Vitest | MIT |
+| ESLint | Static analysis | MIT |
+| globals | JavaScript global identifier definitions | MIT |
+| jsdom | Browser-like test environment | MIT |
 
 Exact package versions are pinned in `package.json` and `package-lock.json`. Full license texts are distributed with the packages installed by npm and are available from each upstream project.
 

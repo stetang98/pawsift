@@ -17,14 +17,14 @@ PawSift is a deterministic fit and listing-quality audit for non-ingestible cat 
 
 | Item | Status |
 | --- | --- |
-| Public GitHub repository | Pending publication |
-| Vercel HTTPS deployment | Pending |
+| Public GitHub repository | Live: `https://github.com/stetang98/pawsift` |
+| Vercel HTTPS deployment | Live and verified: `https://pawsift.vercel.app` |
 | OKX.AI identity and Agent ID | Pending owner confirmation in official CLI |
 | ASP review/live listing | Pending |
 | Demo and X post | Pending |
 | HackQuest and Google Form | Pending |
 
-Do not convert a pending row into a completed claim without public evidence.
+Do not convert a remaining pending row into a completed claim without public evidence.
 
 ## Review commands
 
@@ -41,11 +41,13 @@ git diff --check
 
 1. Confirm the public web console and `POST /api/v1/audit` call the same domain engine and fixtures.
 2. Recompute receipt hashes from the exact downloaded canonical preimages.
-3. Mutate proof fields and confirm fake sales, transaction hashes, unsupported claims, wrong ruleset, stale hashes, and non-HTTPS live URLs fail validation.
-4. Confirm all out-of-scope medical and ingestible wording routes to `HUMAN_REVIEW` or is rejected.
-5. Check that deployment, listing, sales, payment, and transaction claims match public evidence.
-6. Exercise desktop and 390 px mobile layouts for overflow, overlap, keyboard use, and 44 px controls.
-7. Scan tracked text for secrets, private keys, wallet material, and real API tokens.
+3. Run `npm run proof` twice and confirm `proof/proof.json` stays byte-for-byte unchanged.
+4. Mutate proof fields and confirm fake sales, transaction hashes, unsupported claims, wrong ruleset, stale hashes, arbitrary live origins, and incomplete source provenance fail validation.
+5. Confirm all out-of-scope medical and ingestible wording routes to `HUMAN_REVIEW` or is rejected.
+6. Confirm every factual claim points to a source file whose Git blob and SHA-256 digest are bound to the audited commit.
+7. Check that deployment, listing, sales, payment, and transaction claims match public evidence.
+8. Exercise desktop and 390 px mobile layouts for overflow, overlap, keyboard use, and 44 px controls.
+9. Scan tracked text for secrets, private keys, wallet material, and real API tokens.
 
 ## Expected honest launch state
 

@@ -1,11 +1,42 @@
 import { describe, expect, it } from "vitest";
 
-import { buildProof, serializeProof, validateProof } from "../../src/proof/proof";
+import {
+  EXPECTED_PUBLIC_ORIGIN,
+  PROOF_SOURCE_PATHS,
+  buildProof,
+  serializeProof,
+  validateProof,
+  type DeploymentAttestation
+} from "../../src/proof/proof";
+
+const sourceFiles = PROOF_SOURCE_PATHS.map((path, index) => ({
+  path,
+  gitBlob: index.toString(16).padStart(40, "a").slice(-40),
+  sha256: index.toString(16).padStart(64, "b").slice(-64)
+}));
 
 const context = {
   auditedCommit: "a".repeat(40),
-  generatedAt: "2026-07-15T18:00:00Z"
+  generatedAt: "2026-07-15T18:00:00Z",
+  sourceFiles
 };
+
+const deploymentAttestation = {
+  endpoint: EXPECTED_PUBLIC_ORIGIN,
+  verifiedAt: "2026-07-15T23:10:27Z",
+  health: {
+    url: `${EXPECTED_PUBLIC_ORIGIN}/api/v1/health`,
+    status: "ok" as const,
+    rulesetVersion: "2026.07.1"
+  },
+  fixture: {
+    id: "clear-cat-collar" as const,
+    inputHash: "f8ab57435e1fb63b7fda95d06437c263ef87e1c63051e723e39ee56797eff5ff",
+    reportHash: "fed257dc7065eea1bb30f3082d72e29f3467ec03eccedd056b154d5ff59b7f3b"
+  },
+  evidencePath: "ops/DEPLOYMENT.md",
+  evidenceSha256: sourceFiles.find((file) => file.path === "ops/DEPLOYMENT.md")!.sha256
+} satisfies DeploymentAttestation;
 
 function cloneProof() {
   return structuredClone(buildProof(context));
@@ -37,15 +68,47 @@ describe("PawSift proof", () => {
     expect(() => validateProof(proof)).toThrow(/auditedCommit/i);
   });
 
-  it("rejects a non-HTTPS live endpoint", () => {
-    const proof = cloneProof();
-    proof.deployment = {
-      status: "live",
-      endpoint: "http://example.com",
-      paymentMode: "free_launch"
-    };
+  it("emits live status only from the verified PawSift deployment attestation", () => {
+    const proof = buildProof({ ...context, deploymentAttestation });
 
-    expect(() => validateProof(proof)).toThrow(/HTTPS/i);
+    expect(proof.deployment.status).toBe("live");
+    expect(proof.deployment).toMatchObject({
+      endpoint: EXPECTED_PUBLIC_ORIGIN,
+      paymentMode: "free_launch",
+      verification: deploymentAttestation
+    });
+  });
+
+  it("rejects an arbitrary HTTPS URL as live deployment evidence", () => {
+    const invalidAttestation = {
+      ...deploymentAttestation,
+      endpoint: "https://example.com"
+    } as unknown as DeploymentAttestation;
+
+    expect(() =>
+      buildProof({
+        ...context,
+        deploymentAttestation: invalidAttestation
+      })
+    ).toThrow(/PawSift production origin/i);
+  });
+
+  it("rejects deployment evidence that is not bound to the audited source digest", () => {
+    expect(() =>
+      buildProof({
+        ...context,
+        deploymentAttestation: {
+          ...deploymentAttestation,
+          evidenceSha256: "e".repeat(64)
+        }
+      })
+    ).toThrow(/deployment evidence digest/i);
+  });
+
+  it("requires complete source provenance for every proof-critical path", () => {
+    expect(() => buildProof({ ...context, sourceFiles: sourceFiles.slice(1) })).toThrow(
+      /source provenance/i
+    );
   });
 
   it("rejects an unrecognized ruleset", () => {

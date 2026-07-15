@@ -8,12 +8,16 @@ PawSift is a deterministic product-fit and listing-quality audit for non-ingesti
 
 ## Live demo
 
-Production deployment is pending. Until the hosted URL is recorded in `proof/proof.json`, run the same public console and API locally with the commands below. This line is updated only after a real HTTPS deployment passes hosted checks.
+- Console: [https://pawsift.vercel.app](https://pawsift.vercel.app)
+- Audit endpoint: [https://pawsift.vercel.app/api/v1/audit](https://pawsift.vercel.app/api/v1/audit)
+- OpenAPI: [https://pawsift.vercel.app/openapi.json](https://pawsift.vercel.app/openapi.json)
+
+The stable Vercel alias passed hosted contract and desktop/mobile workflow checks on 2026-07-15. Exact evidence is recorded in [`ops/DEPLOYMENT.md`](ops/DEPLOYMENT.md) and `proof/proof.json`.
 
 ## One-call API
 
 ```bash
-curl --fail-with-body http://localhost:3000/api/v1/audit \
+curl --fail-with-body https://pawsift.vercel.app/api/v1/audit \
   --header 'content-type: application/json' \
   --data '{
     "pet": {
@@ -60,12 +64,14 @@ See [Safety](docs/SAFETY.md) for supported and excluded scope.
 
 ## Verified proof
 
-[`proof/proof.json`](proof/proof.json) is generated from the checked-in fixture deck and audit engine. It records the audited git commit, ruleset, exact input/report hashes, source-backed claims, verification commands, truthful deployment status, and `free_launch` payment mode.
+[`proof/proof.json`](proof/proof.json) is generated from the pinned [`proof/config.json`](proof/config.json), checked-in fixture deck, and audit engine. It records the audited Git commit, each proof-critical Git blob and SHA-256 digest, exact input/report hashes, source-backed claims, verification commands, the attested PawSift deployment, and truthful `free_launch` payment mode. Export fails if a proof-critical working file differs from the pinned commit.
 
 ```bash
 npm run proof
 npm test -- --run tests/proof/proof.test.ts
 ```
+
+The exporter does not infer the commit or public URL from `HEAD` or environment variables. Two default runs are byte-for-byte deterministic while `proof/config.json` and the audited source remain unchanged.
 
 No sale, transaction, wallet, or paid-usage claim is made at launch.
 

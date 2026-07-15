@@ -7,6 +7,29 @@ import { RULESET_VERSION } from "../domain/rules";
 
 const SHA256_PATTERN = /^[0-9a-f]{64}$/;
 const GIT_COMMIT_PATTERN = /^[0-9a-f]{40}$/;
+const GIT_BLOB_PATTERN = /^[0-9a-f]{40}$/;
+
+export const EXPECTED_PUBLIC_ORIGIN = "https://pawsift.vercel.app";
+
+export const PROOF_SOURCE_PATHS = [
+  "docs/SAFETY.md",
+  "ops/DEPLOYMENT.md",
+  "package.json",
+  "scripts/export-proof.ts",
+  "src/domain/audit.ts",
+  "src/domain/canonical-json.ts",
+  "src/domain/canonical.ts",
+  "src/domain/fixtures.ts",
+  "src/domain/rules.ts",
+  "src/domain/schemas.ts",
+  "src/proof/exporter.ts",
+  "src/proof/git-provenance.ts",
+  "src/proof/proof.ts",
+  "tests/domain/canonical.test.ts",
+  "tests/domain/rules.test.ts",
+  "tests/proof/git-provenance.test.ts",
+  "tests/proof/proof.test.ts"
+] as const;
 
 const sha256Schema = z.string().regex(SHA256_PATTERN, "Expected lowercase SHA-256 hash");
 const sourcePathSchema = z
@@ -21,6 +44,37 @@ const httpsUrlSchema = z
   .url()
   .refine((value) => new URL(value).protocol === "https:", "Live endpoint must use HTTPS");
 
+const sourceFileSchema = z
+  .object({
+    path: sourcePathSchema,
+    gitBlob: z.string().regex(GIT_BLOB_PATTERN, "Expected a full Git blob identifier"),
+    sha256: sha256Schema
+  })
+  .strict();
+
+const deploymentAttestationSchema = z
+  .object({
+    endpoint: z.literal(EXPECTED_PUBLIC_ORIGIN),
+    verifiedAt: z.string().datetime({ offset: true }),
+    health: z
+      .object({
+        url: z.literal(`${EXPECTED_PUBLIC_ORIGIN}/api/v1/health`),
+        status: z.literal("ok"),
+        rulesetVersion: z.literal(RULESET_VERSION)
+      })
+      .strict(),
+    fixture: z
+      .object({
+        id: z.literal("clear-cat-collar"),
+        inputHash: sha256Schema,
+        reportHash: sha256Schema
+      })
+      .strict(),
+    evidencePath: z.literal("ops/DEPLOYMENT.md"),
+    evidenceSha256: sha256Schema
+  })
+  .strict();
+
 const deploymentSchema = z.discriminatedUnion("status", [
   z
     .object({
@@ -31,8 +85,9 @@ const deploymentSchema = z.discriminatedUnion("status", [
   z
     .object({
       status: z.literal("live"),
-      endpoint: httpsUrlSchema,
-      paymentMode: z.literal("free_launch")
+      endpoint: z.literal(EXPECTED_PUBLIC_ORIGIN),
+      paymentMode: z.literal("free_launch"),
+      verification: deploymentAttestationSchema
     })
     .strict()
 ]);
@@ -54,7 +109,8 @@ const proofBaseSchema = z
         generatedAt: z.string().datetime({ offset: true }),
         rulesetVersion: z.string().min(1),
         rulesSource: sourcePathSchema,
-        fixtureSource: sourcePathSchema
+        fixtureSource: sourcePathSchema,
+        files: z.array(sourceFileSchema)
       })
       .strict(),
     deployment: deploymentSchema,
@@ -101,11 +157,14 @@ export const proofSchema = proofBaseSchema.extend({
 });
 
 export type PawSiftProof = z.infer<typeof proofSchema>;
+export type SourceFileEvidence = z.infer<typeof sourceFileSchema>;
+export type DeploymentAttestation = z.infer<typeof deploymentAttestationSchema>;
 
 export type ProofBuildContext = {
   auditedCommit: string;
   generatedAt: string;
-  publicUrl?: string;
+  sourceFiles: SourceFileEvidence[];
+  deploymentAttestation?: DeploymentAttestation;
 };
 
 function buildFixtureEvidence() {
@@ -128,12 +187,77 @@ function documentHashFor(base: z.infer<typeof proofBaseSchema>): string {
   return sha256(canonicalize(base));
 }
 
+function assertCompleteSourceProvenance(sourceFiles: SourceFileEvidence[]): void {
+  const receivedPaths = sourceFiles.map((file) => file.path);
+  const uniquePaths = new Set(receivedPaths);
+  const hasExactPaths =
+    receivedPaths.length === PROOF_SOURCE_PATHS.length &&
+    uniquePaths.size === PROOF_SOURCE_PATHS.length &&
+    PROOF_SOURCE_PATHS.every((path) => uniquePaths.has(path));
+
+  if (!hasExactPaths) {
+    throw new Error("Source provenance must cover every proof-critical path exactly once");
+  }
+}
+
+function normalizeSourceFiles(sourceFiles: SourceFileEvidence[]): SourceFileEvidence[] {
+  assertCompleteSourceProvenance(sourceFiles);
+  const byPath = new Map(sourceFiles.map((file) => [file.path, file]));
+  return PROOF_SOURCE_PATHS.map((path) => sourceFileSchema.parse(byPath.get(path)));
+}
+
+function assertClaimSourcesAreAudited(proof: z.infer<typeof proofBaseSchema>): void {
+  const auditedPaths = new Set(proof.source.files.map((file) => file.path));
+  const structuralSources = [proof.source.rulesSource, proof.source.fixtureSource];
+  const claimSources = proof.claims.flatMap((claim) => claim.sourcePaths);
+
+  for (const path of [...structuralSources, ...claimSources]) {
+    if (!auditedPaths.has(path)) {
+      throw new Error(`Claim source is not bound to the audited commit: ${path}`);
+    }
+  }
+}
+
+function assertDeploymentEvidence(proof: z.infer<typeof proofBaseSchema>): void {
+  if (proof.deployment.status !== "live") {
+    return;
+  }
+
+  const deployment = proof.deployment;
+  const clearFixture = proof.fixtures.find(
+    (fixture) => fixture.id === deployment.verification.fixture.id
+  );
+  if (
+    !clearFixture ||
+    clearFixture.inputHash !== deployment.verification.fixture.inputHash ||
+    clearFixture.reportHash !== deployment.verification.fixture.reportHash
+  ) {
+    throw new Error("Live deployment fixture does not match the audited proof fixture");
+  }
+
+  const deploymentEvidence = proof.source.files.find(
+    (file) => file.path === deployment.verification.evidencePath
+  );
+  if (deploymentEvidence?.sha256 !== deployment.verification.evidenceSha256) {
+    throw new Error("Live deployment evidence digest is not bound to the audited source");
+  }
+}
+
 export function buildProof(context: ProofBuildContext): PawSiftProof {
-  const deployment = context.publicUrl
+  if (
+    context.deploymentAttestation &&
+    context.deploymentAttestation.endpoint !== EXPECTED_PUBLIC_ORIGIN
+  ) {
+    throw new Error(`Live deployment must use the PawSift production origin: ${EXPECTED_PUBLIC_ORIGIN}`);
+  }
+
+  const sourceFiles = normalizeSourceFiles(context.sourceFiles);
+  const deployment = context.deploymentAttestation
     ? {
         status: "live" as const,
-        endpoint: context.publicUrl,
-        paymentMode: "free_launch" as const
+        endpoint: EXPECTED_PUBLIC_ORIGIN,
+        paymentMode: "free_launch" as const,
+        verification: context.deploymentAttestation
       }
     : {
         status: "pending" as const,
@@ -153,7 +277,8 @@ export function buildProof(context: ProofBuildContext): PawSiftProof {
       generatedAt: context.generatedAt,
       rulesetVersion: RULESET_VERSION,
       rulesSource: "src/domain/rules.ts",
-      fixtureSource: "src/domain/fixtures.ts"
+      fixtureSource: "src/domain/fixtures.ts",
+      files: sourceFiles
     },
     deployment,
     payments: {
@@ -194,6 +319,9 @@ export function buildProof(context: ProofBuildContext): PawSiftProof {
     }
   });
 
+  assertClaimSourcesAreAudited(base);
+  assertDeploymentEvidence(base);
+
   return proofSchema.parse({
     ...base,
     documentHash: documentHashFor(base)
@@ -206,6 +334,9 @@ export function validateProof(value: unknown): PawSiftProof {
   if (proof.source.rulesetVersion !== RULESET_VERSION) {
     throw new Error(`Unrecognized ruleset: ${proof.source.rulesetVersion}`);
   }
+
+  assertCompleteSourceProvenance(proof.source.files);
+  assertClaimSourcesAreAudited(proof);
 
   const expectedFixtures = new Map(AUDIT_FIXTURES.map((fixture) => [fixture.id, fixture]));
 
@@ -236,6 +367,8 @@ export function validateProof(value: unknown): PawSiftProof {
       throw new Error(`Fixture hash or outcome mismatch: ${evidence.id}`);
     }
   }
+
+  assertDeploymentEvidence(proof);
 
   const { documentHash, ...base } = proof;
   if (documentHash !== documentHashFor(proofBaseSchema.parse(base))) {

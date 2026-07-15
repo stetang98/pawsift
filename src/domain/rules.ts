@@ -16,6 +16,22 @@ export type Rule = {
 
 const UNSUPPORTED_CLAIM_PATTERNS = [
   {
+    label: "food",
+    pattern: /^(?:food|pet food|cat food|dog food)$/i
+  },
+  {
+    label: "treat",
+    pattern: /^(?:treat|treats|pet treat|pet treats|cat treat|cat treats|dog treat|dog treats)$/i
+  },
+  {
+    label: "medication",
+    pattern: /\bmedicat(?:e|ed|es|ing|ion|ions)\b/i
+  },
+  {
+    label: "pesticide",
+    pattern: /\bpesticides?\b/i
+  },
+  {
     label: "anti-inflammatory",
     pattern: /\banti-inflammatory\b/i
   },
