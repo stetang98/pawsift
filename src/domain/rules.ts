@@ -14,22 +14,71 @@ export type Rule = {
   listingPatch?: (input: AuditRequest) => string[];
 };
 
-const MEDICAL_OR_INGESTIBLE_CLAIMS = [
-  "anti-inflammatory",
-  "anxiety",
-  "calming",
-  "cure",
-  "digest",
-  "edible",
-  "flea",
-  "heal",
-  "ingest",
-  "medicated",
-  "pain",
-  "supplement",
-  "tick",
-  "treat",
-  "treatment"
+const UNSUPPORTED_CLAIM_PATTERNS = [
+  {
+    label: "anti-inflammatory",
+    pattern: /\banti-inflammatory\b/i
+  },
+  {
+    label: "anxiety",
+    pattern: /\banxiety\b/i
+  },
+  {
+    label: "calming",
+    pattern: /\bcalming\b/i
+  },
+  {
+    label: "cure",
+    pattern: /\bcure(?:s|d)?\b/i
+  },
+  {
+    label: "digest",
+    pattern: /\bdigest(?:ive|ion|s|ed|ing)?\b/i
+  },
+  {
+    label: "edible",
+    pattern: /\bedible\b/i
+  },
+  {
+    label: "flea treatment",
+    pattern: /\bflea\s+treatment\b/i
+  },
+  {
+    label: "heal",
+    pattern: /\bheal(?:s|ed|ing)?\b/i
+  },
+  {
+    label: "ingest",
+    pattern: /\bingest(?:ible|ion|s|ed|ing)?\b/i
+  },
+  {
+    label: "medicated",
+    pattern: /\bmedicated\b/i
+  },
+  {
+    label: "pain relief",
+    pattern: /\bpain\s+relief\b/i
+  },
+  {
+    label: "post-treatment",
+    pattern: /\bpost-treatment\b/i
+  },
+  {
+    label: "safe to eat",
+    pattern: /\bsafe\s+to\s+eat\b/i
+  },
+  {
+    label: "supplement",
+    pattern: /\bsupplement(?:s|al)?\b/i
+  },
+  {
+    label: "tick treatment",
+    pattern: /\btick\s+treatment\b/i
+  },
+  {
+    label: "treatment",
+    pattern: /\btreatment\b/i
+  }
 ] as const;
 
 function isBlank(value: string | undefined): boolean {
@@ -63,14 +112,14 @@ function isSpeciesMismatch(input: AuditRequest): boolean {
 }
 
 function isWeightRangeMismatch(input: AuditRequest): boolean {
-  if (input.product.category === "carrier") {
-    return false;
-  }
-
   const { minWeightKg, maxWeightKg } = input.product;
 
   if (minWeightKg !== undefined && input.pet.weightKg < minWeightKg) {
     return true;
+  }
+
+  if (input.product.category === "carrier") {
+    return false;
   }
 
   if (maxWeightKg !== undefined && input.pet.weightKg > maxWeightKg) {
@@ -114,8 +163,7 @@ function isOverweightCarrier(input: AuditRequest): boolean {
 
 function getUnsupportedClaims(input: AuditRequest): string[] {
   return input.product.claims.filter((claim) => {
-    const normalizedClaim = claim.toLowerCase();
-    return MEDICAL_OR_INGESTIBLE_CLAIMS.some((keyword) => normalizedClaim.includes(keyword));
+    return UNSUPPORTED_CLAIM_PATTERNS.some(({ pattern }) => pattern.test(claim));
   });
 }
 

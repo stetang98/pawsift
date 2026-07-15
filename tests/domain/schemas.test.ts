@@ -116,6 +116,44 @@ describe("auditRequestSchema", () => {
       })
     ).toThrow();
   });
+
+  it("trims bounded text and rejects whitespace-only entries", () => {
+    const parsed = auditRequestSchema.parse({
+      pet: { ...validPet, lifeStage: "  adult  ", traits: ["  strong_chewer  "] },
+      product: {
+        ...validProduct,
+        name: "  Breakaway Reflective Collar  ",
+        materials: ["  nylon  ", "  zinc_alloy  "],
+        careInstructions: "  Hand wash and air dry  ",
+        claims: ["  adjustable  "]
+      }
+    });
+
+    expect(parsed).toEqual({
+      pet: {
+        ...validPet,
+        lifeStage: "adult",
+        traits: ["strong_chewer"]
+      },
+      product: {
+        ...validProduct,
+        name: "Breakaway Reflective Collar",
+        materials: ["nylon", "zinc_alloy"],
+        careInstructions: "Hand wash and air dry",
+        claims: ["adjustable"]
+      }
+    });
+
+    expect(() =>
+      auditRequestSchema.parse({
+        pet: validPet,
+        product: {
+          ...validProduct,
+          materials: ["   "]
+        }
+      })
+    ).toThrow();
+  });
 });
 
 describe("verdictSchema", () => {

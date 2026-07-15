@@ -121,3 +121,16 @@ tsc --noEmit  -> exit 0
 - Tightened `PS-010` to act as the positive clear rule only when no issue rule fires.
 - Avoided double-counting carrier overload under both `PS-002` and `PS-007`; `PS-007` owns carrier overweight blocking.
 - Corrected `fast-check` from `^4.9.0` to exact `4.9.0` to match the pinned project stack in the implementation plan.
+
+## Fix Wave
+
+- Scope: `src/domain/schemas.ts`, `src/domain/rules.ts`, `tests/domain/schemas.test.ts`, `tests/domain/rules.test.ts`, `tests/domain/audit.property.test.ts`
+- Fixes:
+  - Rejected whitespace-only bounded text via trimmed schema parsing so blank `materials` entries cannot satisfy `PS-003`.
+  - Restored `PS-002` for carrier lower-bound mismatches while keeping `PS-007` as the only carrier upper-bound rule.
+  - Replaced broad substring matching with explicit unsupported-claim patterns so direct ingestible phrases like `safe to eat` route to `PS-008` without loosely flagging unrelated wording such as `treat pouch loop`.
+- Verification:
+  - `npm test -- tests/domain` -> `Test Files  4 passed (4)` / `Tests  42 passed (42)`
+  - `npm run lint` -> exit `0`
+  - `npm run typecheck` -> exit `0`
+  - `git diff --check` -> exit `0` with no output

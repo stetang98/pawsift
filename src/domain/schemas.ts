@@ -3,7 +3,7 @@ import { z } from "zod";
 const MAX_TEXT_LENGTH = 500;
 const SHA256_PATTERN = /^[0-9a-f]{64}$/;
 
-const boundedText = z.string().min(1).max(MAX_TEXT_LENGTH);
+const boundedText = z.string().trim().min(1).max(MAX_TEXT_LENGTH);
 const boundedTextList = z.array(boundedText).max(MAX_TEXT_LENGTH);
 const finiteNumber = z.number().finite();
 const nonNegativeNumber = finiteNumber.min(0);

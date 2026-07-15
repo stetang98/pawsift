@@ -94,6 +94,31 @@ describe("auditProduct", () => {
     expect(report.verdict).toBe("BLOCK");
     expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-007"]);
     expect(report.findings[0]?.reason).toContain("carrier");
+    expect(report.findings.map((finding) => finding.ruleId)).not.toContain("PS-002");
+  });
+
+  it("keeps carrier lower-bound mismatches on PS-002", () => {
+    const report = auditProduct({
+      pet: {
+        species: "dog",
+        lifeStage: "adult",
+        weightKg: 4,
+        traits: ["travel_friendly"]
+      },
+      product: {
+        name: "Structured Cabin Carrier",
+        category: "carrier",
+        intendedSpecies: ["dog"],
+        materials: ["polyester", "mesh"],
+        minWeightKg: 5,
+        maxWeightKg: 10,
+        careInstructions: "Wipe the shell and air dry the liner.",
+        claims: ["ventilated", "carry handle"]
+      }
+    });
+
+    expect(report.verdict).toBe("BLOCK");
+    expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-002"]);
   });
 
   it("requires human review for unsupported medical or ingestible claims", () => {
@@ -102,6 +127,54 @@ describe("auditProduct", () => {
     expect(report.verdict).toBe("HUMAN_REVIEW");
     expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-008"]);
     expect(report.findings[0]?.evidence).toContain("claim=anti-inflammatory");
+  });
+
+  it("routes direct ingestible phrases such as safe to eat to PS-008", () => {
+    const report = auditProduct({
+      pet: {
+        species: "dog",
+        lifeStage: "adult",
+        weightKg: 7.4,
+        traits: ["curious"]
+      },
+      product: {
+        name: "Cooling Chew Guard",
+        category: "toy",
+        intendedSpecies: ["dog"],
+        materials: ["rubber", "canvas"],
+        careInstructions: "Wipe clean and store dry.",
+        claims: ["safe to eat", "durable"]
+      }
+    });
+
+    expect(report.verdict).toBe("HUMAN_REVIEW");
+    expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-008"]);
+    expect(report.findings[0]?.evidence).toContain("claim=safe to eat");
+  });
+
+  it("does not flag unrelated words just because they contain a broad substring", () => {
+    const report = auditProduct({
+      pet: {
+        species: "cat",
+        lifeStage: "adult",
+        weightKg: 4.8,
+        traits: ["indoor"]
+      },
+      product: {
+        name: "Pocket Treat Loop Collar",
+        category: "collar_harness",
+        intendedSpecies: ["cat"],
+        materials: ["nylon", "zinc_alloy"],
+        minWeightKg: 2.5,
+        maxWeightKg: 7,
+        breakaway: true,
+        careInstructions: "Hand wash and air dry.",
+        claims: ["treat pouch loop", "reflective"]
+      }
+    });
+
+    expect(report.verdict).toBe("CLEAR");
+    expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-010"]);
   });
 
   it("raises caution when care instructions are missing", () => {

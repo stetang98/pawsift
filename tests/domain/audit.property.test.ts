@@ -2,6 +2,7 @@ import fc from "fast-check";
 import { describe, expect, it } from "vitest";
 
 import { auditProduct } from "../../src/domain/audit";
+import { clearCatCollarFixture } from "../../src/domain/fixtures";
 import { auditRequestSchema, type AuditRequest, type Verdict } from "../../src/domain/schemas";
 
 const severityRank: Record<Verdict, number> = {
@@ -72,6 +73,9 @@ const weightArb = fc
     noDefaultInfinity: true
   })
   .map((value) => Number(value.toFixed(1)));
+const whitespaceTextArb = fc
+  .array(fc.constantFrom(" ", "\t"), { minLength: 1, maxLength: 6 })
+  .map((tokens) => tokens.join(""));
 
 function optionalFragmentArb<T extends object>(
   arb: fc.Arbitrary<T>
@@ -246,6 +250,58 @@ describe("auditProduct property checks", () => {
 
         expect(reordered).toEqual(baseline);
       })
+    );
+  });
+
+  it("rejects whitespace-only materials before they can count as supplied facts", () => {
+    fc.assert(
+      fc.property(fc.array(whitespaceTextArb, { minLength: 1, maxLength: 3 }), (materials) => {
+        expect(() =>
+          auditProduct({
+            pet: clearCatCollarFixture.pet,
+            product: {
+              ...clearCatCollarFixture.product,
+              materials
+            }
+          })
+        ).toThrow();
+      })
+    );
+  });
+
+  it("routes generated safe-to-eat phrasing to PS-008 without falling through to clear", () => {
+    fc.assert(
+      fc.property(
+        fc.constantFrom("safe", "Safe", "SAFE"),
+        fc.constantFrom("to", "To", "TO"),
+        fc.constantFrom("eat", "Eat", "EAT"),
+        fc.array(fc.constantFrom(" ", "\t"), { minLength: 1, maxLength: 3 }).map((tokens) =>
+          tokens.join("")
+        ),
+        fc.array(fc.constantFrom(" ", "\t"), { minLength: 1, maxLength: 3 }).map((tokens) =>
+          tokens.join("")
+        ),
+        fc.array(textArb, { maxLength: 2 }),
+        fc.array(textArb, { maxLength: 2 }),
+        (safeWord, toWord, eatWord, separatorOne, separatorTwo, prefixTokens, suffixTokens) => {
+          const prefix = prefixTokens.join(" ");
+          const suffix = suffixTokens.join(" ");
+          const claim = [prefix, `${safeWord}${separatorOne}${toWord}${separatorTwo}${eatWord}`, suffix]
+            .filter((segment) => segment.length > 0)
+            .join(" ");
+
+          const report = auditProduct({
+            pet: clearCatCollarFixture.pet,
+            product: {
+              ...clearCatCollarFixture.product,
+              claims: [claim]
+            }
+          });
+
+          expect(report.verdict).toBe("HUMAN_REVIEW");
+          expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-008"]);
+        }
+      )
     );
   });
 });
