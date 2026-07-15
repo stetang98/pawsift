@@ -1,0 +1,367 @@
+import type { AuditRequest, Finding, Verdict } from "./schemas";
+
+export const RULESET_VERSION = "2026.07.1";
+export const BOUNDARY_TEXT = "Non-veterinary product-fit audit based only on supplied facts.";
+
+export type Rule = {
+  id: string;
+  penalty: number;
+  verdictFloor: Verdict;
+  applies: (input: AuditRequest) => boolean;
+  buildFinding: (input: AuditRequest) => Finding;
+  missingFacts?: (input: AuditRequest) => string[];
+  ownerQuestions?: (input: AuditRequest) => string[];
+  listingPatch?: (input: AuditRequest) => string[];
+};
+
+const MEDICAL_OR_INGESTIBLE_CLAIMS = [
+  "anti-inflammatory",
+  "anxiety",
+  "calming",
+  "cure",
+  "digest",
+  "edible",
+  "flea",
+  "heal",
+  "ingest",
+  "medicated",
+  "pain",
+  "supplement",
+  "tick",
+  "treat",
+  "treatment"
+] as const;
+
+function isBlank(value: string | undefined): boolean {
+  return value === undefined || value.trim().length === 0;
+}
+
+function formatWeight(weightKg: number): string {
+  return Number.isInteger(weightKg) ? weightKg.toString() : weightKg.toFixed(1);
+}
+
+function createFinding(params: {
+  ruleId: string;
+  severity: Verdict;
+  title: string;
+  reason: string;
+  evidence: string[];
+  remediation: string;
+}): Finding {
+  return {
+    ruleId: params.ruleId,
+    severity: params.severity,
+    title: params.title,
+    reason: params.reason,
+    evidence: params.evidence,
+    remediation: params.remediation
+  };
+}
+
+function isSpeciesMismatch(input: AuditRequest): boolean {
+  return !input.product.intendedSpecies.includes(input.pet.species);
+}
+
+function isWeightRangeMismatch(input: AuditRequest): boolean {
+  if (input.product.category === "carrier") {
+    return false;
+  }
+
+  const { minWeightKg, maxWeightKg } = input.product;
+
+  if (minWeightKg !== undefined && input.pet.weightKg < minWeightKg) {
+    return true;
+  }
+
+  if (maxWeightKg !== undefined && input.pet.weightKg > maxWeightKg) {
+    return true;
+  }
+
+  return false;
+}
+
+function isMissingMaterials(input: AuditRequest): boolean {
+  return input.product.materials.length === 0;
+}
+
+function isUnsafeToyWithoutSupervision(input: AuditRequest): boolean {
+  return (
+    input.product.category === "toy" &&
+    input.product.hasDetachableParts === true &&
+    isBlank(input.product.supervisionStatement)
+  );
+}
+
+function hasBatteryOrMagnet(input: AuditRequest): boolean {
+  return input.product.containsBattery === true || input.product.containsMagnet === true;
+}
+
+function isCatCollarWithoutBreakaway(input: AuditRequest): boolean {
+  return (
+    input.product.category === "collar_harness" &&
+    (input.pet.species === "cat" || input.product.intendedSpecies.includes("cat")) &&
+    input.product.breakaway === undefined
+  );
+}
+
+function isOverweightCarrier(input: AuditRequest): boolean {
+  return (
+    input.product.category === "carrier" &&
+    input.product.maxWeightKg !== undefined &&
+    input.pet.weightKg > input.product.maxWeightKg
+  );
+}
+
+function getUnsupportedClaims(input: AuditRequest): string[] {
+  return input.product.claims.filter((claim) => {
+    const normalizedClaim = claim.toLowerCase();
+    return MEDICAL_OR_INGESTIBLE_CLAIMS.some((keyword) => normalizedClaim.includes(keyword));
+  });
+}
+
+function hasUnsupportedClaims(input: AuditRequest): boolean {
+  return getUnsupportedClaims(input).length > 0;
+}
+
+function isMissingCareInstructions(input: AuditRequest): boolean {
+  return isBlank(input.product.careInstructions);
+}
+
+const ISSUE_PREDICATES = [
+  isSpeciesMismatch,
+  isWeightRangeMismatch,
+  isMissingMaterials,
+  isUnsafeToyWithoutSupervision,
+  hasBatteryOrMagnet,
+  isCatCollarWithoutBreakaway,
+  isOverweightCarrier,
+  hasUnsupportedClaims,
+  isMissingCareInstructions
+] as const;
+
+function isCompleteInRangeListing(input: AuditRequest): boolean {
+  return ISSUE_PREDICATES.every((predicate) => !predicate(input));
+}
+
+export const RULES: readonly Rule[] = [
+  {
+    id: "PS-001",
+    penalty: 45,
+    verdictFloor: "BLOCK",
+    applies: isSpeciesMismatch,
+    buildFinding: (input) =>
+      createFinding({
+        ruleId: "PS-001",
+        severity: "BLOCK",
+        title: "Intended species does not match the pet profile",
+        reason:
+          "The listing targets a different species than the supplied pet, so the fit result cannot be approved.",
+        evidence: [
+          `pet.species=${input.pet.species}`,
+          `intendedSpecies=${input.product.intendedSpecies.join(",")}`
+        ],
+        remediation: "Align the listing species or choose a product intended for this pet."
+      })
+  },
+  {
+    id: "PS-002",
+    penalty: 28,
+    verdictFloor: "BLOCK",
+    applies: isWeightRangeMismatch,
+    buildFinding: (input) =>
+      createFinding({
+        ruleId: "PS-002",
+        severity: "BLOCK",
+        title: "Pet is outside the declared weight range",
+        reason:
+          "The supplied pet weight falls outside the declared weight range, so the product fit should be blocked.",
+        evidence: [
+          `pet.weightKg=${formatWeight(input.pet.weightKg)}`,
+          ...(input.product.minWeightKg !== undefined
+            ? [`minWeightKg=${formatWeight(input.product.minWeightKg)}`]
+            : []),
+          ...(input.product.maxWeightKg !== undefined
+            ? [`maxWeightKg=${formatWeight(input.product.maxWeightKg)}`]
+            : [])
+        ],
+        remediation: "Correct the supported weight range or pick a product sized for this pet."
+      })
+  },
+  {
+    id: "PS-003",
+    penalty: 8,
+    verdictFloor: "CAUTION",
+    applies: isMissingMaterials,
+    buildFinding: () =>
+      createFinding({
+        ruleId: "PS-003",
+        severity: "CAUTION",
+        title: "Materials are missing from the listing",
+        reason:
+          "The listing omits product materials, which makes it harder to evaluate surface contact and durability.",
+        evidence: ["materials=0"],
+        remediation: "List the primary materials, including any surface that touches the pet."
+      }),
+    missingFacts: () => ["materials"],
+    ownerQuestions: () => ["What materials touch the pet or the pet's mouth?"],
+    listingPatch: () => [
+      "List the primary materials, including anything that touches the pet or its mouth."
+    ]
+  },
+  {
+    id: "PS-004",
+    penalty: 9,
+    verdictFloor: "CAUTION",
+    applies: isUnsafeToyWithoutSupervision,
+    buildFinding: (input) =>
+      createFinding({
+        ruleId: "PS-004",
+        severity: "CAUTION",
+        title: "Supervision statement missing for detachable toy parts",
+        reason:
+          "The toy has detachable parts but the listing does not say the pet should be supervised during play.",
+        evidence: [
+          `category=${input.product.category}`,
+          "hasDetachableParts=true",
+          "supervisionStatement=missing"
+        ],
+        remediation: "Add a supervision statement for toys with detachable parts."
+      }),
+    ownerQuestions: () => ["Should owners supervise play when detachable parts are exposed?"],
+    listingPatch: () => ["Add a supervision statement for toys with detachable parts."]
+  },
+  {
+    id: "PS-005",
+    penalty: 20,
+    verdictFloor: "HUMAN_REVIEW",
+    applies: hasBatteryOrMagnet,
+    buildFinding: (input) =>
+      createFinding({
+        ruleId: "PS-005",
+        severity: "HUMAN_REVIEW",
+        title: "Battery or magnet requires manual review",
+        reason:
+          "Listings that disclose a battery or magnet need an explicit enclosure and monitoring explanation before approval.",
+        evidence: [
+          ...(input.product.containsBattery === true ? ["containsBattery=true"] : []),
+          ...(input.product.containsMagnet === true ? ["containsMagnet=true"] : [])
+        ],
+        remediation: "Add enclosure, access, and monitoring details for the battery or magnet."
+      }),
+    ownerQuestions: () => [
+      "Does the listing explain how the battery or magnet is enclosed and monitored?"
+    ],
+    listingPatch: () => [
+      "Clarify how the battery or magnet is enclosed and what supervision limits apply."
+    ]
+  },
+  {
+    id: "PS-006",
+    penalty: 10,
+    verdictFloor: "CAUTION",
+    applies: isCatCollarWithoutBreakaway,
+    buildFinding: (input) =>
+      createFinding({
+        ruleId: "PS-006",
+        severity: "CAUTION",
+        title: "Breakaway status missing for cat collar",
+        reason:
+          "Cat collars should state whether they include a breakaway release so owners know how the closure behaves.",
+        evidence: [
+          `category=${input.product.category}`,
+          `pet.species=${input.pet.species}`,
+          "breakaway=missing"
+        ],
+        remediation: "State whether the collar includes a breakaway release."
+      }),
+    missingFacts: () => ["breakaway"],
+    ownerQuestions: () => ["Does this collar include a breakaway release for cats?"],
+    listingPatch: () => ["State whether the collar includes a breakaway release for cats."]
+  },
+  {
+    id: "PS-007",
+    penalty: 30,
+    verdictFloor: "BLOCK",
+    applies: isOverweightCarrier,
+    buildFinding: (input) =>
+      createFinding({
+        ruleId: "PS-007",
+        severity: "BLOCK",
+        title: "Carrier is rated below the pet's weight",
+        reason:
+          "The carrier's supported weight is below the supplied pet weight, so this carrier should be blocked.",
+        evidence: [
+          `category=${input.product.category}`,
+          `pet.weightKg=${formatWeight(input.pet.weightKg)}`,
+          `maxWeightKg=${formatWeight(input.product.maxWeightKg ?? 0)}`
+        ],
+        remediation: "Choose a carrier with a supported weight at or above the pet's weight."
+      })
+  },
+  {
+    id: "PS-008",
+    penalty: 18,
+    verdictFloor: "HUMAN_REVIEW",
+    applies: hasUnsupportedClaims,
+    buildFinding: (input) => {
+      const unsupportedClaims = getUnsupportedClaims(input);
+
+      return createFinding({
+        ruleId: "PS-008",
+        severity: "HUMAN_REVIEW",
+        title: "Unsupported medical or ingestible claim detected",
+        reason:
+          "The listing includes medical or ingestible language that falls outside PawSift's supported non-veterinary scope.",
+        evidence: unsupportedClaims.map((claim) => `claim=${claim}`),
+        remediation: "Remove medical or ingestible language and restate only observable product facts."
+      });
+    },
+    ownerQuestions: () => ["Can you remove medical, treatment, or ingestible language from the claims?"],
+    listingPatch: () => [
+      "Replace medical or ingestible claims with observable, non-veterinary product facts."
+    ]
+  },
+  {
+    id: "PS-009",
+    penalty: 7,
+    verdictFloor: "CAUTION",
+    applies: isMissingCareInstructions,
+    buildFinding: () =>
+      createFinding({
+        ruleId: "PS-009",
+        severity: "CAUTION",
+        title: "Care instructions are missing",
+        reason:
+          "The listing should explain how the product is cleaned or maintained so owners know the ongoing care steps.",
+        evidence: ["careInstructions=missing"],
+        remediation: "Add care instructions with cleaning or maintenance steps."
+      }),
+    missingFacts: () => ["careInstructions"],
+    ownerQuestions: () => ["Can you add care instructions for the listing?"],
+    listingPatch: () => ["Add care instructions with cleaning or maintenance steps."]
+  },
+  {
+    id: "PS-010",
+    penalty: 0,
+    verdictFloor: "CLEAR",
+    applies: isCompleteInRangeListing,
+    buildFinding: (input) =>
+      createFinding({
+        ruleId: "PS-010",
+        severity: "CLEAR",
+        title: "Listing includes the core facts needed for this audit",
+        reason:
+          "The supplied facts are complete enough for a deterministic non-veterinary fit check and no blocking rule fired.",
+        evidence: [
+          `pet.species=${input.pet.species}`,
+          `category=${input.product.category}`,
+          ...(input.product.minWeightKg !== undefined || input.product.maxWeightKg !== undefined
+            ? [
+                `weightRange=${input.product.minWeightKg !== undefined ? formatWeight(input.product.minWeightKg) : "open"}-${input.product.maxWeightKg !== undefined ? formatWeight(input.product.maxWeightKg) : "open"}`
+              ]
+            : [])
+        ],
+        remediation: "No immediate listing patch is required from the supplied facts."
+      })
+  }
+] as const;
