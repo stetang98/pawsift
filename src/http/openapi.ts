@@ -96,6 +96,8 @@ const invalidRequestResponseSchema = z
   })
   .strict();
 
+const badRequestResponseSchema = z.union([invalidJsonResponseSchema, invalidRequestResponseSchema]);
+
 const payloadTooLargeResponseSchema = z
   .object({
     error: z
@@ -370,7 +372,10 @@ export const openApiDocument = {
               value: cautionAuditExample
             }
           }),
-          "400": jsonResponseSpec("Malformed JSON or schema validation error.", "ErrorResponse"),
+          "400": jsonResponseSpec(
+            "Malformed JSON or schema validation error.",
+            "BadRequestResponse"
+          ),
           "405": methodNotAllowedResponseSpec(),
           "413": jsonResponseSpec("Request body exceeded the 32 KiB limit.", "PayloadTooLargeResponse"),
           "422": jsonResponseSpec(
@@ -517,9 +522,7 @@ export const openApiDocument = {
       ExamplesResponse: createOpenApiSchema(examplesResponseSchema),
       WellKnownResponse: createOpenApiSchema(wellKnownResponseSchema),
       OpenApiDocument: createOpenApiSchema(openApiDocumentResponseSchema),
-      ErrorResponse: createOpenApiSchema(
-        z.union([invalidJsonResponseSchema, invalidRequestResponseSchema, payloadTooLargeResponseSchema])
-      ),
+      BadRequestResponse: createOpenApiSchema(badRequestResponseSchema),
       PayloadTooLargeResponse: createOpenApiSchema(payloadTooLargeResponseSchema),
       MethodNotAllowedResponse: createOpenApiSchema(methodNotAllowedResponseSchema),
       UnsupportedScopeResponse: createOpenApiSchema(unsupportedScopeResponseSchema),

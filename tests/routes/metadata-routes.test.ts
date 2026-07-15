@@ -205,6 +205,31 @@ describe("GET /openapi.json", () => {
     });
   });
 
+  it("keeps INVALID_JSON and INVALID_REQUEST in the 400 union while reserving PAYLOAD_TOO_LARGE for 413", async () => {
+    const document = await (await openApiRoute.GET()).json();
+
+    expect(
+      document.paths["/api/v1/audit"].post.responses["400"].content["application/json"].schema
+    ).toEqual({
+      $ref: "#/components/schemas/BadRequestResponse"
+    });
+    expect(document.components.schemas.BadRequestResponse.anyOf).toHaveLength(2);
+    expect(
+      document.components.schemas.BadRequestResponse.anyOf.map(
+        (schema: { properties?: { error?: { properties?: { code?: { const?: string } } } } }) =>
+          schema.properties?.error?.properties?.code?.const
+      )
+    ).toEqual(["INVALID_JSON", "INVALID_REQUEST"]);
+    expect(
+      document.paths["/api/v1/audit"].post.responses["413"].content["application/json"].schema
+    ).toEqual({
+      $ref: "#/components/schemas/PayloadTooLargeResponse"
+    });
+    expect(
+      document.components.schemas.PayloadTooLargeResponse.properties.error.properties.code.const
+    ).toBe("PAYLOAD_TOO_LARGE");
+  });
+
   it("documents normalization, defaults, options, 405s, and common headers in parity with the runtime contract", async () => {
     const response = await openApiRoute.GET();
     const document = await response.json();

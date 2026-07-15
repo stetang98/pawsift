@@ -245,6 +245,65 @@ Route (app)
 /openapi.json
 ```
 
+## Fix Wave 2
+
+### Scope
+
+- Split the audit 400 response contract away from the 413 payload-too-large contract in `src/http/openapi.ts`.
+- Added an exact regression test in `tests/routes/metadata-routes.test.ts` to pin `INVALID_JSON` + `INVALID_REQUEST` to 400 and `PAYLOAD_TOO_LARGE` to 413.
+- Left the untracked `public/` assets untouched.
+
+### Verification
+
+Command:
+
+```bash
+npm test -- tests/routes/metadata-routes.test.ts tests/routes/audit-route.test.ts
+```
+
+Result:
+
+```text
+Test Files  2 passed (2)
+Tests       32 passed (32)
+```
+
+Command:
+
+```bash
+npm run lint
+```
+
+Result:
+
+```text
+exit 0
+```
+
+Command:
+
+```bash
+npm run typecheck
+```
+
+Result:
+
+```text
+exit 0
+```
+
+Command:
+
+```bash
+git diff --check
+```
+
+Result:
+
+```text
+exit 0
+```
+
 #### Whitespace / patch hygiene
 
 Command:
