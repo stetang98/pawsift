@@ -92,12 +92,12 @@ describe("proof exporter", () => {
         health: {
           url: `${EXPECTED_PUBLIC_ORIGIN}/api/v1/health`,
           status: "ok",
-          rulesetVersion: "2026.07.2"
+          rulesetVersion: "2026.07.7"
         },
         fixture: {
           id: "clear-cat-collar",
           inputHash: "f8ab57435e1fb63b7fda95d06437c263ef87e1c63051e723e39ee56797eff5ff",
-          reportHash: "f5bd2cbcb24b55469243c036ef20a7bedb0bd085d4af5435dbecda6cf69a97e2"
+          reportHash: "c35e0036153fbc634d99d2e780fd7036ee18fade3a26d3ef72c25ced67c32011"
         },
         evidencePath: "ops/DEPLOYMENT.md"
       }

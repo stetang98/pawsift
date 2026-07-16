@@ -54,7 +54,7 @@ Pet owners often see attractive listings with missing fit ranges, materials, bre
 4. Canonical JSON and SHA-256 bind the request and report to a reproducible receipt.
 5. The web console, examples endpoint, and OKX.AI A2MCP listing call the same engine.
 
-Ruleset `2026.07.2` covers toys, carriers, beds, feeders, collars/harnesses, and grooming tools. It requires category-specific supported-weight facts for collars/harnesses, carriers, and beds before a listing can be marked complete. See [Architecture](docs/ARCHITECTURE.md) for the data flow.
+Ruleset `2026.07.7` covers toys, carriers, beds, feeders, collars/harnesses, and grooming tools. It requires category-specific supported-weight facts for collars/harnesses, carriers, and beds before a listing can be marked complete, and routes generic food/treat titles to human review while preserving explicit accessory phrases only in recognized non-ingestible accessory contexts. See [Architecture](docs/ARCHITECTURE.md) for the data flow.
 
 ## Safety boundary
 

@@ -1,6 +1,6 @@
 # Production deployment evidence
 
-Verification timestamp: pinned in `proof/config.json` after the hosted checks below complete.
+Verification timestamp: `2026-07-16T07:07:12Z`.
 
 ## Public surfaces
 
@@ -18,17 +18,24 @@ The proof validator accepts only the stable production origin above. `proof/conf
 
 | Check | Result |
 | --- | --- |
-| `GET /api/v1/health` | HTTP 200, `status=ok`, ruleset `2026.07.2` |
-| `GET /api/v1/examples` | HTTP 200, 11 fixtures |
+| `GET /api/v1/health` | HTTP 200, `status=ok`, ruleset `2026.07.7` |
+| `GET /api/v1/examples` | HTTP 200, 12 fixtures |
 | `GET /openapi.json` | HTTP 200, OpenAPI 3.1.0, POST and OPTIONS audit operations |
 | `GET /.well-known/pawsift.json` | HTTP 200, A2MCP discovery metadata |
 | Valid clear fixture | HTTP 200, `CLEAR`, rule `PS-010` |
 | Medical wording in product name | HTTP 422, `HUMAN_REVIEW`, rule `PS-008`, field-labeled evidence |
+| `Freeze-Dried Food` product name | HTTP 422, `HUMAN_REVIEW`, rule `PS-008`, `product.name` evidence |
+| `Freeze-Dried Food Bowl` product name | HTTP 422, `HUMAN_REVIEW`; ingestible qualifier cannot hide behind accessory suffix |
+| `Single-Ingredient Treat Pouch` product name | HTTP 422, `HUMAN_REVIEW`; ingestible qualifier cannot hide behind accessory suffix |
+| Joined/underscored accessory wording such as `FoodBowl`, `Food_Bowl`, and `TreatPouch` | HTTP 422, `HUMAN_REVIEW` when the preceding qualifier is ingestible or unknown |
+| Zero-width/format-control obfuscation in food or medical wording | HTTP 422, `HUMAN_REVIEW`, with a bounded visible `normalized=...` evidence preview |
+| Plural food/treat accessory names | HTTP 200, `CLEAR`, explicit non-ingestible accessory exceptions preserved |
+| Benign split words such as `Health\u200Dy` and `Stain\u200Bless` | HTTP 200, `CLEAR`; normalization does not create broad substring false positives |
 | Collar without supported weight range | HTTP 200, `CAUTION`, rule `PS-011` |
 | Invalid schema request | HTTP 400 |
 | 32769-byte body | HTTP 413 |
 
-The health response includes `cache-control: no-store`, permissive read-only CORS headers, HSTS, and `x-pawsift-ruleset: 2026.07.2`.
+The health response includes `cache-control: no-store`, permissive read-only CORS headers, HSTS, and `x-pawsift-ruleset: 2026.07.7`.
 
 ## Hosted receipt match
 
@@ -36,10 +43,12 @@ The hosted clear fixture returned:
 
 ```text
 inputHash  f8ab57435e1fb63b7fda95d06437c263ef87e1c63051e723e39ee56797eff5ff
-reportHash f5bd2cbcb24b55469243c036ef20a7bedb0bd085d4af5435dbecda6cf69a97e2
+reportHash c35e0036153fbc634d99d2e780fd7036ee18fade3a26d3ef72c25ced67c32011
 ```
 
 Both values match `clear-cat-collar` in `proof/proof.json`.
+
+The hosted missing-weight collar fixture returned HTTP 200 with `CAUTION` / `PS-011` and receipt hashes `cf319400e293e7a0364560d2e8665be032754aa928855e5689c103acc6b3f746` (input) and `ba61f77a812174c7f74c69021f35b5db4726d782cd796a488ad2ca511d651c94` (report).
 
 ## Reproducible proof binding
 
@@ -49,11 +58,8 @@ The `live` state is accepted only for the stable PawSift production origin, the 
 
 ## Browser QA
 
-- Desktop production flow was rerun against the deployment above at 1440 x 1024 with the `CLEAR` result, PS-010 evidence, and canonical receipt visible.
-- Mobile production flow passed at 390 x 844 with the `CLEAR` result visible.
-- One rendered brand image was present in both views.
-- Browser diagnostic logs were empty in both views.
-- Evidence: `artifacts/production/pawsift-production-desktop-v1.png` and `artifacts/production/pawsift-production-mobile-v1.png`.
+- The checked-in Playwright suite exercises desktop, 320 px, and 390 px layouts, keyboard operation, stable control dimensions, and core audit states.
+- Release-specific production captures are regenerated after proof pinning for the submission package and demo video; they are not used as proof-critical source provenance.
 
 ## Honest launch state
 

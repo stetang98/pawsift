@@ -19,12 +19,12 @@ flowchart LR
 ### Domain
 
 - `src/domain/schemas.ts` defines strict request, response, finding, and receipt contracts.
-- `src/domain/rules.ts` holds authored rules with stable IDs and ruleset version `2026.07.2`.
+- `src/domain/rules.ts` holds authored rules with stable IDs and ruleset version `2026.07.7`.
 - `src/domain/audit.ts` resolves findings, verdict precedence, score, missing facts, questions, patches, and receipt hashes.
 - `src/domain/canonical-json.ts` sorts object keys recursively and rejects non-JSON values.
 - `src/domain/fixtures.ts` is the shared reviewer and test fixture deck.
 
-The rule engine scans every product-listing text field for unsupported medical or ingestible scope. Category-specific completeness requires both weight bounds for collars/harnesses and a maximum supported weight for carriers and beds.
+The rule engine scans every product-listing text field for unsupported medical or ingestible scope, with explicit non-ingestible accessory exceptions. Category-specific completeness requires both weight bounds for collars/harnesses and a maximum supported weight for carriers and beds.
 
 The domain layer is pure except for SHA-256 hashing. It does not read environment variables, call a model, access a wallet, or perform network I/O.
 

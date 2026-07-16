@@ -253,7 +253,7 @@ describe("POST /api/v1/audit", () => {
       "PS-008"
     ]);
     expect(body.guidance.ownerQuestions).toContain(
-      "Can you remove medical, treatment, or ingestible language from the claims?"
+      "Can you remove medical, treatment, or ingestible language from the submitted product listing?"
     );
     expect(JSON.stringify(body)).not.toContain("stack");
   });
@@ -323,6 +323,122 @@ describe("POST /api/v1/audit", () => {
     expect(body.guidance.verdict).toBe("HUMAN_REVIEW");
     expect(body.guidance.findings[0].evidence).toContain("product.name=Premium Cat Food");
   });
+
+  it("returns 422 when a generic food product name omits a species qualifier", async () => {
+    const request = {
+      pet: clearCatCollarFixture.pet,
+      product: {
+        ...clearCatCollarFixture.product,
+        name: "Freeze-Dried Food",
+        claims: ["premium"]
+      }
+    };
+    const response = await auditRoute.POST(createJsonRequest(JSON.stringify(request)));
+
+    expect(response.status).toBe(422);
+    const body = await response.json();
+    expect(body.guidance.verdict).toBe("HUMAN_REVIEW");
+    expect(body.guidance.findings[0].evidence).toContain("product.name=Freeze-Dried Food");
+    expect(body.guidance.findings[0].title).toBe(
+      "Unsupported medical or ingestible wording detected"
+    );
+    expect(body.guidance.ownerQuestions).toContain(
+      "Can you remove medical, treatment, or ingestible language from the submitted product listing?"
+    );
+  });
+
+  it("does not let an ingestible qualifier hide behind an accessory suffix", async () => {
+    const request = {
+      pet: clearCatCollarFixture.pet,
+      product: {
+        ...clearCatCollarFixture.product,
+        name: "Freeze-Dried Food Bowl",
+        claims: ["premium"]
+      }
+    };
+    const response = await auditRoute.POST(createJsonRequest(JSON.stringify(request)));
+
+    expect(response.status).toBe(422);
+    const body = await response.json();
+    expect(body.guidance.verdict).toBe("HUMAN_REVIEW");
+    expect(body.guidance.findings[0].evidence).toContain(
+      "product.name=Freeze-Dried Food Bowl"
+    );
+  });
+
+  it.each([
+    "Duck Meat Treat Pouch",
+    "Venison Food Bowl",
+    "鹿肉 Food Bowl",
+    "Freeze-Dried F​ood Bowl",
+    "Venison Food​Bowl",
+    "Duck Meat Treat​Pouch",
+    "F​ood Bowl",
+    "F​ood​Bowl",
+    "Tre​at Pouch",
+    "Medicated​Collar",
+    "Medica​ted​Collar",
+    "Flea​Treatment Collar",
+    "s​afe​to​eat",
+    "MedicatedCollar",
+    "Freeze-Dried FoodBowl",
+    "Venison FoodBowl",
+    "Duck Meat TreatPouch",
+    "Freeze_Dried Food_Bowl",
+    "Venison Food_Bowl",
+    "Duck Meat Treat_Pouch",
+    "Freeze‑Dried Food Bowl",
+    "Single‑Ingredient Treat Pouch"
+  ])("returns 422 when ambiguous or Unicode-separated ingestible title %s mimics an accessory", async (name) => {
+    const request = {
+      pet: clearCatCollarFixture.pet,
+      product: {
+        ...clearCatCollarFixture.product,
+        name,
+        claims: ["premium"]
+      }
+    };
+    const response = await auditRoute.POST(createJsonRequest(JSON.stringify(request)));
+
+    expect(response.status).toBe(422);
+    const body = await response.json();
+    expect(body.guidance.verdict).toBe("HUMAN_REVIEW");
+    expect(
+      body.guidance.findings[0].evidence.some((evidence: string) =>
+        evidence.startsWith(`product.name=${name}`)
+      )
+    ).toBe(true);
+  });
+
+  it.each([
+    "Stainless Food-Bowls",
+    "Treat-Storage Jars",
+    "Cute 🐶‍🦺 Harness",
+    "Health‍y Harness",
+    "Foodie​ Harness",
+    "Flea​Market Harness",
+    "Stain​less Food Bowl"
+  ])(
+    "keeps the hyphenated accessory title %s in scope",
+    async (name) => {
+      const request = {
+        pet: clearCatCollarFixture.pet,
+        product: {
+          ...clearCatCollarFixture.product,
+          name,
+          claims: ["adjustable"]
+        }
+      };
+      const response = await auditRoute.POST(createJsonRequest(JSON.stringify(request)));
+
+      expect(response.status).toBe(200);
+      const body = await response.json();
+      expect(body.verdict).toBe("CLEAR");
+      expect(body.findings.map((finding: { ruleId: string }) => finding.ruleId)).toEqual([
+        "PS-010"
+      ]);
+    }
+  );
 
   it("returns bounded 422 guidance for a maximum-length unsupported product name", async () => {
     const name = `${"x".repeat(490)} medicated`;

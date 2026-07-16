@@ -1,7 +1,7 @@
 import type { AuditRequest, Finding, Verdict } from "./schemas";
 import { sha256 } from "./canonical";
 
-export const RULESET_VERSION = "2026.07.2";
+export const RULESET_VERSION = "2026.07.7";
 export const BOUNDARY_TEXT = "Non-veterinary product-fit audit based only on supplied facts.";
 
 export type Rule = {
@@ -17,34 +17,24 @@ export type Rule = {
 
 const UNSUPPORTED_CLAIM_PATTERNS = [
   {
-    label: "food",
-    pattern:
-      /^(?:food|pet food|cat food|dog food)$|\b(?:cat|dog|pet)\s+food\b(?!\s+(?:bowl|container|dish|dispenser|mat|scoop|station|storage))/i
-  },
-  {
-    label: "treat",
-    pattern:
-      /^(?:treat|treats|pet treat|pet treats|cat treat|cat treats|dog treat|dog treats)$|\b(?:cat|dog|pet)\s+treats?\b(?!\s+(?:bag|container|dispenser|holder|jar|loop|pouch|storage|toy))/i
-  },
-  {
     label: "medication",
-    pattern: /\bmedicat(?:e|ed|es|ing|ion|ions)\b/i
+    pattern: /\bmedicat(?:e|ed|es|ing|ion|ions)/i
   },
   {
     label: "pesticide",
-    pattern: /\bpesticides?\b/i
+    pattern: /\bpesticides?/i
   },
   {
     label: "anti-inflammatory",
-    pattern: /\banti-inflammatory\b/i
+    pattern: /\banti[-_\s]*inflammatory/i
   },
   {
     label: "anxiety",
-    pattern: /\banxiety\b/i
+    pattern: /\banxiety/i
   },
   {
     label: "calming",
-    pattern: /\bcalming\b/i
+    pattern: /\bcalming/i
   },
   {
     label: "cure",
@@ -52,15 +42,15 @@ const UNSUPPORTED_CLAIM_PATTERNS = [
   },
   {
     label: "digest",
-    pattern: /\bdigest(?:ive|ion|s|ed|ing)?\b/i
+    pattern: /\bdigest(?:ive|ion|s|ed|ing)?/i
   },
   {
     label: "edible",
-    pattern: /\bedible\b/i
+    pattern: /\bedible/i
   },
   {
     label: "flea treatment",
-    pattern: /\bflea\s+treatment\b/i
+    pattern: /\bflea[-_\s]*treatment/i
   },
   {
     label: "heal",
@@ -68,37 +58,264 @@ const UNSUPPORTED_CLAIM_PATTERNS = [
   },
   {
     label: "ingest",
-    pattern: /\bingest(?:ible|ion|s|ed|ing)?\b/i
+    pattern: /\bingest(?:ible|ion|s|ed|ing)?/i
   },
   {
     label: "medicated",
-    pattern: /\bmedicated\b/i
+    pattern: /\bmedicated/i
   },
   {
     label: "pain relief",
-    pattern: /\bpain\s+relief\b/i
+    pattern: /\bpain[-_\s]*relief/i
   },
   {
     label: "post-treatment",
-    pattern: /\bpost-treatment\b/i
+    pattern: /\bpost[-_\s]*treatment/i
   },
   {
     label: "safe to eat",
-    pattern: /\bsafe\s+to\s+eat\b/i
+    pattern: /\bsafe[-_\s]*to[-_\s]*eat/i
   },
   {
     label: "supplement",
-    pattern: /\bsupplement(?:s|al)?\b/i
+    pattern: /\bsupplement(?:s|al)?/i
   },
   {
     label: "tick treatment",
-    pattern: /\btick\s+treatment\b/i
+    pattern: /\btick[-_\s]*treatment/i
   },
   {
     label: "treatment",
-    pattern: /\btreatment\b/i
+    pattern: /\btreatment/i
   }
 ] as const;
+
+const INGESTIBLE_PRODUCT_CONTEXT =
+  /\b(?:beef|chews?|chicken|dry|edible|flavou?red?|freeze[-_\s]?dried|kibble|meal|meat|protein|raw|recipe|salmon|single[-_\s]?ingredient|snacks?|tuna|turkey|wet)\b/i;
+
+const UNICODE_DASH_PATTERN = /[\u2010-\u2015\u2212\uFE58\uFE63\uFF0D]/g;
+
+const OBFUSCATED_UNSUPPORTED_TOKEN_PATTERN =
+  /^(?:(?:food|treats?|medicat(?:e|ed|es|ing|ion|ions)|pesticides?|antiinflammatory|anxiety|calming|cure(?:s|d)?|digest(?:ive|ion|s|ed|ing)?|edible|fleatreatment|heal(?:s|ed|ing)?|ingest(?:ible|ion|s|ed|ing)?|painrelief|posttreatment|safetoeat|supplement(?:s|al)?|ticktreatment|treatment)(?:accessor(?:y|ies)|bags?|beds?|bins?|bowls?|carriers?|collars?|containers?|dish(?:es)?|dispensers?|feeders?|groomers?|grooming|harness(?:es)?|holders?|jars?|kits?|loops?|mats?|pockets?|pouches?|products?|puzzles?|scoops?|stations?|storage|toys?)?)$/iu;
+
+const SAFE_ACCESSORY_CONTEXT_TOKENS = new Set([
+  "a",
+  "an",
+  "and",
+  "anti",
+  "automatic",
+  "bag",
+  "bags",
+  "bamboo",
+  "base",
+  "bin",
+  "bins",
+  "black",
+  "blue",
+  "bowl",
+  "bowls",
+  "canvas",
+  "cat",
+  "cats",
+  "ceramic",
+  "clean",
+  "collapsible",
+  "collar",
+  "collars",
+  "container",
+  "containers",
+  "cotton",
+  "daily",
+  "dish",
+  "dishes",
+  "dishwasher",
+  "dispenser",
+  "dispensers",
+  "dog",
+  "dogs",
+  "elevated",
+  "feeder",
+  "feeders",
+  "foldable",
+  "for",
+  "from",
+  "glass",
+  "grade",
+  "green",
+  "holder",
+  "holders",
+  "harness",
+  "harnesses",
+  "indoor",
+  "jar",
+  "jars",
+  "kitten",
+  "kittens",
+  "large",
+  "lid",
+  "lids",
+  "loop",
+  "loops",
+  "made",
+  "mat",
+  "mats",
+  "medium",
+  "metal",
+  "non",
+  "of",
+  "outdoor",
+  "pet",
+  "pets",
+  "plastic",
+  "pocket",
+  "pockets",
+  "portable",
+  "pouch",
+  "pouches",
+  "puppies",
+  "puppy",
+  "puzzle",
+  "puzzles",
+  "red",
+  "rubber",
+  "safe",
+  "scoop",
+  "scoops",
+  "silicone",
+  "slip",
+  "slow",
+  "small",
+  "stainless",
+  "station",
+  "stations",
+  "steel",
+  "storage",
+  "the",
+  "to",
+  "toy",
+  "toys",
+  "training",
+  "travel",
+  "use",
+  "wash",
+  "washable",
+  "water",
+  "white",
+  "with",
+  "without",
+  "wood",
+  "wooden",
+  "yellow"
+]);
+
+const FOOD_ACCESSORY_PHRASES = [
+  /food[-_\s]*(?:&|and)[-_\s]*water[-_\s]*(?:bowls?|dish(?:es)?|dispensers?|mats?|stations?)\b/gi,
+  /food[-_\s]*grade\b/gi,
+  /food[-_\s]*(?:bowls?|containers?|dish(?:es)?|dispensers?|mats?|puzzles?|scoops?|stations?|storage(?:[-_\s]*(?:bins?|containers?))?|toys?)\b/gi
+] as const;
+
+const TREAT_ACCESSORY_PHRASES = [
+  /treat[-_\s]*training[-_\s]*(?:bags?|pouch(?:es)?)\b/gi,
+  /treats?[-_\s]*(?:bags?|containers?|dispensers?|holders?|jars?|loops?|pockets?|pouch(?:es)?|storage(?:[-_\s]*(?:bins?|containers?|jars?))?|toys?)\b/gi
+] as const;
+
+const FOOD_SCOPE_PATTERN =
+  /food(?:\b|[-_\s]*(?:(?:&|and)[-_\s]*water[-_\s]*(?:bowls?|dish(?:es)?|dispensers?|mats?|stations?)|grade\b|(?:bowls?|containers?|dish(?:es)?|dispensers?|mats?|puzzles?|scoops?|stations?|storage(?:[-_\s]*(?:bins?|containers?))?|toys?)\b))/i;
+
+const TREAT_SCOPE_PATTERN =
+  /treats?(?:\b|[-_\s]*(?:training[-_\s]*(?:bags?|pouch(?:es)?)|(?:bags?|containers?|dispensers?|holders?|jars?|loops?|pockets?|pouch(?:es)?|storage(?:[-_\s]*(?:bins?|containers?|jars?))?|toys?)\b))/i;
+
+type ScopeTextViews = {
+  boundaryPreserving: string;
+  compact: string;
+};
+
+function normalizeScopeText(value: string): ScopeTextViews {
+  const compatibleValue = value.normalize("NFKC").replace(UNICODE_DASH_PATTERN, "-");
+  const normalizeWhitespace = (text: string) => text.replace(/\s+/g, " ").trim();
+
+  return {
+    boundaryPreserving: normalizeWhitespace(compatibleValue.replace(/\p{Cf}/gu, " ")),
+    compact: normalizeWhitespace(compatibleValue.replace(/\p{Cf}/gu, ""))
+  };
+}
+
+function stripAccessoryPhrases(value: string, patterns: readonly RegExp[]): string {
+  return patterns.reduce((remaining, pattern) => remaining.replace(pattern, " "), value);
+}
+
+function hasOnlySafeAccessoryContext(value: string): boolean {
+  const contextTokens = value.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [];
+  return contextTokens.every((token) => SAFE_ACCESSORY_CONTEXT_TOKENS.has(token));
+}
+
+function hasObfuscatedUnsupportedText(value: string): boolean {
+  const formatBearingTokens = value.normalize("NFKC").match(/[\p{L}\p{N}\p{Cf}]+/gu) ?? [];
+
+  return formatBearingTokens.some((token) => {
+    if (!/\p{Cf}/u.test(token)) {
+      return false;
+    }
+
+    return OBFUSCATED_UNSUPPORTED_TOKEN_PATTERN.test(token.replace(/\p{Cf}/gu, ""));
+  });
+}
+
+function hasUnsupportedFoodText(value: string): boolean {
+  const { boundaryPreserving, compact } = normalizeScopeText(value);
+  const boundaryHasScope = FOOD_SCOPE_PATTERN.test(boundaryPreserving);
+  const compactHasScope = FOOD_SCOPE_PATTERN.test(compact);
+
+  if (!boundaryHasScope && !compactHasScope) {
+    return false;
+  }
+
+  if (!boundaryHasScope && compactHasScope) {
+    return true;
+  }
+
+  if (
+    INGESTIBLE_PRODUCT_CONTEXT.test(boundaryPreserving) ||
+    INGESTIBLE_PRODUCT_CONTEXT.test(compact)
+  ) {
+    return true;
+  }
+
+  if (!compactHasScope) {
+    return true;
+  }
+
+  const remainingText = stripAccessoryPhrases(compact, FOOD_ACCESSORY_PHRASES);
+  return FOOD_SCOPE_PATTERN.test(remainingText) || !hasOnlySafeAccessoryContext(remainingText);
+}
+
+function hasUnsupportedTreatText(value: string): boolean {
+  const { boundaryPreserving, compact } = normalizeScopeText(value);
+  const boundaryHasScope = TREAT_SCOPE_PATTERN.test(boundaryPreserving);
+  const compactHasScope = TREAT_SCOPE_PATTERN.test(compact);
+
+  if (!boundaryHasScope && !compactHasScope) {
+    return false;
+  }
+
+  if (!boundaryHasScope && compactHasScope) {
+    return true;
+  }
+
+  if (
+    INGESTIBLE_PRODUCT_CONTEXT.test(boundaryPreserving) ||
+    INGESTIBLE_PRODUCT_CONTEXT.test(compact)
+  ) {
+    return true;
+  }
+
+  if (!compactHasScope) {
+    return true;
+  }
+
+  const remainingText = stripAccessoryPhrases(compact, TREAT_ACCESSORY_PHRASES);
+  return TREAT_SCOPE_PATTERN.test(remainingText) || !hasOnlySafeAccessoryContext(remainingText);
+}
 
 function isBlank(value: string | undefined): boolean {
   return value === undefined || value.trim().length === 0;
@@ -243,9 +460,15 @@ function getListingTextFields(input: AuditRequest): ListingTextField[] {
 
 function getUnsupportedListingText(input: AuditRequest): UnsupportedListingText[] {
   return getListingTextFields(input).flatMap((field) => {
-    const matchedLabels = UNSUPPORTED_CLAIM_PATTERNS.filter(({ pattern }) =>
-      pattern.test(field.value)
-    ).map(({ label }) => label);
+    const normalizedValues = Object.values(normalizeScopeText(field.value));
+    const matchedLabels = [
+      ...(hasUnsupportedFoodText(field.value) ? ["food"] : []),
+      ...(hasUnsupportedTreatText(field.value) ? ["treat"] : []),
+      ...(hasObfuscatedUnsupportedText(field.value) ? ["obfuscated scope wording"] : []),
+      ...UNSUPPORTED_CLAIM_PATTERNS.filter(({ pattern }) =>
+        normalizedValues.some((normalizedValue) => pattern.test(normalizedValue))
+      ).map(({ label }) => label)
+    ];
 
     return matchedLabels.length > 0
       ? [
@@ -263,10 +486,23 @@ function formatUnsupportedEvidence({
   value,
   matchedLabels
 }: UnsupportedListingText): string {
-  const fullEvidence = `${path}=${value}`;
+  const hasFormatControl = /\p{Cf}/u.test(value);
+  const normalizedSuffix = hasFormatControl
+    ? `;normalized=${normalizeScopeText(value).compact}`
+    : "";
+  const fullEvidence = `${path}=${value}${normalizedSuffix}`;
 
   if (fullEvidence.length <= 500) {
     return fullEvidence;
+  }
+
+  if (hasFormatControl) {
+    const normalizedValue = normalizeScopeText(value).compact;
+    const labelPreview = matchedLabels.join(",").slice(0, 100);
+    const normalizedPreview =
+      normalizedValue.length > 96 ? `${normalizedValue.slice(0, 93)}...` : normalizedValue;
+
+    return `${path}=matched:${labelPreview};normalized=${normalizedPreview};valueSha256=${sha256(value)};normalizedSha256=${sha256(normalizedValue)}`;
   }
 
   return `${path}=matched:${matchedLabels.join(",")};valueSha256=${sha256(value)}`;
@@ -463,16 +699,18 @@ export const RULES: readonly Rule[] = [
       return createFinding({
         ruleId: "PS-008",
         severity: "HUMAN_REVIEW",
-        title: "Unsupported medical or ingestible claim detected",
+        title: "Unsupported medical or ingestible wording detected",
         reason:
           "The listing includes medical or ingestible language that falls outside PawSift's supported non-veterinary scope.",
         evidence: unsupportedListingText.map(formatUnsupportedEvidence),
         remediation: "Remove medical or ingestible language and restate only observable product facts."
       });
     },
-    ownerQuestions: () => ["Can you remove medical, treatment, or ingestible language from the claims?"],
+    ownerQuestions: () => [
+      "Can you remove medical, treatment, or ingestible language from the submitted product listing?"
+    ],
     listingPatch: () => [
-      "Replace medical or ingestible claims with observable, non-veterinary product facts."
+      "Replace medical or ingestible wording with observable, non-veterinary product facts."
     ]
   },
   {

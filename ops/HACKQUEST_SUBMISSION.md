@@ -50,7 +50,7 @@ Pet-product listings often hide the facts that determine fit: supported species 
 - Use the live Bybit-inspired operator console: https://pawsift.vercel.app
 - Call the free A2MCP endpoint: https://pawsift.vercel.app/api/v1/audit
 - Inspect the contract: https://pawsift.vercel.app/openapi.json
-- Replay eleven checked-in fixtures: https://pawsift.vercel.app/api/v1/examples
+- Replay twelve checked-in fixtures: https://pawsift.vercel.app/api/v1/examples
 - Recompute the content-addressed receipts from `proof/proof.json`
 - Review the public MIT repository: https://github.com/stetang98/pawsift
 
@@ -68,7 +68,7 @@ PawSift is not veterinary advice. It does not approve food, treats, supplements,
 - RFC 8785-aligned canonical JSON behavior and SHA-256 receipts
 - Public CORS, payload limits, sanitized errors, HSTS, and no request persistence
 - Reproducible proof bound to a pinned Git commit, Git blobs, deployment health, and hosted fixture hashes
-- 122 automated tests plus desktop/mobile browser QA
+- 131 automated tests plus 9 desktop/mobile browser flows
 
 ## OKX.AI integration
 

@@ -176,6 +176,23 @@ export const unsupportedClaimFixture: AuditRequest = {
   }
 };
 
+export const unsupportedFoodNameFixture: AuditRequest = {
+  pet: {
+    species: "dog",
+    lifeStage: "adult",
+    weightKg: 8.2,
+    traits: ["food-motivated"]
+  },
+  product: {
+    name: "Freeze-Dried Food",
+    category: "feeder",
+    intendedSpecies: ["dog"],
+    materials: ["animal_protein"],
+    careInstructions: "Store sealed in a cool, dry place.",
+    claims: ["single ingredient"]
+  }
+};
+
 export const missingWeightSupportFixture: AuditRequest = {
   pet: {
     species: "cat",
@@ -282,6 +299,14 @@ export const AUDIT_FIXTURES: readonly AuditFixture[] = [
     label: "Unsupported claim",
     summary: "A listing that makes medical treatment claims.",
     request: unsupportedClaimFixture,
+    expectedVerdict: "HUMAN_REVIEW",
+    expectedRuleIds: ["PS-008"]
+  },
+  {
+    id: "unsupported-food-name",
+    label: "Food title boundary",
+    summary: "An ingestible listing identified from the product name rather than its claims.",
+    request: unsupportedFoodNameFixture,
     expectedVerdict: "HUMAN_REVIEW",
     expectedRuleIds: ["PS-008"]
   },

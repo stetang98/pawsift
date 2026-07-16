@@ -115,7 +115,7 @@ test("unsupported scope flow surfaces HUMAN_REVIEW guidance", async ({ page }) =
   await expect(
     page.locator("li").filter({
       hasText:
-        /^Replace medical or ingestible claims with observable, non-veterinary product facts\.$/
+        /^Replace medical or ingestible wording with observable, non-veterinary product facts\.$/
     })
   ).toBeVisible();
 });

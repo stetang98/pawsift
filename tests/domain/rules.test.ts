@@ -20,7 +20,7 @@ const maxLengthUnsupportedText = `${"x".repeat(490)} medicated`;
 
 describe("rules metadata", () => {
   it("publishes a stable ordered ruleset", () => {
-    expect(RULESET_VERSION).toBe("2026.07.2");
+    expect(RULESET_VERSION).toBe("2026.07.7");
     expect(RULES.map((rule) => rule.id)).toEqual([
       "PS-001",
       "PS-002",
@@ -40,6 +40,18 @@ describe("rules metadata", () => {
     expect(AUDIT_FIXTURES.find((fixture) => fixture.id === "missing-weight-support")).toMatchObject({
       expectedVerdict: "CAUTION",
       expectedRuleIds: ["PS-011"]
+    });
+  });
+
+  it("publishes a food-title safety fixture in the proof deck", () => {
+    expect(AUDIT_FIXTURES.find((fixture) => fixture.id === "unsupported-food-name")).toMatchObject({
+      expectedVerdict: "HUMAN_REVIEW",
+      expectedRuleIds: ["PS-008"],
+      request: {
+        product: {
+          name: "Freeze-Dried Food"
+        }
+      }
     });
   });
 });
@@ -228,7 +240,72 @@ describe("auditProduct", () => {
     }
   );
 
-  it.each(["Premium Cat Food", "Freeze-Dried Dog Treats"])(
+  it.each(["F​ood​Bowl", "Flea​ Treatment Collar", "safe​ to eat"])(
+    "makes hidden scope-control characters visible in PS-008 evidence for %s",
+    (name) => {
+      const report = auditProduct({
+        pet: clearCatCollarFixture.pet,
+        product: {
+          ...clearCatCollarFixture.product,
+          name,
+          claims: ["adjustable"]
+        }
+      });
+
+      expect(report.verdict).toBe("HUMAN_REVIEW");
+      expect(report.findings[0]?.evidence[0]).toContain(";normalized=");
+    }
+  );
+
+  it("keeps normalized obfuscation evidence visible and bounded for maximum-length text", () => {
+    const name = `${"x".repeat(494)} F\u200Bood`;
+    const report = auditProduct({
+      pet: clearCatCollarFixture.pet,
+      product: {
+        ...clearCatCollarFixture.product,
+        name,
+        claims: ["adjustable"]
+      }
+    });
+    const evidence = report.findings[0]?.evidence[0] ?? "";
+
+    expect(report.verdict).toBe("HUMAN_REVIEW");
+    expect(evidence).toContain(";normalized=");
+    expect(evidence).toContain(";valueSha256=");
+    expect(evidence).toContain(";normalizedSha256=");
+    expect(evidence.length).toBeLessThanOrEqual(500);
+  });
+
+  it.each([
+    "Premium Cat Food",
+    "Freeze-Dried Dog Treats",
+    "Freeze-Dried Food",
+    "Freeze-Dried Treats",
+    "Freeze-Dried Food Bowl",
+    "Single-Ingredient Treat Pouch",
+    "Duck Meat Treat Pouch",
+    "Venison Food Bowl",
+    "鹿肉 Food Bowl",
+    "Freeze-Dried F​ood Bowl",
+    "Venison Food​Bowl",
+    "Duck Meat Treat​Pouch",
+    "F​ood Bowl",
+    "F​ood​Bowl",
+    "Tre​at Pouch",
+    "Medicated​Collar",
+    "Medica​ted​Collar",
+    "Flea​Treatment Collar",
+    "s​afe​to​eat",
+    "MedicatedCollar",
+    "Freeze-Dried FoodBowl",
+    "Venison FoodBowl",
+    "Duck Meat TreatPouch",
+    "Freeze_Dried Food_Bowl",
+    "Venison Food_Bowl",
+    "Duck Meat Treat_Pouch",
+    "Freeze‑Dried Food Bowl",
+    "Single‑Ingredient Treat Pouch"
+  ])(
     "routes the realistic excluded product name %s to PS-008",
     (name) => {
       const report = auditProduct({
@@ -242,9 +319,50 @@ describe("auditProduct", () => {
 
       expect(report.verdict).toBe("HUMAN_REVIEW");
       expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-008"]);
-      expect(report.findings[0]?.evidence).toContain(`product.name=${name}`);
+      expect(report.findings[0]?.title).toBe("Unsupported medical or ingestible wording detected");
+      expect(
+        report.findings[0]?.evidence.some((evidence) => evidence.startsWith(`product.name=${name}`))
+      ).toBe(true);
+      expect(report.ownerQuestions).toContain(
+        "Can you remove medical, treatment, or ingestible language from the submitted product listing?"
+      );
+      expect(report.listingPatch).toContain(
+        "Replace medical or ingestible wording with observable, non-veterinary product facts."
+      );
     }
   );
+
+  it.each([
+    "Stainless Food Bowl",
+    "Stainless Food Bowls",
+    "Food and Water Station",
+    "Food and Water Stations",
+    "Food-Grade Silicone Mat",
+    "Food-Grade Silicone Mats",
+    "Dog Treat Training Pouch",
+    "Dog Treat Training Pouches",
+    "Treat Storage Jar",
+    "Treat Storage Jars",
+    "Stainless Food-Bowls",
+    "Treat-Storage Jars",
+    "Cute 🐶‍🦺 Harness",
+    "Health‍y Harness",
+    "Foodie​ Harness",
+    "Flea​Market Harness",
+    "Stain​less Food Bowl"
+  ])("keeps the non-ingestible accessory name %s in scope", (name) => {
+    const report = auditProduct({
+      pet: clearCatCollarFixture.pet,
+      product: {
+        ...clearCatCollarFixture.product,
+        name,
+        claims: ["adjustable"]
+      }
+    });
+
+    expect(report.verdict).toBe("CLEAR");
+    expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-010"]);
+  });
 
   it.each([
     {

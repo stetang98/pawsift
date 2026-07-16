@@ -35,7 +35,7 @@ The service needs no account, pet name, owner identity, contact information, wal
 - Non-finite and negative measurements are rejected.
 - Invalid JSON, unsupported media type, oversized payload, and unexpected failures return sanitized errors.
 - The result always repeats the non-veterinary boundary.
-- Unsupported medical or ingestible wording is scanned across every submitted product-listing text field and routes to human review rather than being silently accepted.
+- Unsupported medical or ingestible wording is scanned across every submitted product-listing text field and routes to human review rather than being silently accepted. Explicit non-ingestible accessory phrases such as food bowls, food stations, food-grade mats, and treat pouches remain in scope only when surrounding words are recognized accessory descriptors; unknown or ingestible qualifiers route conservatively to human review.
 - Collars/harnesses require minimum and maximum supported weight; carriers and beds require maximum supported weight before the listing can be marked complete.
 
 ## Responsible use
