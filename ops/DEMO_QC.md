@@ -1,28 +1,29 @@
 # PawSift demo video QC
 
 Date: 2026-07-16
-Candidate: `artifacts/demo/pawsift-demo-final-v5-v4.mp4`
+Candidate: `artifacts/demo/pawsift-demo-final-v5-v5.mp4`
 
 ## Encoding
 
 | Field | Verified value |
 | --- | --- |
 | Duration | `88.900000` seconds |
-| File size | `6,513,854` bytes |
+| File size | `6,775,103` bytes |
 | Video | H.264 High, `1920 x 1080`, `30 fps` |
 | Pixel format | `yuv420p`, BT.709 TV range |
 | Audio | AAC LC, `48 kHz`, stereo |
-| Integrated loudness | `-16.19 LUFS` |
-| True peak | `-1.92 dBTP` |
-| SHA-256 | `4a1dd2fe677b6e396b074446ae4cb6505deedab158795df2cc8fe2728b0630dc` |
+| Integrated loudness | `-16.09 LUFS` |
+| True peak | `-1.61 dBTP` |
+| SHA-256 | `8042caffb400ec32676a9f866b69b3ffc6d16ebf675c55237ef07fc725d17453` |
 
 ## Visual and claim checks
 
 - `blackdetect` reported no black interval of `0.45` seconds or longer.
-- A ten-frame contact sheet and full-resolution frames covering CLEAR, PS-011, proof, OpenAPI, PS-008, and OKX status were inspected.
+- Full-resolution frames covering CLEAR, PS-011, proof, public HTTP 200 evidence, OpenAPI, PS-008, and OKX status were inspected.
 - English subtitles are burned in from full-video Whisper word timings; wording follows the narration rather than paraphrasing it.
 - Subtitle size was reduced after full-resolution inspection so captions remain readable without hiding the product surface.
 - The video shows ruleset `2026.07.7`, the current clear receipt, audited source commit `0a605986ba4b8dffe83a4ec0215fae660ec5d463`, PS-011 missing-weight guidance, and `product.name` normalized PS-008 evidence.
+- The public API segment shows a real `curl -i -X POST https://pawsift.vercel.app/api/v1/audit` response with `HTTP/2 200` and `x-pawsift-ruleset: 2026.07.7`.
 - The OKX.AI sequence shows real Agent ID `6036` and the exact current state `Listing under review`.
 - The video does not claim that PawSift is approved, publicly listed, generating sales, or processing payments.
 - The final narration uses the same natural Ryan voice pipeline as the approved source cues; changed lines were regenerated without synthetic speed-up.

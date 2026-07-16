@@ -17,7 +17,7 @@ Target runtime: at most 90 seconds. Language: English. Delivery: calm, natural p
 
 The final edit remains at or below 90 seconds without accelerating speech unnaturally.
 
-Final local candidate: `artifacts/demo/pawsift-demo-final-v5-v4.mp4` (`88.9` seconds, SHA-256 `4a1dd2fe677b6e396b074446ae4cb6505deedab158795df2cc8fe2728b0630dc`). See `ops/DEMO_QC.md` for the verification record.
+Final local candidate: `artifacts/demo/pawsift-demo-final-v5-v5.mp4` (`88.9` seconds, SHA-256 `8042caffb400ec32676a9f866b69b3ffc6d16ebf675c55237ef07fc725d17453`). See `ops/DEMO_QC.md` for the verification record.
 
 ## Capture contract
 
