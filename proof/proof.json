@@ -7,8 +7,8 @@
     "license": "MIT"
   },
   "source": {
-    "auditedCommit": "79b65f666695daaf488da6fe7c41efca4a0c8272",
-    "generatedAt": "2026-07-15T19:35:12-04:00",
+    "auditedCommit": "bea5d399fdba66a06f77cb25654961b1dc64d587",
+    "generatedAt": "2026-07-15T20:08:18-04:00",
     "rulesetVersion": "2026.07.1",
     "rulesSource": "src/domain/rules.ts",
     "fixtureSource": "src/domain/fixtures.ts",
@@ -20,8 +20,8 @@
       },
       {
         "path": "ops/DEPLOYMENT.md",
-        "gitBlob": "6df29489831296d3e1a4f9af179008e54d1358c0",
-        "sha256": "244c57d9c3c22c9ffee2bb7dd744498b1129a0eed6754a09fbe6c42d58a430f7"
+        "gitBlob": "045f078d1df2100676801c8da3cf88b4824f3930",
+        "sha256": "08d6adde9b1f45ba341ae1641871ecd80b3b130eecd4d3391eee08b2ee2c46cf"
       },
       {
         "path": "package.json",
@@ -106,7 +106,7 @@
     "paymentMode": "free_launch",
     "verification": {
       "endpoint": "https://pawsift.vercel.app",
-      "verifiedAt": "2026-07-15T23:10:27Z",
+      "verifiedAt": "2026-07-16T00:04:00Z",
       "health": {
         "url": "https://pawsift.vercel.app/api/v1/health",
         "status": "ok",
@@ -118,7 +118,7 @@
         "reportHash": "fed257dc7065eea1bb30f3082d72e29f3467ec03eccedd056b154d5ff59b7f3b"
       },
       "evidencePath": "ops/DEPLOYMENT.md",
-      "evidenceSha256": "244c57d9c3c22c9ffee2bb7dd744498b1129a0eed6754a09fbe6c42d58a430f7"
+      "evidenceSha256": "08d6adde9b1f45ba341ae1641871ecd80b3b130eecd4d3391eee08b2ee2c46cf"
     }
   },
   "payments": {
@@ -291,5 +291,5 @@
       "npm test -- --run tests/proof/proof.test.ts"
     ]
   },
-  "documentHash": "c0b81b46d8367eace5e3740f30e680ad39e7c98d722cb86751ef300e7a584c1f"
+  "documentHash": "a9a85470aa6e8c5da713c880e88a404624427680ef5ea1cce7fdcc4d551c6eb0"
 }
