@@ -1,22 +1,23 @@
 # PawSift demo script
 
-Target runtime: 78-84 seconds. Language: English. Delivery: calm, natural product-demo voice at roughly 135 words per minute. Subtitles must use the exact narration and be aligned from the final voice waveform, not estimated timestamps.
+Target runtime: at most 90 seconds. Language: English. Delivery: calm, natural product-demo voice. Subtitles use the exact narration and final full-video Whisper timings, not estimated timestamps.
 
 ## Shot and narration plan
 
 | Time | Visual | Narration |
 | --- | --- | --- |
-| 0:00-0:06 | Production console opens; PawSift logo, live status, and compact Bybit-inspired workspace visible. | Pet listings can look complete while hiding the facts that actually decide fit. PawSift turns those facts into an auditable answer. |
-| 0:06-0:19 | Load the exact UI fixture `Clear collar example`, run the audit, then frame the green `CLEAR` verdict and score. | This is a free Lifestyle A2MCP service on OKX.AI. I load a cat collar example, run the same production API used by agents, and get a clear verdict from versioned rules. |
-| 0:19-0:34 | Load the exact UI fixture `Missing materials`, run, frame `CAUTION`, PS-003 evidence, missing fact, owner question, and listing patch. | Now the grooming listing omits materials. PawSift returns caution, cites the exact rule, asks for the missing fact, and drafts a seller-ready correction instead of guessing. |
-| 0:34-0:47 | Expand JSON receipt and show input hash, report hash, ruleset, copy/download controls. | Every result includes canonical SHA-256 input and report hashes. The checked-in proof binds these receipts to the audited Git commit and hosted fixture response. |
-| 0:47-1:01 | Open `/openapi.json`, then show a terminal or API client calling `POST /api/v1/audit` and receiving HTTP 200. | The endpoint is public, schema-strict, OpenAPI documented, and needs no wallet, account, model key, or private data. Shopping agents can call it directly. |
-| 1:01-1:13 | Show medical or ingestible wording returning `HUMAN_REVIEW`, with safety boundary visible. | PawSift stays narrow. Food, medication, pesticides, and medical wording anywhere in the submitted product listing never receives automated approval; it routes to human review. |
-| 1:13-1:24 | Show the public registration evidence with real Agent ID `6036` and the current `Listing under review` state, then return to the live console. | PawSift is registered on OKX A I as Agent six zero three six and is now under review. Know what fits before your pet finds out. |
+| 0:00-0:10 | Production console opens; PawSift logo, endpoint status, ruleset `2026.07.7`, Agent 6036, and Bybit-inspired workspace are visible. | Pet listings can look complete while hiding the facts that actually decide fit. PawSift turns those facts into an auditable answer. |
+| 0:10-0:24 | Show the exact current `CLEAR` collar result, PS-010, score, ruleset, and receipt. | This is a free Lifestyle A2MCP service for OKX.AI. I load a cat collar example, run the same production API used by agents, and get a clear verdict from versioned rules. |
+| 0:24-0:37 | Show `Missing weight support`, PS-011, both missing bounds, operator question, and listing patch. | Now the collar omits its supported weight range. PawSift returns caution, cites PS zero eleven, asks for both limits, and drafts a seller-ready correction instead of guessing. |
+| 0:37-0:49 | Show the current clear receipt followed by public `proof/proof.json`, audited commit, and ruleset. | Every result includes canonical SHA-256 input and report hashes. The checked-in proof binds these receipts to the audited Git commit and hosted fixture response. |
+| 0:49-1:02 | Show the current public OpenAPI source. | The endpoint is public, schema-strict, OpenAPI documented, and needs no wallet, account, model key, or private data. Shopping agents can call it directly. |
+| 1:02-1:15 | Show a zero-width-obfuscated product name returning PS-008 `HUMAN_REVIEW` with `product.name` and `normalized=...` evidence. | PawSift stays narrow. Food or medical wording, even when hidden with zero-width text in the product name, is normalized and routed to human review. |
+| 1:15-1:26 | Show public OKX registration evidence with Agent ID `6036`, `Listing under review`, `not listed`, A2MCP, and 0 USDT. | PawSift is registered on OKX.AI as Agent six zero three six and is now under review. Know what fits before your pet finds out. |
+| 1:26-1:29 | Return to the production console for a clean silent outro. | No narration. |
 
-Estimated narration: about 180 words. The final edit must trim pauses or lines as needed to remain at or below 90 seconds without accelerating speech unnaturally.
+The final edit remains at or below 90 seconds without accelerating speech unnaturally.
 
-Final reviewed candidate: `artifacts/demo/pawsift-demo-final-v4.mp4` (`81.4` seconds, SHA-256 `42efe405845e4d6760617f346e4ec5773c72a511dc2710711aec888c9ff1062f`). See `ops/DEMO_QC.md` for the verification record.
+Final local candidate: `artifacts/demo/pawsift-demo-final-v5-v4.mp4` (`88.9` seconds, SHA-256 `4a1dd2fe677b6e396b074446ae4cb6505deedab158795df2cc8fe2728b0630dc`). See `ops/DEMO_QC.md` for the verification record.
 
 ## Capture contract
 

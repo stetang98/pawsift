@@ -21,7 +21,7 @@ PawSift is a deterministic fit and listing-quality audit for non-ingestible cat 
 | Vercel HTTPS deployment | Live and verified: `https://pawsift.vercel.app` |
 | OKX.AI identity and Agent ID | Registered: Agent ID `6036` |
 | ASP review/live listing | `Listing under review`; not publicly listed |
-| Demo | Local reviewer candidate ready: `artifacts/demo/pawsift-demo-final-v4.mp4` |
+| Demo | Local reviewer candidate ready: `artifacts/demo/pawsift-demo-final-v5-v4.mp4` |
 | X post | Prepared but not published |
 | HackQuest and Google Form | Pending |
 
@@ -50,7 +50,7 @@ git diff --check
 8. Check that deployment, listing, sales, payment, and transaction claims match public evidence.
 9. Exercise desktop plus 320 px and 390 px mobile layouts for overflow, overlap, keyboard use, and 44 px controls.
 10. Scan tracked text for secrets, private keys, wallet material, and real API tokens.
-11. Inspect `ops/DEMO_QC.md`, play the complete local `v4` video, and verify that captions match the narration and no frame implies OKX.AI approval.
+11. Inspect `ops/DEMO_QC.md`, play the complete local `v5-v4` video, verify the current ruleset/receipts/evidence, confirm captions match the narration, and confirm no frame implies OKX.AI approval.
 
 ## Expected honest launch state
 
