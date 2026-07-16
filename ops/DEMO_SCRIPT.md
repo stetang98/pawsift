@@ -12,7 +12,7 @@ Target runtime: 78-84 seconds. Language: English. Delivery: calm, natural produc
 | 0:34-0:47 | Expand JSON receipt and show input hash, report hash, ruleset, copy/download controls. | Every result includes canonical SHA-256 input and report hashes. The checked-in proof binds these receipts to the audited Git commit and hosted fixture response. |
 | 0:47-1:01 | Open `/openapi.json`, then show a terminal or API client calling `POST /api/v1/audit` and receiving HTTP 200. | The endpoint is public, schema-strict, OpenAPI documented, and needs no wallet, account, model key, or private data. Shopping agents can call it directly. |
 | 1:01-1:13 | Show a medical or ingestible claim returning `HUMAN_REVIEW`, with safety boundary visible. | PawSift stays narrow. Food, medication, pesticides, and medical claims never receive automated approval; they route to human review. |
-| 1:13-1:22 | Show the approved OKX.AI PawSift listing and real Agent ID, then return to the live console. | PawSift is live on OKX.AI as a free A2MCP service. Know what fits before your pet finds out. |
+| 1:13-1:24 | Show the public registration evidence with real Agent ID `6036` and the current `Listing under review` state, then return to the live console. | PawSift is registered on OKX A I as Agent six zero three six and is now under review. Know what fits before your pet finds out. |
 
 Estimated narration: about 180 words. The final edit must trim pauses or lines as needed to remain at or below 90 seconds without accelerating speech unnaturally.
 
@@ -22,7 +22,7 @@ Estimated narration: about 180 words. The final edit must trim pauses or lines a
 - Show one complete `CLEAR` action and one complete `CAUTION` action.
 - Show the JSON receipt hashes long enough to read.
 - Show a real HTTP 200 response from the public audit endpoint.
-- Show the approved OKX.AI listing and real Agent ID; do not fabricate this shot.
+- Show the real Agent ID and current official review state. Use the approved OKX.AI listing only after it exists; do not fabricate this shot.
 - Use the generated PawSift logo and real product UI, not placeholder graphics.
 - Hide browser profile details, unrelated tabs, wallet addresses, tokens, notifications, and private account data.
 - Produce synchronized English subtitles from the final narration audio.

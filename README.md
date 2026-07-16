@@ -102,7 +102,9 @@ PawSift is designed as a free A2MCP service:
 - `GET /openapi.json` - machine contract
 - `GET /.well-known/pawsift.json` - ASP metadata and safety boundary
 
-The launch path needs no wallet, private key, model key, or third-party API. A paid x402 adapter is intentionally not claimed or simulated.
+Calling PawSift needs no wallet, private key, model key, or third-party API. Registering the ASP identity used the official Agentic Wallet flow; a paid x402 adapter is intentionally not claimed or simulated.
+
+OKX.AI registration is complete as Agent ID `6036`. The approval request was submitted on 2026-07-15 and currently reports `Listing under review`; no approved-listing claim is made until that state changes.
 
 ## License
 

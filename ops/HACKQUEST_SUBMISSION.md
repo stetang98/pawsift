@@ -2,7 +2,7 @@
 
 Competition: [OKX.AI Genesis Hackathon](https://www.hackquest.io/zh-cn/hackathons/OKXAI-Genesis-Hackathon)
 
-Status: product and public deployment ready; OKX.AI Agent ID, approved listing, X post, and final form receipts remain pending.
+Status: product, public deployment, and OKX.AI Agent ID ready; listing approval, X post, and final form receipts remain pending.
 
 ## Core fields
 
@@ -22,8 +22,9 @@ Status: product and public deployment ready; OKX.AI Agent ID, approved listing, 
 | X | `@Stetang3438` |
 | Telegram | `@Stetang` |
 | Demo URL | `[PENDING_PUBLIC_X_VIDEO_OR_DIRECT_VIDEO_URL]` |
-| OKX.AI Agent ID | `[PENDING_REAL_OKX_AGENT_ID]` |
+| OKX.AI Agent ID | `6036` |
 | OKX.AI listing | `[PENDING_APPROVED_LISTING_URL]` |
+| OKX.AI review state | `Listing under review` |
 
 ## Short description
 
@@ -71,15 +72,16 @@ PawSift is not veterinary advice. It does not approve food, treats, supplements,
 
 ## OKX.AI integration
 
-PawSift is prepared for registration as a free `A2MCP` Lifestyle service on OKX.AI. The listing remains pending until the real Agent ID and approved listing URL below are recorded.
+PawSift is registered as a free `A2MCP` Lifestyle service on OKX.AI. Agent ID `6036` is real and the listing is under review. The public listing URL remains pending until OKX approves it.
 
-- Agent ID: `[PENDING_REAL_OKX_AGENT_ID]`
+- Agent ID: `6036`
 - Listing: `[PENDING_APPROVED_LISTING_URL]`
+- Review state: `Listing under review`
 - Endpoint: https://pawsift.vercel.app/api/v1/audit
 
 ## Honest launch state
 
-The launch fee is `0` USDT. Observed sales and transaction hashes are both zero; no revenue or payment proof is claimed.
+The launch fee is `0` USDT. Observed sales are zero and there are no sales or payment transaction hashes. The separate identity-registration transaction is recorded in `ops/OKX_REGISTRATION_EVIDENCE.md`; no revenue or payment proof is claimed.
 ```
 
 ## Visual assets
@@ -100,7 +102,7 @@ The live form was inspected on 2026-07-15. Every field below is required.
 | Google Form field | Exact value |
 | --- | --- |
 | ASP Name | `PawSift` |
-| Agent ID | `[PENDING_REAL_OKX_AGENT_ID]` |
+| Agent ID | `6036` |
 | ASP Description | Use the ASP description in `ops/ASP_LISTING.md` verbatim |
 | ASP Type | `A2MCP` |
 | X Account Handle | `@Stetang3438` |

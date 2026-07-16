@@ -1,19 +1,19 @@
 # PawSift X participation post
 
-Status: prepared; publish only after the OKX.AI listing is approved and the reviewed video is attached.
+Status: prepared; publish only after the reviewer clears the final video. If OKX approval arrives first, replace the review wording with the verified public listing URL.
 
 ## Main post
 
-Attach `artifacts/demo/pawsift-demo-final.mp4` directly to this post, then replace only the real Agent ID.
+Attach `artifacts/demo/pawsift-demo-final.mp4` directly to this post. Agent ID `6036` is verified; preserve honest review-state wording until approval is confirmed.
 
 ```text
-PawSift is live on OKX.AI (Agent ID: [PENDING_REAL_OKX_AGENT_ID]). This free A2MCP audit turns pet + listing facts into fit verdicts, rule evidence, fixes and SHA-256 receipts. Try it: https://pawsift.vercel.app Code: github.com/stetang98/pawsift #OKXAI
+PawSift is submitted to OKX.AI review (Agent ID: 6036). This free A2MCP audit turns pet + listing facts into fit verdicts, rule evidence, fixes and SHA-256 receipts. Try it: https://pawsift.vercel.app Code: github.com/stetang98/pawsift #OKXAI
 ```
 
 ## Video alt text
 
 ```text
-An 80-second walkthrough of PawSift showing the Bybit-inspired web console, CLEAR and CAUTION pet-product audits, rule-level findings, a reproducible SHA-256 receipt, the public A2MCP API, and the approved OKX.AI listing.
+An 80-second walkthrough of PawSift showing the Bybit-inspired web console, CLEAR and CAUTION pet-product audits, rule-level findings, a reproducible SHA-256 receipt, the public A2MCP API, and real OKX.AI Agent ID 6036 under review.
 ```
 
 ## Optional first reply
@@ -25,7 +25,7 @@ PawSift is intentionally narrow: non-ingestible cat and dog supplies only. Medic
 ## Publication checks
 
 - `#OKXAI` is present exactly.
-- The real Agent ID replaces the placeholder.
+- Agent ID `6036` is present and the wording matches the current official review state.
 - The reviewed video is attached and is no longer than 90 seconds.
 - The post is public and plays while signed out.
 - Live site and repository links resolve.
