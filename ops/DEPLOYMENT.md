@@ -1,6 +1,6 @@
 # Production deployment evidence
 
-Verified: 2026-07-15
+Verified: 2026-07-16T00:04:00Z
 
 ## Public surfaces
 
@@ -12,7 +12,7 @@ Verified: 2026-07-15
 - OpenAPI: `https://pawsift.vercel.app/openapi.json`
 - Metadata: `https://pawsift.vercel.app/.well-known/pawsift.json`
 
-The stable alias points to Vercel production deployment `pawsift-lapgy0mqc-stetang-s-projects.vercel.app`.
+The stable alias points to Vercel production deployment `pawsift-5jf1e4fhv-stetang-s-projects.vercel.app` (`dpl_ChJphN7uVYeBhASKXdeGgyLZWdYr`). The deployed source is public on `main` at `0fbea54`.
 
 ## Contract checks
 
@@ -47,7 +47,7 @@ The `live` state is accepted only for the stable PawSift production origin, the 
 
 ## Browser QA
 
-- Desktop production flow passed at 1440 x 1024 with the `CLEAR` result visible.
+- Desktop production flow was rerun against the deployment above at 1440 x 1024 with the `CLEAR` result, PS-010 evidence, and canonical receipt visible.
 - Mobile production flow passed at 390 x 844 with the `CLEAR` result visible.
 - One rendered brand image was present in both views.
 - Browser diagnostic logs were empty in both views.
