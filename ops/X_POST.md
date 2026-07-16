@@ -13,7 +13,7 @@ PawSift is submitted to OKX.AI review (Agent ID: 6036). This free A2MCP audit tu
 ## Video alt text
 
 ```text
-An 89-second walkthrough of PawSift showing the Bybit-inspired web console, current CLEAR and PS-011 CAUTION audits, normalized PS-008 HUMAN_REVIEW evidence, reproducible SHA-256 proof, the public A2MCP API, and real OKX.AI Agent ID 6036 under review.
+An 89-second walkthrough of PawSift showing the Bybit-inspired web console, current CLEAR and PS-011 CAUTION audits, normalized PS-008 HUMAN_REVIEW evidence, reproducible SHA-256 proof, a live public API HTTP 200 response, and real OKX.AI Agent ID 6036 under review.
 ```
 
 ## Optional first reply

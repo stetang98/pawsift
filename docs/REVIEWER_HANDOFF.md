@@ -50,7 +50,7 @@ git diff --check
 8. Check that deployment, listing, sales, payment, and transaction claims match public evidence.
 9. Exercise desktop plus 320 px and 390 px mobile layouts for overflow, overlap, keyboard use, and 44 px controls.
 10. Scan tracked text for secrets, private keys, wallet material, and real API tokens.
-11. Inspect `ops/DEMO_QC.md`, play the complete local `v5-v5` video, verify the current ruleset/receipts/evidence, confirm captions match the narration, and confirm no frame implies OKX.AI approval.
+11. Inspect `ops/DEMO_QC.md`, play the complete local `v5-v5` video, verify the live HTTP 200 response, current ruleset/receipts, public-safe official CLI evidence, full BT.709 signaling, caption/narration alignment, and that no frame implies OKX.AI approval.
 
 ## Expected honest launch state
 
