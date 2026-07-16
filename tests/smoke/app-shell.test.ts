@@ -37,4 +37,15 @@ describe("application shell", () => {
     expect(markup).toContain('width="32" height="32"');
     expect(markup).toContain('id="audit-console-root"');
   });
+
+  it("shows the verified OKX.AI registration without claiming approval", () => {
+    const markup = renderToStaticMarkup(HomePage());
+
+    expect(markup).toContain("Agent 6036");
+    expect(markup).toContain("Listing under review");
+    expect(markup).toContain(
+      "https://github.com/stetang98/pawsift/blob/main/ops/OKX_REGISTRATION_EVIDENCE.md"
+    );
+    expect(markup).not.toContain("Approved on OKX.AI");
+  });
 });

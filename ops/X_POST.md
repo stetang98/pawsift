@@ -4,7 +4,7 @@ Status: prepared; publish only after the reviewer clears the final video. If OKX
 
 ## Main post
 
-Attach `artifacts/demo/pawsift-demo-final.mp4` directly to this post. Agent ID `6036` is verified; preserve honest review-state wording until approval is confirmed.
+Attach `artifacts/demo/pawsift-demo-final-v4.mp4` directly to this post. Agent ID `6036` is verified; preserve honest review-state wording until approval is confirmed.
 
 ```text
 PawSift is submitted to OKX.AI review (Agent ID: 6036). This free A2MCP audit turns pet + listing facts into fit verdicts, rule evidence, fixes and SHA-256 receipts. Try it: https://pawsift.vercel.app Code: github.com/stetang98/pawsift #OKXAI
@@ -13,7 +13,7 @@ PawSift is submitted to OKX.AI review (Agent ID: 6036). This free A2MCP audit tu
 ## Video alt text
 
 ```text
-An 80-second walkthrough of PawSift showing the Bybit-inspired web console, CLEAR and CAUTION pet-product audits, rule-level findings, a reproducible SHA-256 receipt, the public A2MCP API, and real OKX.AI Agent ID 6036 under review.
+An 81-second walkthrough of PawSift showing the Bybit-inspired web console, CLEAR and CAUTION pet-product audits, rule-level findings, a reproducible SHA-256 receipt, the public A2MCP API, and real OKX.AI Agent ID 6036 under review.
 ```
 
 ## Optional first reply

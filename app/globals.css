@@ -156,6 +156,16 @@ main.audit-page > h1 {
   color: rgba(255, 255, 255, 0.72);
 }
 
+.audit-status-pill-review {
+  border-color: rgba(255, 190, 99, 0.22);
+  background: rgba(255, 190, 99, 0.08);
+  color: #ffbe63;
+}
+
+.audit-status-pill-review:hover {
+  background: rgba(255, 190, 99, 0.14);
+}
+
 .audit-workspace {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
@@ -581,5 +591,15 @@ main.audit-page > h1 {
   .audit-section-header,
   .audit-subsection-header {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 359px) {
+  .audit-command-bar {
+    padding: 56px 8px 10px;
+  }
+
+  .audit-command-status {
+    width: 100%;
   }
 }

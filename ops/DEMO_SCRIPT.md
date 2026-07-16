@@ -16,6 +16,8 @@ Target runtime: 78-84 seconds. Language: English. Delivery: calm, natural produc
 
 Estimated narration: about 180 words. The final edit must trim pauses or lines as needed to remain at or below 90 seconds without accelerating speech unnaturally.
 
+Final reviewed candidate: `artifacts/demo/pawsift-demo-final-v4.mp4` (`81.4` seconds, SHA-256 `42efe405845e4d6760617f346e4ec5773c72a511dc2710711aec888c9ff1062f`). See `ops/DEMO_QC.md` for the verification record.
+
 ## Capture contract
 
 - Record the real production origin `https://pawsift.vercel.app`.

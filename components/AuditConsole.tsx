@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import {
   Activity,
+  Clock3,
   RotateCcw,
   ScanSearch,
   ShieldCheck
@@ -485,6 +486,16 @@ export function AuditConsole() {
             <Activity size={16} aria-hidden="true" />
             Ruleset {rulesetVersion}
           </span>
+          <a
+            className="audit-status-pill audit-status-pill-review"
+            href="https://github.com/stetang98/pawsift/blob/main/ops/OKX_REGISTRATION_EVIDENCE.md"
+            target="_blank"
+            rel="noreferrer"
+            title="View public OKX.AI registration evidence"
+          >
+            <Clock3 size={16} aria-hidden="true" />
+            Agent 6036 · Listing under review
+          </a>
         </div>
         <nav className="audit-command-links" aria-label="Machine contract links">
           <a href="/api/v1/health">Health</a>
