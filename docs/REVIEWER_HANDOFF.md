@@ -20,8 +20,9 @@ PawSift is a deterministic fit and listing-quality audit for non-ingestible cat 
 | Public GitHub repository | Live: `https://github.com/stetang98/pawsift` |
 | Vercel HTTPS deployment | Live and verified: `https://pawsift.vercel.app` |
 | OKX.AI identity and Agent ID | Registered: Agent ID `6036` |
+| OKX.AI marketplace category | Verified by official CLI: `LIFESTYLE` |
 | ASP review/live listing | `Listing under review`; not publicly listed |
-| Demo | Local reviewer candidate ready: `artifacts/demo/pawsift-demo-final-v5-v5.mp4` |
+| Demo | Local reviewer candidate ready: `artifacts/demo/pawsift-demo-final-v6-v1.mp4` |
 | X post | Prepared but not published |
 | HackQuest and Google Form | Pending |
 
@@ -50,7 +51,7 @@ git diff --check
 8. Check that deployment, listing, sales, payment, and transaction claims match public evidence.
 9. Exercise desktop plus 320 px and 390 px mobile layouts for overflow, overlap, keyboard use, and 44 px controls.
 10. Scan tracked text for secrets, private keys, wallet material, and real API tokens.
-11. Inspect `ops/DEMO_QC.md`, play the complete local `v5-v5` video, verify the live HTTP 200 response, current ruleset/receipts, public-safe official CLI evidence, full BT.709 signaling, caption/narration alignment, and that no frame implies OKX.AI approval.
+11. Inspect `ops/DEMO_QC.md`, play the complete local `v6-v1` video, verify the live HTTP 200 response, current ruleset/receipts, official `LIFESTYLE` category, public-safe CLI evidence, full BT.709 signaling, caption/narration alignment, and that no frame implies OKX.AI approval.
 
 ## Expected honest launch state
 

@@ -4,7 +4,7 @@ Status: prepared; publish only after the reviewer clears the final video. If OKX
 
 ## Main post
 
-Attach `artifacts/demo/pawsift-demo-final-v5-v5.mp4` directly to this post. Agent ID `6036` is verified; preserve honest review-state wording until approval is confirmed.
+Attach `artifacts/demo/pawsift-demo-final-v6-v1.mp4` directly to this post. Agent ID `6036` and marketplace category `LIFESTYLE` are verified; preserve honest review-state wording until approval is confirmed.
 
 ```text
 PawSift is submitted to OKX.AI review (Agent ID: 6036). This free A2MCP audit turns pet + listing facts into fit verdicts, rule evidence, fixes and SHA-256 receipts. Try it: https://pawsift.vercel.app Code: github.com/stetang98/pawsift #OKXAI

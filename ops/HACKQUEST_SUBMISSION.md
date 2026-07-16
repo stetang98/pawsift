@@ -25,6 +25,7 @@ Status: product, public deployment, and OKX.AI Agent ID ready; listing approval,
 | OKX.AI Agent ID | `6036` |
 | OKX.AI listing | `[PENDING_APPROVED_LISTING_URL]` |
 | OKX.AI review state | `Listing under review` |
+| OKX.AI marketplace category | `LIFESTYLE` |
 
 ## Short description
 
@@ -72,11 +73,12 @@ PawSift is not veterinary advice. It does not approve food, treats, supplements,
 
 ## OKX.AI integration
 
-PawSift is registered as a free `A2MCP` Lifestyle service on OKX.AI. Agent ID `6036` is real and the listing is under review. The public listing URL remains pending until OKX approves it.
+PawSift is registered as a free `A2MCP` service on OKX.AI. The official profile classifies Agent ID `6036` as `LIFESTYLE`; the listing is under review. The public listing URL remains pending until OKX approves it.
 
 - Agent ID: `6036`
 - Listing: `[PENDING_APPROVED_LISTING_URL]`
 - Review state: `Listing under review`
+- Marketplace category: `LIFESTYLE`
 - Endpoint: https://pawsift.vercel.app/api/v1/audit
 
 ## Honest launch state

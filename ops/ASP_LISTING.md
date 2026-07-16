@@ -9,7 +9,7 @@ Status: Agent ID `6036` created; approval submitted; listing is under review.
 | ASP name | `PawSift` |
 | Role | `asp` |
 | Category | `Lifestyle` |
-| Service name | `PawSift Product Audit` |
+| Service name | `PawSift Pet Fit Check` |
 | Service type | `A2MCP` |
 | Launch fee | `0` USDT |
 | Endpoint | `https://pawsift.vercel.app/api/v1/audit` |
@@ -17,15 +17,17 @@ Status: Agent ID `6036` created; approval submitted; listing is under review.
 | Preferred review language | `en-US` |
 | Agent ID | `6036` |
 | Listing state | `Listing under review` |
+| Verified marketplace category | `LIFESTYLE` |
 | Registration transaction | `0x25e7dd9f7ca75cd30eaa40fd074a89860442eadfd067d0715a4e08aa4d3869be` |
+| Lifestyle profile update transaction | `0x2d290ec5e689fbf463397446020e290a98c0320d184133e349f22cbbefcaaf1a` |
 
 ## ASP description
 
-PawSift is a deterministic fit and listing-quality auditor for non-ingestible cat and dog supplies. Submit objective pet and product facts to receive a CLEAR, CAUTION, BLOCK, or HUMAN_REVIEW verdict, rule-level evidence, missing facts, seller-copy patches, and reproducible SHA-256 receipts. PawSift is not veterinary advice and does not evaluate food, medication, pesticides, symptoms, or medical suitability.
+PawSift is a pet lifestyle shopping companion for cat and dog owners choosing non-ingestible everyday supplies. It checks objective fit, supported weight, materials, detachable parts, batteries, magnets, care and listing completeness, then returns a clear shopping verdict, questions to ask the seller and safer listing corrections. It does not provide veterinary advice or evaluate food, medication, pesticides, symptoms or medical suitability.
 
 ## Service description
 
-Audit a non-ingestible cat or dog product listing against objective species, fit, category-specific weight, materials, detachable-part, battery, magnet, care, and scope rules. Returns a structured verdict, score, findings, missing facts, owner questions, listing patches, safety boundary, ruleset version, and SHA-256 input/report receipt. Unsupported medical or ingestible wording anywhere in the submitted product listing routes to HUMAN_REVIEW.
+Help cat and dog owners choose suitable non-ingestible everyday pet supplies. Check objective pet and product facts for fit, supported weight and listing completeness, then return a structured verdict, missing facts, seller questions, corrections and reproducible receipts. Medical or ingestible requests route to human review.
 
 ## Service JSON
 
@@ -34,8 +36,8 @@ OnchainOS CLI `4.2.4` documents `fee` as a number, but its runtime parser reject
 ```json
 [
   {
-    "serviceName": "PawSift Product Audit",
-    "serviceDescription": "Audit a non-ingestible cat or dog product listing against objective fit and disclosure rules. Returns a structured verdict, evidence, missing facts, listing patches, and reproducible SHA-256 receipts. Unsupported medical or ingestible claims route to HUMAN_REVIEW.",
+    "serviceName": "PawSift Pet Fit Check",
+    "serviceDescription": "Help cat and dog owners choose suitable non-ingestible everyday pet supplies. Check objective pet and product facts for fit, supported weight and listing completeness, then return a structured verdict, missing facts, seller questions, corrections and reproducible receipts. Medical or ingestible requests route to human review.",
     "serviceType": "A2MCP",
     "fee": "0",
     "endpoint": "https://pawsift.vercel.app/api/v1/audit"
@@ -74,9 +76,9 @@ Run from the repository root with `/Users/stetang/.local/bin/onchainos` version 
 /Users/stetang/.local/bin/onchainos agent create \
   --role asp \
   --name "PawSift" \
-  --description "PawSift is a deterministic fit and listing-quality auditor for non-ingestible cat and dog supplies. Submit objective pet and product facts to receive a CLEAR, CAUTION, BLOCK, or HUMAN_REVIEW verdict, rule-level evidence, missing facts, seller-copy patches, and reproducible SHA-256 receipts. PawSift is not veterinary advice and does not evaluate food, medication, pesticides, symptoms, or medical suitability." \
+  --description "PawSift is a pet lifestyle shopping companion for cat and dog owners choosing non-ingestible everyday supplies. It checks objective fit, supported weight, materials, detachable parts, batteries, magnets, care and listing completeness, then returns a clear shopping verdict, questions to ask the seller and safer listing corrections. It does not provide veterinary advice or evaluate food, medication, pesticides, symptoms or medical suitability." \
   --picture "[CDN_AVATAR_URL]" \
-  --service '[{"serviceName":"PawSift Product Audit","serviceDescription":"Audit a non-ingestible cat or dog product listing against objective fit and disclosure rules. Returns a structured verdict, evidence, missing facts, listing patches, and reproducible SHA-256 receipts. Unsupported medical or ingestible claims route to HUMAN_REVIEW.","serviceType":"A2MCP","fee":"0","endpoint":"https://pawsift.vercel.app/api/v1/audit"}]'
+  --service '[{"serviceName":"PawSift Pet Fit Check","serviceDescription":"Help cat and dog owners choose suitable non-ingestible everyday pet supplies. Check objective pet and product facts for fit, supported weight and listing completeness, then return a structured verdict, missing facts, seller questions, corrections and reproducible receipts. Medical or ingestible requests route to human review.","serviceType":"A2MCP","fee":"0","endpoint":"https://pawsift.vercel.app/api/v1/audit"}]'
 ```
 
 6. Record the returned real Agent ID, select Done rather than adding another service, then run the listing validation exactly once before activation. The completed registration returned Agent ID `6036` and transaction hash `0x25e7dd9f7ca75cd30eaa40fd074a89860442eadfd067d0715a4e08aa4d3869be`.
@@ -89,7 +91,7 @@ Run from the repository root with `/Users/stetang/.local/bin/onchainos` version 
   --preferred-language en-US
 ```
 
-The approval submission succeeded on 2026-07-15. The current profile response reports `approvalLabel: Listing under review` and `statusLabel: not listed`. Do not describe PawSift as approved or publicly listed until that state changes.
+The approval submission succeeded on 2026-07-15. On 2026-07-16, the profile and service descriptions were updated to the exact pet-lifestyle wording above. The official profile now reports `categoryCode: ["LIFESTYLE"]`, `approvalLabel: Listing under review`, and `statusLabel: not listed`. Do not describe PawSift as approved or publicly listed until that state changes.
 
 ## Required evidence
 

@@ -24,6 +24,7 @@ The saved rich-text description includes the problem, deterministic audit workfl
 - Hackathon registration: complete.
 - Project profile: saved.
 - Agent ID: `6036`.
+- OKX.AI marketplace category: `LIFESTYLE`.
 - OKX.AI approval: `Listing under review`.
 - Approved public listing URL: pending.
 - Final demo video URL: pending reviewer approval and publication.
