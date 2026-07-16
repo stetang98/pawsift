@@ -71,7 +71,7 @@ PawSift is not veterinary advice. It does not approve food, treats, supplements,
 
 ## OKX.AI integration
 
-PawSift is listed as a free `A2MCP` Lifestyle service on OKX.AI.
+PawSift is prepared for registration as a free `A2MCP` Lifestyle service on OKX.AI. The listing remains pending until the real Agent ID and approved listing URL below are recorded.
 
 - Agent ID: `[PENDING_REAL_OKX_AGENT_ID]`
 - Listing: `[PENDING_APPROVED_LISTING_URL]`
