@@ -25,7 +25,7 @@ PawSift is a deterministic fit and listing-quality auditor for non-ingestible ca
 
 ## Service description
 
-Audit a non-ingestible cat or dog product listing against objective species, fit, materials, detachable-part, battery, magnet, care, and claim rules. Returns a structured verdict, score, findings, missing facts, owner questions, listing patches, safety boundary, ruleset version, and SHA-256 input/report receipt. Unsupported medical or ingestible claims route to HUMAN_REVIEW.
+Audit a non-ingestible cat or dog product listing against objective species, fit, category-specific weight, materials, detachable-part, battery, magnet, care, and scope rules. Returns a structured verdict, score, findings, missing facts, owner questions, listing patches, safety boundary, ruleset version, and SHA-256 input/report receipt. Unsupported medical or ingestible wording anywhere in the submitted product listing routes to HUMAN_REVIEW.
 
 ## Service JSON
 

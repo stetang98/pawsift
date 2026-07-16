@@ -27,12 +27,12 @@ const deploymentAttestation = {
   health: {
     url: `${EXPECTED_PUBLIC_ORIGIN}/api/v1/health`,
     status: "ok" as const,
-    rulesetVersion: "2026.07.1"
+    rulesetVersion: "2026.07.2"
   },
   fixture: {
     id: "clear-cat-collar" as const,
     inputHash: "f8ab57435e1fb63b7fda95d06437c263ef87e1c63051e723e39ee56797eff5ff",
-    reportHash: "fed257dc7065eea1bb30f3082d72e29f3467ec03eccedd056b154d5ff59b7f3b"
+    reportHash: "f5bd2cbcb24b55469243c036ef20a7bedb0bd085d4af5435dbecda6cf69a97e2"
   },
   evidencePath: "ops/DEPLOYMENT.md",
   evidenceSha256: sourceFiles.find((file) => file.path === "ops/DEPLOYMENT.md")!.sha256
@@ -47,7 +47,14 @@ describe("PawSift proof", () => {
     const proof = buildProof(context);
 
     expect(validateProof(proof)).toEqual(proof);
-    expect(proof.fixtures).toHaveLength(10);
+    expect(proof.fixtures).toHaveLength(11);
+    expect(proof.fixtures.find((fixture) => fixture.id === "missing-weight-support")).toMatchObject({
+      expectedVerdict: "CAUTION",
+      actualVerdict: "CAUTION",
+      expectedRuleIds: ["PS-011"],
+      actualRuleIds: ["PS-011"]
+    });
+    expect(proof.claims[0]?.statement).toContain("eleven published fixtures");
     expect(proof.payments).toEqual({
       mode: "free_launch",
       observedSales: 0,

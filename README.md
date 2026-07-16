@@ -40,7 +40,7 @@ curl --fail-with-body https://pawsift.vercel.app/api/v1/audit \
   }'
 ```
 
-Valid requests return HTTP 200 with `CLEAR`, `CAUTION`, `BLOCK`, or `HUMAN_REVIEW`, plus a ruleset version and lowercase SHA-256 receipt. Invalid input is returned as a sanitized JSON error.
+Valid in-scope requests return HTTP 200 with `CLEAR`, `CAUTION`, `BLOCK`, or `HUMAN_REVIEW`, plus a ruleset version and lowercase SHA-256 receipt. Medical or ingestible listing text returns HTTP 422 with deterministic `HUMAN_REVIEW` guidance. Invalid input is returned as a sanitized JSON error.
 
 ## Why it matters
 
@@ -54,11 +54,11 @@ Pet owners often see attractive listings with missing fit ranges, materials, bre
 4. Canonical JSON and SHA-256 bind the request and report to a reproducible receipt.
 5. The web console, examples endpoint, and OKX.AI A2MCP listing call the same engine.
 
-The current ruleset covers toys, carriers, beds, feeders, collars/harnesses, and grooming tools. See [Architecture](docs/ARCHITECTURE.md) for the data flow.
+Ruleset `2026.07.2` covers toys, carriers, beds, feeders, collars/harnesses, and grooming tools. It requires category-specific supported-weight facts for collars/harnesses, carriers, and beds before a listing can be marked complete. See [Architecture](docs/ARCHITECTURE.md) for the data flow.
 
 ## Safety boundary
 
-PawSift is not veterinary advice. It does not evaluate food, supplements, medication, pesticides, chemical treatments, symptoms, or medical suitability. `CLEAR` means no blocking rule fired from the supplied facts; it never means all hazards are absent. Medical, treatment, or ingestible claims route to `HUMAN_REVIEW`.
+PawSift is not veterinary advice. It does not evaluate food, supplements, medication, pesticides, chemical treatments, symptoms, or medical suitability. `CLEAR` means no blocking or caution rule fired from the supplied facts; it never means all hazards are absent. Medical, treatment, or ingestible wording anywhere in the submitted product listing routes to `HUMAN_REVIEW`.
 
 See [Safety](docs/SAFETY.md) for supported and excluded scope.
 
@@ -73,7 +73,7 @@ npm test -- --run tests/proof/proof.test.ts
 
 The exporter does not infer the commit or public URL from `HEAD` or environment variables. Two default runs are byte-for-byte deterministic while `proof/config.json` and the audited source remain unchanged.
 
-No sale, transaction, wallet, or paid-usage claim is made at launch.
+No sales, payment-transaction, wallet-balance, or paid-usage claim is made at launch. The separate OKX.AI identity-registration transaction is documented only as registration evidence.
 
 ## Local setup
 

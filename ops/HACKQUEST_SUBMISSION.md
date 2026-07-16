@@ -50,7 +50,7 @@ Pet-product listings often hide the facts that determine fit: supported species 
 - Use the live Bybit-inspired operator console: https://pawsift.vercel.app
 - Call the free A2MCP endpoint: https://pawsift.vercel.app/api/v1/audit
 - Inspect the contract: https://pawsift.vercel.app/openapi.json
-- Replay ten checked-in fixtures: https://pawsift.vercel.app/api/v1/examples
+- Replay eleven checked-in fixtures: https://pawsift.vercel.app/api/v1/examples
 - Recompute the content-addressed receipts from `proof/proof.json`
 - Review the public MIT repository: https://github.com/stetang98/pawsift
 
@@ -58,7 +58,7 @@ Pet-product listings often hide the facts that determine fit: supported species 
 
 ## Safety boundary
 
-PawSift is not veterinary advice. It does not approve food, treats, supplements, medication, pesticides, symptoms, treatment, or medical suitability. Unsupported medical or ingestible wording routes to `HUMAN_REVIEW`. `CLEAR` only means that no blocking rule fired from the supplied facts.
+PawSift is not veterinary advice. It does not approve food, treats, supplements, medication, pesticides, symptoms, treatment, or medical suitability. Unsupported medical or ingestible wording anywhere in the submitted product listing routes to `HUMAN_REVIEW`. `CLEAR` only means that no blocking or caution rule fired from the supplied facts.
 
 ## Technical execution
 
@@ -68,7 +68,7 @@ PawSift is not veterinary advice. It does not approve food, treats, supplements,
 - RFC 8785-aligned canonical JSON behavior and SHA-256 receipts
 - Public CORS, payload limits, sanitized errors, HSTS, and no request persistence
 - Reproducible proof bound to a pinned Git commit, Git blobs, deployment health, and hosted fixture hashes
-- 100 automated tests plus desktop/mobile browser QA
+- 122 automated tests plus desktop/mobile browser QA
 
 ## OKX.AI integration
 

@@ -186,7 +186,7 @@ Response summary:
 {
   "verdict": "CLEAR",
   "score": 92,
-  "rulesetVersion": "2026.07.1",
+  "rulesetVersion": "2026.07.2",
   "findings": [],
   "missingFacts": [],
   "ownerQuestions": [],

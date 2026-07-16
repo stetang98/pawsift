@@ -257,6 +257,111 @@ describe("POST /api/v1/audit", () => {
     );
     expect(JSON.stringify(body)).not.toContain("stack");
   });
+
+  it("returns 422 when unsupported scope language appears in the product name", async () => {
+    const request = {
+      pet: clearCatCollarFixture.pet,
+      product: {
+        ...clearCatCollarFixture.product,
+        name: "Medicated Flea Treatment Collar",
+        claims: ["adjustable"]
+      }
+    };
+    const response = await auditRoute.POST(createJsonRequest(JSON.stringify(request)));
+
+    expect(response.status).toBe(422);
+    expectAuditHeaders(response);
+
+    const body = await response.json();
+    expect(body.error.code).toBe("UNSUPPORTED_SCOPE");
+    expect(body.guidance.verdict).toBe("HUMAN_REVIEW");
+    expect(body.guidance.findings.map((finding: { ruleId: string }) => finding.ruleId)).toEqual([
+      "PS-008"
+    ]);
+    expect(body.guidance.findings[0].evidence).toContain(
+      "product.name=Medicated Flea Treatment Collar"
+    );
+  });
+
+  it("returns 200 caution guidance when a collar omits its supported weight range", async () => {
+    const request = {
+      pet: clearCatCollarFixture.pet,
+      product: {
+        name: clearCatCollarFixture.product.name,
+        category: "collar_harness",
+        intendedSpecies: clearCatCollarFixture.product.intendedSpecies,
+        materials: clearCatCollarFixture.product.materials,
+        breakaway: true,
+        careInstructions: clearCatCollarFixture.product.careInstructions,
+        claims: clearCatCollarFixture.product.claims
+      }
+    };
+    const response = await auditRoute.POST(createJsonRequest(JSON.stringify(request)));
+
+    expect(response.status).toBe(200);
+    expectAuditHeaders(response);
+
+    const body = await response.json();
+    expect(body.verdict).toBe("CAUTION");
+    expect(body.findings.map((finding: { ruleId: string }) => finding.ruleId)).toEqual(["PS-011"]);
+    expect(body.missingFacts).toEqual(["minWeightKg", "maxWeightKg"]);
+  });
+
+  it("returns 422 for a realistic food product name", async () => {
+    const request = {
+      pet: clearCatCollarFixture.pet,
+      product: {
+        ...clearCatCollarFixture.product,
+        name: "Premium Cat Food",
+        claims: ["premium"]
+      }
+    };
+    const response = await auditRoute.POST(createJsonRequest(JSON.stringify(request)));
+
+    expect(response.status).toBe(422);
+    const body = await response.json();
+    expect(body.guidance.verdict).toBe("HUMAN_REVIEW");
+    expect(body.guidance.findings[0].evidence).toContain("product.name=Premium Cat Food");
+  });
+
+  it("returns bounded 422 guidance for a maximum-length unsupported product name", async () => {
+    const name = `${"x".repeat(490)} medicated`;
+    const request = {
+      pet: clearCatCollarFixture.pet,
+      product: {
+        ...clearCatCollarFixture.product,
+        name,
+        claims: ["adjustable"]
+      }
+    };
+    const response = await auditRoute.POST(createJsonRequest(JSON.stringify(request)));
+
+    expect(response.status).toBe(422);
+    const body = await response.json();
+    expect(body.guidance.verdict).toBe("HUMAN_REVIEW");
+    expect(body.guidance.findings[0].evidence[0]).toMatch(/^product\.name=matched:/);
+    expect(body.guidance.findings[0].evidence[0].length).toBeLessThanOrEqual(500);
+  });
+
+  it("keeps the 422 guidance verdict at human review when a blocking rule also fires", async () => {
+    const request = {
+      pet: clearCatCollarFixture.pet,
+      product: {
+        ...clearCatCollarFixture.product,
+        name: "Medicated Dog Collar",
+        intendedSpecies: ["dog"]
+      }
+    };
+    const response = await auditRoute.POST(createJsonRequest(JSON.stringify(request)));
+
+    expect(response.status).toBe(422);
+    const body = await response.json();
+    expect(body.guidance.verdict).toBe("HUMAN_REVIEW");
+    expect(body.guidance.findings.map((finding: { ruleId: string }) => finding.ruleId)).toEqual([
+      "PS-001",
+      "PS-008"
+    ]);
+  });
 });
 
 describe("OPTIONS /api/v1/audit", () => {

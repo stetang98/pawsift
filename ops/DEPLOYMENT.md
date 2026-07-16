@@ -1,6 +1,6 @@
 # Production deployment evidence
 
-Verified: 2026-07-16T00:04:00Z
+Verification timestamp: pinned in `proof/config.json` after the hosted checks below complete.
 
 ## Public surfaces
 
@@ -12,21 +12,23 @@ Verified: 2026-07-16T00:04:00Z
 - OpenAPI: `https://pawsift.vercel.app/openapi.json`
 - Metadata: `https://pawsift.vercel.app/.well-known/pawsift.json`
 
-The stable alias points to Vercel production deployment `pawsift-5jf1e4fhv-stetang-s-projects.vercel.app` (`dpl_ChJphN7uVYeBhASKXdeGgyLZWdYr`). The deployed source is public on `main` at `0fbea54`.
+The proof validator accepts only the stable production origin above. `proof/config.json` pins the audited source commit containing this record, and `proof/proof.json` binds this file's SHA-256 digest. No historical Vercel deployment ID is presented as current-source evidence.
 
 ## Contract checks
 
 | Check | Result |
 | --- | --- |
-| `GET /api/v1/health` | HTTP 200, `status=ok`, ruleset `2026.07.1` |
-| `GET /api/v1/examples` | HTTP 200, 10 fixtures |
+| `GET /api/v1/health` | HTTP 200, `status=ok`, ruleset `2026.07.2` |
+| `GET /api/v1/examples` | HTTP 200, 11 fixtures |
 | `GET /openapi.json` | HTTP 200, OpenAPI 3.1.0, POST and OPTIONS audit operations |
 | `GET /.well-known/pawsift.json` | HTTP 200, A2MCP discovery metadata |
 | Valid clear fixture | HTTP 200, `CLEAR`, rule `PS-010` |
+| Medical wording in product name | HTTP 422, `HUMAN_REVIEW`, rule `PS-008`, field-labeled evidence |
+| Collar without supported weight range | HTTP 200, `CAUTION`, rule `PS-011` |
 | Invalid schema request | HTTP 400 |
 | 32769-byte body | HTTP 413 |
 
-The health response includes `cache-control: no-store`, permissive read-only CORS headers, HSTS, and `x-pawsift-ruleset: 2026.07.1`.
+The health response includes `cache-control: no-store`, permissive read-only CORS headers, HSTS, and `x-pawsift-ruleset: 2026.07.2`.
 
 ## Hosted receipt match
 
@@ -34,7 +36,7 @@ The hosted clear fixture returned:
 
 ```text
 inputHash  f8ab57435e1fb63b7fda95d06437c263ef87e1c63051e723e39ee56797eff5ff
-reportHash fed257dc7065eea1bb30f3082d72e29f3467ec03eccedd056b154d5ff59b7f3b
+reportHash f5bd2cbcb24b55469243c036ef20a7bedb0bd085d4af5435dbecda6cf69a97e2
 ```
 
 Both values match `clear-cat-collar` in `proof/proof.json`.
@@ -57,5 +59,5 @@ The `live` state is accepted only for the stable PawSift production origin, the 
 
 - Payment mode: `free_launch`.
 - Observed sales: 0.
-- Transaction hashes: none.
+- Sales/payment transaction hashes: none. The separate identity-registration transaction is documented in `ops/OKX_REGISTRATION_EVIDENCE.md`.
 - OKX.AI identity and ASP approval are separate external steps and are not asserted by this deployment record.

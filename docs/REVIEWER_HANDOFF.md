@@ -44,18 +44,19 @@ git diff --check
 2. Recompute receipt hashes from the exact downloaded canonical preimages.
 3. Run `npm run proof` twice and confirm `proof/proof.json` stays byte-for-byte unchanged.
 4. Mutate proof fields and confirm fake sales, transaction hashes, unsupported claims, wrong ruleset, stale hashes, arbitrary live origins, and incomplete source provenance fail validation.
-5. Confirm all out-of-scope medical and ingestible wording routes to `HUMAN_REVIEW` or is rejected.
-6. Confirm every factual claim points to a source file whose Git blob and SHA-256 digest are bound to the audited commit.
-7. Check that deployment, listing, sales, payment, and transaction claims match public evidence.
-8. Exercise desktop plus 320 px and 390 px mobile layouts for overflow, overlap, keyboard use, and 44 px controls.
-9. Scan tracked text for secrets, private keys, wallet material, and real API tokens.
-10. Inspect `ops/DEMO_QC.md`, play the complete local `v4` video, and verify that captions match the narration and no frame implies OKX.AI approval.
+5. Confirm all out-of-scope medical and ingestible wording across product name, materials, supervision, care, and claims routes to `HUMAN_REVIEW` with field-labeled evidence.
+6. Confirm collars/harnesses without both weight bounds and carriers/beds without maximum supported weight cannot receive `CLEAR`.
+7. Confirm every factual claim points to a source file whose Git blob and SHA-256 digest are bound to the audited commit.
+8. Check that deployment, listing, sales, payment, and transaction claims match public evidence.
+9. Exercise desktop plus 320 px and 390 px mobile layouts for overflow, overlap, keyboard use, and 44 px controls.
+10. Scan tracked text for secrets, private keys, wallet material, and real API tokens.
+11. Inspect `ops/DEMO_QC.md`, play the complete local `v4` video, and verify that captions match the narration and no frame implies OKX.AI approval.
 
 ## Expected honest launch state
 
 - Payment mode: `free_launch`.
 - Observed sales: `0`.
-- Transaction hashes: none.
+- Sales/payment transaction hashes: none. The separate identity-registration transaction is documented in `ops/OKX_REGISTRATION_EVIDENCE.md` and is not revenue proof.
 - No wallet or chain receipt is required for the service result.
 - `CLEAR` is a rule result from supplied facts, not a medical safety certification.
 

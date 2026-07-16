@@ -19,7 +19,7 @@ An 81-second walkthrough of PawSift showing the Bybit-inspired web console, CLEA
 ## Optional first reply
 
 ```text
-PawSift is intentionally narrow: non-ingestible cat and dog supplies only. Medical, treatment, food, medication and pesticide claims route to HUMAN_REVIEW. The full proof and 100-test suite are public in the repository.
+PawSift is intentionally narrow: non-ingestible cat and dog supplies only. Medical, treatment, food, medication and pesticide wording anywhere in a submitted product listing routes to HUMAN_REVIEW. The full proof and 122-test suite are public in the repository.
 ```
 
 ## Publication checks

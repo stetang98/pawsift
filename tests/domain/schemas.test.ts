@@ -189,7 +189,7 @@ describe("auditResponseSchema", () => {
     const response = {
       verdict: "CLEAR",
       score: 92,
-      rulesetVersion: "2026.07.1",
+      rulesetVersion: "2026.07.2",
       findings: [],
       missingFacts: [],
       ownerQuestions: [],
@@ -212,7 +212,7 @@ describe("auditResponseSchema", () => {
       auditResponseSchema.parse({
         verdict: "CAUTION",
         score: 85,
-        rulesetVersion: "2026.07.1",
+        rulesetVersion: "2026.07.2",
         findings: [validFinding],
         missingFacts: [],
         ownerQuestions: [],

@@ -289,7 +289,7 @@ export function buildProof(context: ProofBuildContext): PawSiftProof {
     claims: [
       {
         statement:
-          "All ten published fixtures reproduce their expected verdicts and stable rule identifiers.",
+          "All eleven published fixtures reproduce their expected verdicts and stable rule identifiers.",
         sourcePaths: ["src/domain/fixtures.ts", "tests/domain/rules.test.ts"]
       },
       {

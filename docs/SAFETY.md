@@ -6,7 +6,7 @@ PawSift is a listing completeness and objective fit audit for non-ingestible pet
 
 - Cats and dogs.
 - Toys, carriers, beds, feeders, collars/harnesses, and grooming tools.
-- Supplied species, life stage, weight, materials, dimensions, fit range, detachable parts, batteries, magnets, care instructions, supervision text, and listing claims.
+- Supplied species, life stage, weight, materials, dimensions, fit range, detachable parts, batteries, magnets, care instructions, supervision text, product name, and listing claims.
 - Deterministic findings about mismatches, missing facts, and disclosure gaps.
 
 ## Excluded scope
@@ -35,7 +35,8 @@ The service needs no account, pet name, owner identity, contact information, wal
 - Non-finite and negative measurements are rejected.
 - Invalid JSON, unsupported media type, oversized payload, and unexpected failures return sanitized errors.
 - The result always repeats the non-veterinary boundary.
-- Unsupported claims route to human review rather than being silently accepted.
+- Unsupported medical or ingestible wording is scanned across every submitted product-listing text field and routes to human review rather than being silently accepted.
+- Collars/harnesses require minimum and maximum supported weight; carriers and beds require maximum supported weight before the listing can be marked complete.
 
 ## Responsible use
 

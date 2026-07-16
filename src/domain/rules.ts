@@ -1,6 +1,7 @@
 import type { AuditRequest, Finding, Verdict } from "./schemas";
+import { sha256 } from "./canonical";
 
-export const RULESET_VERSION = "2026.07.1";
+export const RULESET_VERSION = "2026.07.2";
 export const BOUNDARY_TEXT = "Non-veterinary product-fit audit based only on supplied facts.";
 
 export type Rule = {
@@ -17,11 +18,13 @@ export type Rule = {
 const UNSUPPORTED_CLAIM_PATTERNS = [
   {
     label: "food",
-    pattern: /^(?:food|pet food|cat food|dog food)$/i
+    pattern:
+      /^(?:food|pet food|cat food|dog food)$|\b(?:cat|dog|pet)\s+food\b(?!\s+(?:bowl|container|dish|dispenser|mat|scoop|station|storage))/i
   },
   {
     label: "treat",
-    pattern: /^(?:treat|treats|pet treat|pet treats|cat treat|cat treats|dog treat|dog treats)$/i
+    pattern:
+      /^(?:treat|treats|pet treat|pet treats|cat treat|cat treats|dog treat|dog treats)$|\b(?:cat|dog|pet)\s+treats?\b(?!\s+(?:bag|container|dispenser|holder|jar|loop|pouch|storage|toy))/i
   },
   {
     label: "medication",
@@ -177,14 +180,100 @@ function isOverweightCarrier(input: AuditRequest): boolean {
   );
 }
 
-function getUnsupportedClaims(input: AuditRequest): string[] {
-  return input.product.claims.filter((claim) => {
-    return UNSUPPORTED_CLAIM_PATTERNS.some(({ pattern }) => pattern.test(claim));
+type WeightSupportField = "minWeightKg" | "maxWeightKg";
+
+const REQUIRED_WEIGHT_SUPPORT_FIELDS: Partial<
+  Record<AuditRequest["product"]["category"], readonly WeightSupportField[]>
+> = {
+  bed: ["maxWeightKg"],
+  carrier: ["maxWeightKg"],
+  collar_harness: ["minWeightKg", "maxWeightKg"]
+};
+
+function getMissingRequiredWeightSupportFields(input: AuditRequest): WeightSupportField[] {
+  const requiredFields = REQUIRED_WEIGHT_SUPPORT_FIELDS[input.product.category] ?? [];
+  return requiredFields.filter((field) => input.product[field] === undefined);
+}
+
+function isMissingRequiredWeightSupport(input: AuditRequest): boolean {
+  return getMissingRequiredWeightSupportFields(input).length > 0;
+}
+
+type ListingTextField = {
+  path: string;
+  value: string;
+};
+
+type UnsupportedListingText = ListingTextField & {
+  matchedLabels: string[];
+};
+
+function getListingTextFields(input: AuditRequest): ListingTextField[] {
+  return [
+    {
+      path: "product.name",
+      value: input.product.name
+    },
+    ...input.product.materials.map((value, index) => ({
+      path: `product.materials[${index}]`,
+      value
+    })),
+    ...(input.product.supervisionStatement
+      ? [
+          {
+            path: "product.supervisionStatement",
+            value: input.product.supervisionStatement
+          }
+        ]
+      : []),
+    ...(input.product.careInstructions
+      ? [
+          {
+            path: "product.careInstructions",
+            value: input.product.careInstructions
+          }
+        ]
+      : []),
+    ...input.product.claims.map((value, index) => ({
+      path: `product.claims[${index}]`,
+      value
+    }))
+  ];
+}
+
+function getUnsupportedListingText(input: AuditRequest): UnsupportedListingText[] {
+  return getListingTextFields(input).flatMap((field) => {
+    const matchedLabels = UNSUPPORTED_CLAIM_PATTERNS.filter(({ pattern }) =>
+      pattern.test(field.value)
+    ).map(({ label }) => label);
+
+    return matchedLabels.length > 0
+      ? [
+          {
+            ...field,
+            matchedLabels
+          }
+        ]
+      : [];
   });
 }
 
+function formatUnsupportedEvidence({
+  path,
+  value,
+  matchedLabels
+}: UnsupportedListingText): string {
+  const fullEvidence = `${path}=${value}`;
+
+  if (fullEvidence.length <= 500) {
+    return fullEvidence;
+  }
+
+  return `${path}=matched:${matchedLabels.join(",")};valueSha256=${sha256(value)}`;
+}
+
 function hasUnsupportedClaims(input: AuditRequest): boolean {
-  return getUnsupportedClaims(input).length > 0;
+  return getUnsupportedListingText(input).length > 0;
 }
 
 function isMissingCareInstructions(input: AuditRequest): boolean {
@@ -199,6 +288,7 @@ const ISSUE_PREDICATES = [
   hasBatteryOrMagnet,
   isCatCollarWithoutBreakaway,
   isOverweightCarrier,
+  isMissingRequiredWeightSupport,
   hasUnsupportedClaims,
   isMissingCareInstructions
 ] as const;
@@ -368,7 +458,7 @@ export const RULES: readonly Rule[] = [
     verdictFloor: "HUMAN_REVIEW",
     applies: hasUnsupportedClaims,
     buildFinding: (input) => {
-      const unsupportedClaims = getUnsupportedClaims(input);
+      const unsupportedListingText = getUnsupportedListingText(input);
 
       return createFinding({
         ruleId: "PS-008",
@@ -376,7 +466,7 @@ export const RULES: readonly Rule[] = [
         title: "Unsupported medical or ingestible claim detected",
         reason:
           "The listing includes medical or ingestible language that falls outside PawSift's supported non-veterinary scope.",
-        evidence: unsupportedClaims.map((claim) => `claim=${claim}`),
+        evidence: unsupportedListingText.map(formatUnsupportedEvidence),
         remediation: "Remove medical or ingestible language and restate only observable product facts."
       });
     },
@@ -427,5 +517,37 @@ export const RULES: readonly Rule[] = [
         ],
         remediation: "No immediate listing patch is required from the supplied facts."
       })
+  },
+  {
+    id: "PS-011",
+    penalty: 10,
+    verdictFloor: "CAUTION",
+    applies: isMissingRequiredWeightSupport,
+    buildFinding: (input) => {
+      const missingFields = getMissingRequiredWeightSupportFields(input);
+
+      return createFinding({
+        ruleId: "PS-011",
+        severity: "CAUTION",
+        title: "Supported weight facts are missing for this category",
+        reason:
+          "The listing omits category-specific supported weight facts, so PawSift cannot mark the fit information complete.",
+        evidence: [
+          `category=${input.product.category}`,
+          ...missingFields.map((field) => `${field}=missing`)
+        ],
+        remediation: "Add the missing supported weight facts before treating this listing as complete."
+      });
+    },
+    missingFacts: getMissingRequiredWeightSupportFields,
+    ownerQuestions: (input) => {
+      const missingFields = getMissingRequiredWeightSupportFields(input);
+      return missingFields.length === 2
+        ? ["What minimum and maximum pet weights does this listing support?"]
+        : ["What maximum pet weight does this listing support?"];
+    },
+    listingPatch: (input) => [
+      `Add the supported ${getMissingRequiredWeightSupportFields(input).join(" and ")} value${getMissingRequiredWeightSupportFields(input).length === 1 ? "" : "s"}.`
+    ]
   }
 ] as const;

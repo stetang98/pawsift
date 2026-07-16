@@ -72,13 +72,15 @@ export function auditProduct(input: AuditRequest): AuditResponse {
     .sort((left, right) => compareFindings(left.finding, right.finding));
 
   const findings = matchedRules.map((entry) => entry.finding);
-  const verdict = matchedRules.reduce<Verdict>(
-    (current, entry) =>
-      VERDICT_PRIORITY[entry.rule.verdictFloor] > VERDICT_PRIORITY[current]
-        ? entry.rule.verdictFloor
-        : current,
-    "CLEAR"
-  );
+  const verdict: Verdict = matchedRules.some((entry) => entry.rule.id === "PS-008")
+    ? "HUMAN_REVIEW"
+    : matchedRules.reduce<Verdict>(
+        (current, entry) =>
+          VERDICT_PRIORITY[entry.rule.verdictFloor] > VERDICT_PRIORITY[current]
+            ? entry.rule.verdictFloor
+            : current,
+        "CLEAR"
+      );
 
   const uniquePenaltyTotal = matchedRules.reduce(
     (state, entry) => {

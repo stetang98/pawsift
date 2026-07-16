@@ -169,8 +169,28 @@ export const unsupportedClaimFixture: AuditRequest = {
     category: "collar_harness",
     intendedSpecies: ["dog"],
     materials: ["neoprene", "hook_and_loop"],
+    minWeightKg: 3,
+    maxWeightKg: 12,
     careInstructions: "Hand wash cold and air dry flat.",
     claims: ["anti-inflammatory", "post-treatment comfort"]
+  }
+};
+
+export const missingWeightSupportFixture: AuditRequest = {
+  pet: {
+    species: "cat",
+    lifeStage: "adult",
+    weightKg: 4.6,
+    traits: ["indoor"]
+  },
+  product: {
+    name: "Everyday Breakaway Collar",
+    category: "collar_harness",
+    intendedSpecies: ["cat"],
+    materials: ["nylon", "plastic"],
+    breakaway: true,
+    careInstructions: "Hand wash and air dry.",
+    claims: ["adjustable", "reflective"]
   }
 };
 
@@ -272,5 +292,13 @@ export const AUDIT_FIXTURES: readonly AuditFixture[] = [
     request: missingCareInstructionsFixture,
     expectedVerdict: "CAUTION",
     expectedRuleIds: ["PS-009"]
+  },
+  {
+    id: "missing-weight-support",
+    label: "Missing weight support",
+    summary: "A collar listing that omits its required supported weight range.",
+    request: missingWeightSupportFixture,
+    expectedVerdict: "CAUTION",
+    expectedRuleIds: ["PS-011"]
   }
 ] as const;

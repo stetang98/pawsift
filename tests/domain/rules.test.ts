@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { auditProduct } from "../../src/domain/audit";
 import {
+  AUDIT_FIXTURES,
   clearCatCollarFixture,
   magneticCatToyFixture,
   missingCareInstructionsFixture,
@@ -15,9 +16,11 @@ import {
 } from "../../src/domain/fixtures";
 import { RULES, RULESET_VERSION } from "../../src/domain/rules";
 
+const maxLengthUnsupportedText = `${"x".repeat(490)} medicated`;
+
 describe("rules metadata", () => {
   it("publishes a stable ordered ruleset", () => {
-    expect(RULESET_VERSION).toBe("2026.07.1");
+    expect(RULESET_VERSION).toBe("2026.07.2");
     expect(RULES.map((rule) => rule.id)).toEqual([
       "PS-001",
       "PS-002",
@@ -28,8 +31,16 @@ describe("rules metadata", () => {
       "PS-007",
       "PS-008",
       "PS-009",
-      "PS-010"
+      "PS-010",
+      "PS-011"
     ]);
+  });
+
+  it("publishes a missing weight support fixture in the proof deck", () => {
+    expect(AUDIT_FIXTURES.find((fixture) => fixture.id === "missing-weight-support")).toMatchObject({
+      expectedVerdict: "CAUTION",
+      expectedRuleIds: ["PS-011"]
+    });
   });
 });
 
@@ -126,7 +137,55 @@ describe("auditProduct", () => {
 
     expect(report.verdict).toBe("HUMAN_REVIEW");
     expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-008"]);
-    expect(report.findings[0]?.evidence).toContain("claim=anti-inflammatory");
+    expect(report.findings[0]?.evidence).toContain("product.claims[0]=anti-inflammatory");
+  });
+
+  it.each([
+    {
+      field: "product.name",
+      value: "Medicated Flea Treatment Collar",
+      product: {
+        ...clearCatCollarFixture.product,
+        name: "Medicated Flea Treatment Collar",
+        claims: ["adjustable"]
+      }
+    },
+    {
+      field: "product.materials[0]",
+      value: "medicated nylon",
+      product: {
+        ...clearCatCollarFixture.product,
+        materials: ["medicated nylon", "zinc_alloy"],
+        claims: ["adjustable"]
+      }
+    },
+    {
+      field: "product.supervisionStatement",
+      value: "Supervise after flea treatment.",
+      product: {
+        ...clearCatCollarFixture.product,
+        supervisionStatement: "Supervise after flea treatment.",
+        claims: ["adjustable"]
+      }
+    },
+    {
+      field: "product.careInstructions",
+      value: "Apply after treatment and wipe clean.",
+      product: {
+        ...clearCatCollarFixture.product,
+        careInstructions: "Apply after treatment and wipe clean.",
+        claims: ["adjustable"]
+      }
+    }
+  ])("routes unsupported scope in $field to PS-008 with field evidence", ({ field, value, product }) => {
+    const report = auditProduct({
+      pet: clearCatCollarFixture.pet,
+      product
+    });
+
+    expect(report.verdict).toBe("HUMAN_REVIEW");
+    expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-008"]);
+    expect(report.findings[0]?.evidence).toContain(`${field}=${value}`);
   });
 
   it("routes direct ingestible phrases such as safe to eat to PS-008", () => {
@@ -149,7 +208,7 @@ describe("auditProduct", () => {
 
     expect(report.verdict).toBe("HUMAN_REVIEW");
     expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-008"]);
-    expect(report.findings[0]?.evidence).toContain("claim=safe to eat");
+    expect(report.findings[0]?.evidence).toContain("product.claims[0]=safe to eat");
   });
 
   it.each(["food", "treat", "medication", "pesticide"])(
@@ -165,9 +224,83 @@ describe("auditProduct", () => {
 
       expect(report.verdict).toBe("HUMAN_REVIEW");
       expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-008"]);
-      expect(report.findings[0]?.evidence).toContain(`claim=${claim}`);
+      expect(report.findings[0]?.evidence).toContain(`product.claims[0]=${claim}`);
     }
   );
+
+  it.each(["Premium Cat Food", "Freeze-Dried Dog Treats"])(
+    "routes the realistic excluded product name %s to PS-008",
+    (name) => {
+      const report = auditProduct({
+        pet: clearCatCollarFixture.pet,
+        product: {
+          ...clearCatCollarFixture.product,
+          name,
+          claims: ["premium"]
+        }
+      });
+
+      expect(report.verdict).toBe("HUMAN_REVIEW");
+      expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-008"]);
+      expect(report.findings[0]?.evidence).toContain(`product.name=${name}`);
+    }
+  );
+
+  it.each([
+    {
+      field: "product.name",
+      product: {
+        ...clearCatCollarFixture.product,
+        name: maxLengthUnsupportedText,
+        claims: ["adjustable"]
+      }
+    },
+    {
+      field: "product.materials[0]",
+      product: {
+        ...clearCatCollarFixture.product,
+        materials: [maxLengthUnsupportedText],
+        claims: ["adjustable"]
+      }
+    },
+    {
+      field: "product.supervisionStatement",
+      product: {
+        ...clearCatCollarFixture.product,
+        supervisionStatement: maxLengthUnsupportedText,
+        claims: ["adjustable"]
+      }
+    },
+    {
+      field: "product.careInstructions",
+      product: {
+        ...clearCatCollarFixture.product,
+        careInstructions: maxLengthUnsupportedText,
+        claims: ["adjustable"]
+      }
+    },
+    {
+      field: "product.claims[0]",
+      product: {
+        ...clearCatCollarFixture.product,
+        claims: [maxLengthUnsupportedText]
+      }
+    }
+  ])("bounds PS-008 evidence for a maximum-length $field value", ({ field, product }) => {
+    const report = auditProduct({
+      pet: clearCatCollarFixture.pet,
+      product
+    });
+
+    expect(report.verdict).toBe("HUMAN_REVIEW");
+    expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-008"]);
+    expect(report.findings[0]?.evidence).toHaveLength(1);
+    expect(report.findings[0]?.evidence[0]).toMatch(
+      new RegExp(`^${field.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}=matched:`)
+    );
+    expect(report.findings[0]?.evidence[0]).toContain("valueSha256=");
+    expect(report.findings[0]?.evidence[0]?.length).toBeLessThanOrEqual(500);
+  });
 
   it("does not flag unrelated words just because they contain a broad substring", () => {
     const report = auditProduct({
@@ -215,6 +348,52 @@ describe("auditProduct", () => {
     expect(report.boundary).toBe("Non-veterinary product-fit audit based only on supplied facts.");
   });
 
+  it("raises caution when a collar listing omits its supported weight range", () => {
+    const report = auditProduct({
+      pet: clearCatCollarFixture.pet,
+      product: {
+        name: clearCatCollarFixture.product.name,
+        category: "collar_harness",
+        intendedSpecies: clearCatCollarFixture.product.intendedSpecies,
+        materials: clearCatCollarFixture.product.materials,
+        breakaway: true,
+        careInstructions: clearCatCollarFixture.product.careInstructions,
+        claims: clearCatCollarFixture.product.claims
+      }
+    });
+
+    expect(report.verdict).toBe("CAUTION");
+    expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-011"]);
+    expect(report.findings[0]?.evidence).toEqual([
+      "category=collar_harness",
+      "minWeightKg=missing",
+      "maxWeightKg=missing"
+    ]);
+    expect(report.missingFacts).toEqual(["minWeightKg", "maxWeightKg"]);
+    expect(report.findings.map((finding) => finding.ruleId)).not.toContain("PS-010");
+  });
+
+  it.each([
+    { category: "carrier" as const, productName: "Travel Carrier" },
+    { category: "bed" as const, productName: "Supportive Pet Bed" }
+  ])("requires a maximum supported weight for $category listings", ({ category, productName }) => {
+    const report = auditProduct({
+      pet: clearCatCollarFixture.pet,
+      product: {
+        name: productName,
+        category,
+        intendedSpecies: ["cat"],
+        materials: ["nylon"],
+        careInstructions: "Wipe clean and air dry.",
+        claims: ["portable"]
+      }
+    });
+
+    expect(report.verdict).toBe("CAUTION");
+    expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-011"]);
+    expect(report.missingFacts).toEqual(["maxWeightKg"]);
+  });
+
   it("builds deterministic hashes from canonical request and report data", () => {
     const firstReport = auditProduct(clearCatCollarFixture);
     const secondReport = auditProduct({
@@ -229,7 +408,7 @@ describe("auditProduct", () => {
     expect(firstReport).toEqual(secondReport);
   });
 
-  it("applies verdict precedence and unique penalty scoring", () => {
+  it("routes unsupported scope to human review while preserving all findings and unique penalties", () => {
     const report = auditProduct({
       pet: {
         species: "cat",
@@ -250,7 +429,7 @@ describe("auditProduct", () => {
       }
     });
 
-    expect(report.verdict).toBe("BLOCK");
+    expect(report.verdict).toBe("HUMAN_REVIEW");
     expect(report.findings.map((finding) => finding.ruleId)).toEqual([
       "PS-001",
       "PS-007",

@@ -304,4 +304,28 @@ describe("auditProduct property checks", () => {
       )
     );
   });
+
+  it("never marks a collar clear when either required weight bound is missing", () => {
+    fc.assert(
+      fc.property(
+        fc.double({ min: 2.5, max: 7, noNaN: true, noDefaultInfinity: true }),
+        fc.constantFrom("minWeightKg" as const, "maxWeightKg" as const),
+        (weightKg, missingField) => {
+          const product = { ...clearCatCollarFixture.product };
+          delete product[missingField];
+          const report = auditProduct({
+            pet: {
+              ...clearCatCollarFixture.pet,
+              weightKg
+            },
+            product
+          });
+
+          expect(report.verdict).toBe("CAUTION");
+          expect(report.findings.map((finding) => finding.ruleId)).toEqual(["PS-011"]);
+          expect(report.missingFacts).toContain(missingField);
+        }
+      )
+    );
+  });
 });
