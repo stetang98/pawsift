@@ -7,21 +7,21 @@
     "license": "MIT"
   },
   "source": {
-    "auditedCommit": "1f5db8f0c60ca5530719f1f80e2302a4f5666431",
-    "generatedAt": "2026-07-16T00:38:49-04:00",
-    "rulesetVersion": "2026.07.2",
+    "auditedCommit": "0a605986ba4b8dffe83a4ec0215fae660ec5d463",
+    "generatedAt": "2026-07-16T03:13:58-04:00",
+    "rulesetVersion": "2026.07.7",
     "rulesSource": "src/domain/rules.ts",
     "fixtureSource": "src/domain/fixtures.ts",
     "files": [
       {
         "path": "docs/SAFETY.md",
-        "gitBlob": "ca3f549444656b80073951fd30d97c438263831c",
-        "sha256": "86c0eef5fc8a5cd442e3fed1c13dacc68ae4c21b49cb3e80457ed227e102f472"
+        "gitBlob": "bd3d18137928a2dbea919af82e2cdf4aed2d3892",
+        "sha256": "f2f8a0158a377d17449597a57f2d12ce7b9f91fb440e8534be44a69bdb49fea6"
       },
       {
         "path": "ops/DEPLOYMENT.md",
-        "gitBlob": "94aac1e09a512b3b4d15025867947fd308c428e2",
-        "sha256": "9e29680881fa19fb10fb2b58ffa1623fce288e47dd72a554b675b4b81d5a9a03"
+        "gitBlob": "99aba79cab000d41cf374eaa15ec3c1f3987ba07",
+        "sha256": "636ac85b2fb0bba4711638fe8abec184af594c8c27b48e5f7975ba3ba199a72a"
       },
       {
         "path": "package.json",
@@ -50,13 +50,13 @@
       },
       {
         "path": "src/domain/fixtures.ts",
-        "gitBlob": "ef08ed6c071c3cc1009a296dc7ce67090b83ba85",
-        "sha256": "427404cf62ce3f46a6d507fafd300ad4af36ee2ff2d088873ec400394b54d34e"
+        "gitBlob": "a2b7c655c95b3b7d8f5e0ab3fd7c712cc05316ed",
+        "sha256": "ffe5659d4efddffafbbcc881141e76efd6cccd62fa6c89ff5d6adf665551b389"
       },
       {
         "path": "src/domain/rules.ts",
-        "gitBlob": "9a9a0e63d9814a8fe20b3b3da45c4a36764534f1",
-        "sha256": "40a86ced13e19f8e9150c9c3841d1bdfe2033b259d930c253aab0cf018cd6ebb"
+        "gitBlob": "239748c2f98e50973451b462dbfc9cf363642983",
+        "sha256": "c3ae1b58698e65f3637eef8dd6b8cbb7d5d140ad25b91a39baae7f6b1ceda295"
       },
       {
         "path": "src/domain/schemas.ts",
@@ -75,8 +75,8 @@
       },
       {
         "path": "src/proof/proof.ts",
-        "gitBlob": "2b2c8e7798cb92add8c65e6da7d2b59832b91a08",
-        "sha256": "a85c6eb081bfec77b8cbb10907b91b4ca9887dc01292cd91871f5a48c0edecff"
+        "gitBlob": "08c932d219cebbb6ca3d7db4d55e01c4336b9684",
+        "sha256": "eae19bb8bec1f981e114b0b7e1a9b1f91a1086b127ecd6000cd57ebc8d4dac5d"
       },
       {
         "path": "tests/domain/canonical.test.ts",
@@ -85,8 +85,8 @@
       },
       {
         "path": "tests/domain/rules.test.ts",
-        "gitBlob": "46030d81012ba0904280c9b144e747924379df71",
-        "sha256": "0d90893cd0ff62c46e2503b6693b1d1b3499ea53ed3a2527f5892a97e96e2af3"
+        "gitBlob": "d162f7f6d6eeb8604a91d4654790e5337b609ea7",
+        "sha256": "70d36e0899b3d939b14eae7d871c78c1462ca05f6bede47737e9e288296bc22b"
       },
       {
         "path": "tests/proof/git-provenance.test.ts",
@@ -95,8 +95,8 @@
       },
       {
         "path": "tests/proof/proof.test.ts",
-        "gitBlob": "72bcf0d3e0ce0901451620cb052371808307da5a",
-        "sha256": "f1bb91f46521abe4a71f54cafd775f11f012eb91746e18c36e8d301793019c07"
+        "gitBlob": "d8a9962cfffdb39160401d9d24e64753efe0cbe6",
+        "sha256": "ba745f288dbb2302fc6f84c3a24d6d021d11b7a3ddb2828e8d281983c214d7f6"
       }
     ]
   },
@@ -106,19 +106,19 @@
     "paymentMode": "free_launch",
     "verification": {
       "endpoint": "https://pawsift.vercel.app",
-      "verifiedAt": "2026-07-16T04:41:24.293Z",
+      "verifiedAt": "2026-07-16T07:07:12Z",
       "health": {
         "url": "https://pawsift.vercel.app/api/v1/health",
         "status": "ok",
-        "rulesetVersion": "2026.07.2"
+        "rulesetVersion": "2026.07.7"
       },
       "fixture": {
         "id": "clear-cat-collar",
         "inputHash": "f8ab57435e1fb63b7fda95d06437c263ef87e1c63051e723e39ee56797eff5ff",
-        "reportHash": "f5bd2cbcb24b55469243c036ef20a7bedb0bd085d4af5435dbecda6cf69a97e2"
+        "reportHash": "c35e0036153fbc634d99d2e780fd7036ee18fade3a26d3ef72c25ced67c32011"
       },
       "evidencePath": "ops/DEPLOYMENT.md",
-      "evidenceSha256": "9e29680881fa19fb10fb2b58ffa1623fce288e47dd72a554b675b4b81d5a9a03"
+      "evidenceSha256": "636ac85b2fb0bba4711638fe8abec184af594c8c27b48e5f7975ba3ba199a72a"
     }
   },
   "payments": {
@@ -128,7 +128,7 @@
   },
   "claims": [
     {
-      "statement": "All eleven published fixtures reproduce their expected verdicts and stable rule identifiers.",
+      "statement": "All twelve published fixtures reproduce their expected verdicts and stable rule identifiers.",
       "sourcePaths": [
         "src/domain/fixtures.ts",
         "tests/domain/rules.test.ts"
@@ -162,7 +162,7 @@
         "PS-010"
       ],
       "inputHash": "f8ab57435e1fb63b7fda95d06437c263ef87e1c63051e723e39ee56797eff5ff",
-      "reportHash": "f5bd2cbcb24b55469243c036ef20a7bedb0bd085d4af5435dbecda6cf69a97e2"
+      "reportHash": "c35e0036153fbc634d99d2e780fd7036ee18fade3a26d3ef72c25ced67c32011"
     },
     {
       "id": "species-mismatch",
@@ -175,7 +175,7 @@
         "PS-001"
       ],
       "inputHash": "6468cb34a367c898ad4a8226478fe7a22c18b9152f87a87ec862e4aafa94e4f9",
-      "reportHash": "191382555a7d8a223c6bb6b0bd80708320910df108cf9132487e1fb7cc5a1ea7"
+      "reportHash": "553aecb8e4c686a00e9ad9981e49a502ecfec9ddb70bdb644a99ac2c40babf8d"
     },
     {
       "id": "weight-range-mismatch",
@@ -188,7 +188,7 @@
         "PS-002"
       ],
       "inputHash": "97af4122c408a023b0aacec99f82e4cd6cedb90165f3ebd49a8a6067509b6de7",
-      "reportHash": "0b470e2c959d41d582926ac2f8f26137acbbdacbb18fd277d62c35771bd8a482"
+      "reportHash": "9cb565eab57b4e30498bd153fdae6dfbde4f02fd67b853bee5a0c77e38547c74"
     },
     {
       "id": "missing-materials",
@@ -201,7 +201,7 @@
         "PS-003"
       ],
       "inputHash": "ef42c2356d2e0583a537784427b7b3485e0ca992523e050cdcf9124cba2ebe72",
-      "reportHash": "ae3403987c89b1ea8413f4251fd9c26d617f4003850d38e144526dae54b89c89"
+      "reportHash": "5c30ef127149c4c90e671e95fc3b30c15fd2742c8f6437cfa8d7e6a058ae6233"
     },
     {
       "id": "unsafe-toy",
@@ -214,7 +214,7 @@
         "PS-004"
       ],
       "inputHash": "695e4ef2fb40299d79d7406e1bbab6953b2bafc491a1c3872b3e7e7e63582792",
-      "reportHash": "1780f523a10ad0025bf810c9e2299df3933080acd6e51f41c0f456214158775c"
+      "reportHash": "a1a3e34ce3195e15c912a76032894b4301ed744301c560e910224ce8b2189b3f"
     },
     {
       "id": "magnetic-toy",
@@ -227,7 +227,7 @@
         "PS-005"
       ],
       "inputHash": "bbde60c8b2fc926bfa6fd6b08ce1d81f9ec877ee955d35a905f435af41e98895",
-      "reportHash": "f0283783cc18a7743bda5ebda5009fe73f95613d63bf983f3bceb7e1b9189482"
+      "reportHash": "d85e96bc1c32a353426bf731206a22be96922a194df1ebbf6d4982beed5a8b24"
     },
     {
       "id": "missing-breakaway",
@@ -240,7 +240,7 @@
         "PS-006"
       ],
       "inputHash": "6aa38756164b8dac550ec55b657626c6f444282d99578cd8af16bfa6105ffaa2",
-      "reportHash": "e11a9d048f177028e087343cbcad52775b3204445a0ba0678c61110c76c15f4b"
+      "reportHash": "e46a09d8450ac10fc94855597a1cd2715013ae41954f33ea86c6db5bb782123c"
     },
     {
       "id": "overweight-carrier",
@@ -253,7 +253,7 @@
         "PS-007"
       ],
       "inputHash": "4267965a53be71d67e01451589e8b822840da83df0bc81ea074fc0f781f43ec7",
-      "reportHash": "39362738d0127bb64e72c2d4782883b2c3f03c4421258df4526e2cab498c0680"
+      "reportHash": "7d8028264a497727b98664990db02bb514d05c3ddbd336aabdce3e4585dd8925"
     },
     {
       "id": "unsupported-claim",
@@ -266,7 +266,20 @@
         "PS-008"
       ],
       "inputHash": "5d41ff212ba23cc9988af9e112dbe73ad46acbe029e04e9bc3edcb765890bd97",
-      "reportHash": "7d16a152b294141f10b3654729744e72fd0780a92feb0768134b9eb53a5b278e"
+      "reportHash": "58c045b46f3c9aa28f5830b8f7fb79f97476b32971b8bf37c6e84358bce54e20"
+    },
+    {
+      "id": "unsupported-food-name",
+      "expectedVerdict": "HUMAN_REVIEW",
+      "actualVerdict": "HUMAN_REVIEW",
+      "expectedRuleIds": [
+        "PS-008"
+      ],
+      "actualRuleIds": [
+        "PS-008"
+      ],
+      "inputHash": "020c97d8639dee64c72f7c4986d3a17eb390dc1ca556cd8a7d5d4d69c9f9aaf8",
+      "reportHash": "1b12bf5bd7f378f8cd56e42d07b8a8d2d3be53027eae15a38671315a1ec83e59"
     },
     {
       "id": "missing-care",
@@ -279,7 +292,7 @@
         "PS-009"
       ],
       "inputHash": "82dfffdebbb0113e431116c416e720e9482f64d54d4f325f4b5474dbb5f6352f",
-      "reportHash": "e28118c794cad546b39dbfea41cc3f5060b9c208ba630a3743dad2afb266fbc4"
+      "reportHash": "acc66bc02d93ff54f8bb2ab787f757cb141b1c7013f4f2db299f3f742deccbcd"
     },
     {
       "id": "missing-weight-support",
@@ -292,7 +305,7 @@
         "PS-011"
       ],
       "inputHash": "cf319400e293e7a0364560d2e8665be032754aa928855e5689c103acc6b3f746",
-      "reportHash": "7805ec935f3140b0d142cbca4245f120defa2b5678c6cc73b656e9137c5e0af7"
+      "reportHash": "ba61f77a812174c7f74c69021f35b5db4726d782cd796a488ad2ca511d651c94"
     }
   ],
   "verification": {
@@ -304,5 +317,5 @@
       "npm test -- --run tests/proof/proof.test.ts"
     ]
   },
-  "documentHash": "018a4c7aed19fe4afbe04c6c5bd02ea7ba38feb9e21a9fd5247adb795de87701"
+  "documentHash": "bf7e83e5eff432b7c473a6af71336cd0e8bcc39b9a28af0ec2c7cf2b75e1dbe8"
 }
