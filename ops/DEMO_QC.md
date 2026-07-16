@@ -31,4 +31,8 @@ Candidate: `artifacts/demo/pawsift-demo-final-v6-v1.mp4`
 
 ## Publication gate
 
-Do not publish this video or the prepared X post until the external teammate reviewer returns a submission-ready verdict. If OKX.AI approval arrives before publication, update the final status shot and claim wording, regenerate a new versioned video, and rerun this QC.
+Cleared on 2026-07-16. The external teammate reviewer returned `Video upload: READY TO UPLOAD`, with no code, security, proof, deployment, or video blocker. The reviewer explicitly verified this file's SHA-256, 88.9-second runtime, complete playback, claim accuracy, and honest `Listing under review` wording.
+
+Published post: https://x.com/Stetang3438/status/2077807252648656964
+
+OKX.AI listing approval remains the only event-eligibility blocker. If approval changes the status shown in the video, create and review a new version rather than editing this published artifact in place.

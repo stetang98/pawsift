@@ -2,7 +2,7 @@
 
 Competition: [OKX.AI Genesis Hackathon](https://www.hackquest.io/zh-cn/hackathons/OKXAI-Genesis-Hackathon)
 
-Status: product, public deployment, and OKX.AI Agent ID ready; listing approval, X post, and final form receipts remain pending.
+Status: product, public deployment, OKX.AI Agent ID, and X participation post ready; listing approval and final form receipt remain pending.
 
 ## Core fields
 
@@ -21,7 +21,7 @@ Status: product, public deployment, and OKX.AI Agent ID ready; listing approval,
 | GitHub | `stetang98` |
 | X | `@Stetang3438` |
 | Telegram | `@Stetang` |
-| Demo URL | `[PENDING_PUBLIC_X_VIDEO_OR_DIRECT_VIDEO_URL]` |
+| Demo URL | `https://x.com/Stetang3438/status/2077807252648656964` |
 | OKX.AI Agent ID | `6036` |
 | OKX.AI listing | `[PENDING_APPROVED_LISTING_URL]` |
 | OKX.AI review state | `Listing under review` |
@@ -54,6 +54,7 @@ Pet-product listings often hide the facts that determine fit: supported species 
 - Replay twelve checked-in fixtures: https://pawsift.vercel.app/api/v1/examples
 - Recompute the content-addressed receipts from `proof/proof.json`
 - Review the public MIT repository: https://github.com/stetang98/pawsift
+- Watch the public demo: https://x.com/Stetang3438/status/2077807252648656964
 
 ![PawSift mobile flow](https://raw.githubusercontent.com/stetang98/pawsift/main/public/screens/pawsift-console-mobile-v1.png)
 
@@ -108,7 +109,7 @@ The live form was inspected on 2026-07-15. Every field below is required.
 | ASP Description | Use the ASP description in `ops/ASP_LISTING.md` verbatim |
 | ASP Type | `A2MCP` |
 | X Account Handle | `@Stetang3438` |
-| X Participation Post (Link) | `[PENDING_PUBLIC_X_POST_URL]` |
+| X Participation Post (Link) | `https://x.com/Stetang3438/status/2077807252648656964` |
 | Telegram Handle | `@Stetang` |
 
 Do not submit either platform form while any bracketed value remains unresolved.

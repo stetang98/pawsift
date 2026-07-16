@@ -519,19 +519,19 @@ Endpoint: production `/api/v1/audit` URL.
 
 Description must state the non-veterinary boundary and structured output.
 
-- [ ] **Step 2: Register and request listing**
+- [x] **Step 2: Register and request listing**
 
 Follow the official Onchain OS identity preflight, explicit service-completion gate, confirmation card, identity create, and activate/listing workflow. Record the real Agent ID and review state; do not infer IDs.
 
-- [ ] **Step 3: Produce the demo**
+- [x] **Step 3: Produce the demo**
 
 The video shows the deployed page, one `CLEAR` flow, one `CAUTION` flow, the JSON receipt, the live API, and the OKX.AI listing. Narration and subtitles must stay synchronized and the final duration must be <=90 seconds.
 
-- [ ] **Step 4: Run mandatory reviews**
+- [x] **Step 4: Run mandatory reviews**
 
 After every implementation batch, dispatch the installed code reviewer. Before release, request one TypeScript review, one security review, one E2E review, and the external `黑客松reviewer` submission review. Fix accepted findings and repeat until the verdict has no blocker or high issue.
 
-- [ ] **Step 5: Publish the X participation post**
+- [x] **Step 5: Publish the X participation post**
 
 The post includes `#OKXAI`, the use case, the <=90-second demo, the live ASP identity, and the public repository. Treat posting as an external side effect and obtain action-time confirmation.
 

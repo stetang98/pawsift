@@ -22,11 +22,11 @@ PawSift is a deterministic fit and listing-quality audit for non-ingestible cat 
 | OKX.AI identity and Agent ID | Registered: Agent ID `6036` |
 | OKX.AI marketplace category | Verified by official CLI: `LIFESTYLE` |
 | ASP review/live listing | `Listing under review`; not publicly listed |
-| Demo | Local reviewer candidate ready: `artifacts/demo/pawsift-demo-final-v6-v1.mp4` |
-| X post | Prepared but not published |
+| Demo | Reviewer-approved and published: `artifacts/demo/pawsift-demo-final-v6-v1.mp4` |
+| X post | Published: `https://x.com/Stetang3438/status/2077807252648656964` |
 | HackQuest and Google Form | Pending |
 
-Do not convert a remaining pending row into a completed claim without public evidence.
+The remaining external eligibility blocker is OKX.AI listing approval. Do not convert that pending row into a completed claim without public evidence.
 
 ## Review commands
 

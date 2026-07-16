@@ -1,6 +1,8 @@
 # PawSift X participation post
 
-Status: prepared; publish only after the reviewer clears the final video. If OKX approval arrives first, replace the review wording with the verified public listing URL.
+Status: published on 2026-07-16 after reviewer approval.
+
+Public post: https://x.com/Stetang3438/status/2077807252648656964
 
 ## Main post
 
@@ -29,4 +31,4 @@ PawSift is intentionally narrow: non-ingestible cat and dog supplies only. Medic
 - The reviewed video is attached and is no longer than 90 seconds.
 - The post is public and plays while signed out.
 - Live site and repository links resolve.
-- The copied post URL is recorded in `ops/HACKQUEST_SUBMISSION.md` and the Google Form.
+- The copied post URL is recorded in `ops/HACKQUEST_SUBMISSION.md` for the Google Form.

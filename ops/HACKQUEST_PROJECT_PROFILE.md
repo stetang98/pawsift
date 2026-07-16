@@ -27,8 +27,8 @@ The saved rich-text description includes the problem, deterministic audit workfl
 - OKX.AI marketplace category: `LIFESTYLE`.
 - OKX.AI approval: `Listing under review`.
 - Approved public listing URL: pending.
-- Final demo video URL: pending reviewer approval and publication.
-- X participation post: pending final video publication.
+- Final demo video URL: `https://x.com/Stetang3438/status/2077807252648656964`.
+- X participation post: published and publicly reachable at `https://x.com/Stetang3438/status/2077807252648656964`.
 - Final submission receipts: pending.
 
 No deployment-contract fields were fabricated because PawSift is an offchain A2MCP service. No revenue, payment, sale, or transaction-volume claim is made.
