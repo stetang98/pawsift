@@ -12,7 +12,7 @@ PawSift is a deterministic product-fit and listing-quality audit for non-ingesti
 - Audit endpoint: [https://pawsift.vercel.app/api/v1/audit](https://pawsift.vercel.app/api/v1/audit)
 - OpenAPI: [https://pawsift.vercel.app/openapi.json](https://pawsift.vercel.app/openapi.json)
 
-The stable Vercel alias passed hosted contract and desktop/mobile workflow checks on 2026-07-15. Exact evidence is recorded in [`ops/DEPLOYMENT.md`](ops/DEPLOYMENT.md) and `proof/proof.json`.
+The stable Vercel alias passed the original hosted contract and desktop/mobile workflow checks on 2026-07-15. That evidence predates the 2026-07-17 zero-byte probe remediation; this release is not considered deployed until the public probe is replayed successfully. Exact historical evidence is recorded in [`ops/DEPLOYMENT.md`](ops/DEPLOYMENT.md) and `proof/proof.json`.
 
 ## One-call API
 
@@ -41,6 +41,8 @@ curl --fail-with-body https://pawsift.vercel.app/api/v1/audit \
 ```
 
 Valid in-scope requests return HTTP 200 with `CLEAR`, `CAUTION`, `BLOCK`, or `HUMAN_REVIEW`, plus a ruleset version and lowercase SHA-256 receipt. Medical or ingestible listing text returns HTTP 422 with deterministic `HUMAN_REVIEW` guidance. Invalid input is returned as a sanitized JSON error.
+
+For OKX.AI's documented free-service availability check, a zero-byte `POST` also returns HTTP 200 with the deterministic clear fixture. Any non-empty body still follows the strict JSON and request-schema contract.
 
 ## Why it matters
 
@@ -104,7 +106,7 @@ PawSift is designed as a free A2MCP service:
 
 Calling PawSift needs no wallet, private key, model key, or third-party API. Registering the ASP identity used the official Agentic Wallet flow; a paid x402 adapter is intentionally not claimed or simulated.
 
-OKX.AI registration is complete as Agent ID `6036`. The approval request was submitted on 2026-07-15 and currently reports `Listing under review`; no approved-listing claim is made until that state changes.
+OKX.AI registration is complete as Agent ID `6036`. The first listing review was rejected on 2026-07-17 after the availability probe received a non-200 response; the endpoint compatibility fix is being deployed and must be resubmitted. No approved-listing claim is made until OKX approves it and a public listing URL is verified.
 
 ## License
 

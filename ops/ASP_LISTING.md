@@ -1,6 +1,6 @@
 # PawSift OKX.AI ASP listing
 
-Status: Agent ID `6036` created; approval submitted; listing is under review.
+Status: Agent ID `6036` created; the first listing review was rejected on 2026-07-17; endpoint remediation and re-review are pending.
 
 ## Listing fields
 
@@ -16,7 +16,7 @@ Status: Agent ID `6036` created; approval submitted; listing is under review.
 | Avatar | `https://static.okx.com/cdn/web3/wallet/marketplace/headimages/agent/avatar/90713ec2-b8e9-49e2-8a6c-f1d2cf0dcf44.png` |
 | Preferred review language | `en-US` |
 | Agent ID | `6036` |
-| Listing state | `Listing under review` |
+| Listing state | `Listing rejected` |
 | Verified marketplace category | `LIFESTYLE` |
 | Registration transaction | `0x25e7dd9f7ca75cd30eaa40fd074a89860442eadfd067d0715a4e08aa4d3869be` |
 | Lifestyle profile update transaction | `0x2d290ec5e689fbf463397446020e290a98c0320d184133e349f22cbbefcaaf1a` |
@@ -91,13 +91,13 @@ Run from the repository root with `/Users/stetang/.local/bin/onchainos` version 
   --preferred-language en-US
 ```
 
-The approval submission succeeded on 2026-07-15. On 2026-07-16, the profile and service descriptions were updated to the exact pet-lifestyle wording above. The official profile now reports `categoryCode: ["LIFESTYLE"]`, `approvalLabel: Listing under review`, and `statusLabel: not listed`. Do not describe PawSift as approved or publicly listed until that state changes.
+The approval submission succeeded on 2026-07-15. On 2026-07-16, the profile and service descriptions were updated to the exact pet-lifestyle wording above. On 2026-07-17, OKX rejected the first review because its zero-byte endpoint probe received a non-200 response, followed by generic x402 and timeout failures. The registered service remains free at `0 USDT`; OKX's A2MCP guide explicitly says free endpoints return HTTP 200 directly and require no x402. Do not describe PawSift as approved or publicly listed until re-review succeeds and a public listing URL is verified.
 
 ## Required evidence
 
 - Real Agent ID `6036` returned by the CLI.
 - `agent profile` output for that ID.
 - `agent service-list` output showing one free A2MCP service and the production endpoint.
-- Activation/review response showing `Listing under review`.
+- Current profile output showing the exact approval label and listing status.
 - Public OKX.AI listing URL after approval.
 - Signed-out endpoint replay matching the checked-in clear fixture receipt.

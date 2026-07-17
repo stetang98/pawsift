@@ -348,7 +348,9 @@ export const openApiDocument = {
         summary: "Audit a non-ingestible pet supply listing.",
         operationId: "postAudit",
         requestBody: {
-          required: true,
+          required: false,
+          description:
+            "Provide an AuditRequest for a product audit. A zero-byte availability probe returns the deterministic clear example with HTTP 200 for OKX.AI free-service validation.",
           content: {
             "application/json": {
               schema: schemaRef("AuditRequest"),

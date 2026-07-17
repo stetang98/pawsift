@@ -77,6 +77,31 @@ function expectAuditHeaders(response: Response): void {
 }
 
 describe("POST /api/v1/audit", () => {
+  it("returns 200 with a deterministic result for the empty OKX.AI availability probe", async () => {
+    const response = await auditRoute.POST(
+      new Request("https://pawsift.test/api/v1/audit", {
+        method: "POST"
+      })
+    );
+
+    expect(response.status).toBe(200);
+    expectAuditHeaders(response);
+    await expect(response.json()).resolves.toEqual(auditProduct(clearCatCollarFixture));
+  });
+
+  it("keeps a non-empty whitespace body on the invalid JSON path", async () => {
+    const response = await auditRoute.POST(createJsonRequest("   "));
+
+    expect(response.status).toBe(400);
+    expectAuditHeaders(response);
+    await expect(response.json()).resolves.toEqual({
+      error: {
+        code: "INVALID_JSON",
+        message: "Request body must be valid JSON."
+      }
+    });
+  });
+
   it("returns 200 and the shared clear fixture report for a valid request", async () => {
     const response = await auditRoute.POST(createJsonRequest(JSON.stringify(clearCatCollarFixture)));
 

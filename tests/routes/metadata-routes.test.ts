@@ -184,6 +184,10 @@ describe("GET /openapi.json", () => {
     expect(document.paths["/api/v1/audit"].post.responses["422"].description).toBe(
       "Request is explicitly outside the supported non-veterinary scope."
     );
+    expect(document.paths["/api/v1/audit"].post.requestBody.required).toBe(false);
+    expect(document.paths["/api/v1/audit"].post.requestBody.description).toContain(
+      "zero-byte availability probe"
+    );
     expect(
       document.paths["/api/v1/audit"].post.requestBody.content["application/json"].examples.clear
         .value

@@ -1,6 +1,6 @@
 # PawSift OKX.AI registration evidence
 
-Observed through the official `onchainos` CLI on 2026-07-15 and refreshed after the Lifestyle profile update on 2026-07-16.
+Observed through the official `onchainos` CLI on 2026-07-15, refreshed after the Lifestyle profile update on 2026-07-16, and reconciled with the first review result on 2026-07-17.
 
 ## Identity
 
@@ -12,7 +12,7 @@ Observed through the official `onchainos` CLI on 2026-07-15 and refreshed after 
 | Chain index | `196` |
 | Owner address | `0x37c8a0097b68a11e2165262b0a5f0ed724ff53f2` |
 | Registration transaction | `0x25e7dd9f7ca75cd30eaa40fd074a89860442eadfd067d0715a4e08aa4d3869be` |
-| Approval label | `Listing under review` |
+| Approval label | `Listing rejected` |
 | Listing status | `not listed` |
 | Marketplace category | `LIFESTYLE` |
 | Profile update transaction | `0x2d290ec5e689fbf463397446020e290a98c0320d184133e349f22cbbefcaaf1a` |
@@ -31,4 +31,4 @@ Exactly one service is attached to Agent ID `6036`:
 
 ## Honest status boundary
 
-The identity, registration transaction, and Lifestyle profile update are real. The official profile now classifies PawSift as `LIFESTYLE`, but the listing remains under review. PawSift must not be described as approved, listed, or live on the OKX.AI marketplace until a later profile check reports that state and a public listing URL is verified.
+The identity, registration transaction, and Lifestyle profile update are real. The official profile classifies PawSift as `LIFESTYLE`, but OKX rejected the first listing review on 2026-07-17. The rejection reported an unreachable endpoint, failed x402 validation, and a timed-out invocation. The root availability mismatch was reproducible: OKX's documented zero-byte free-service probe returned HTTP 400, while the official A2MCP guide requires HTTP 200 and states that a free endpoint does not use x402. PawSift must not be described as approved, listed, or live on the OKX.AI marketplace until the remediation is deployed, re-review succeeds, and a public listing URL is verified.

@@ -30,7 +30,7 @@ The domain layer is pure except for SHA-256 hashing. It does not read environmen
 
 ### HTTP
 
-- `POST /api/v1/audit` validates content type, size, JSON, and the request schema before calling the domain engine.
+- `POST /api/v1/audit` bounds and decodes the body before calling the domain engine. A zero-byte body is the documented OKX.AI free-service availability probe and returns the deterministic clear fixture; every non-empty body follows strict JSON and request-schema validation.
 - `GET /api/v1/health` exposes liveness and ruleset metadata.
 - `GET /api/v1/examples` publishes the checked-in fixtures.
 - `GET /openapi.json` publishes the machine contract.

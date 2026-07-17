@@ -1,6 +1,7 @@
 import { ZodError } from "zod";
 
 import { auditProduct } from "../../../../src/domain/audit";
+import { clearCatCollarFixture } from "../../../../src/domain/fixtures";
 import { auditRequestSchema } from "../../../../src/domain/schemas";
 import {
   internalErrorResponse,
@@ -35,6 +36,11 @@ export async function POST(request: Request): Promise<Response> {
 
     if (rawBody.body.length > MAX_AUDIT_BODY_BYTES) {
       return payloadTooLargeResponse(AUDIT_METHODS);
+    }
+
+    // OKX.AI probes free A2MCP endpoints with an empty POST and expects HTTP 200.
+    if (rawBody.body.length === 0) {
+      return jsonResponse(auditProduct(clearCatCollarFixture), 200, AUDIT_METHODS);
     }
 
     let parsedBody: unknown;
