@@ -1,6 +1,6 @@
 # PawSift OKX.AI ASP listing
 
-Status: Agent ID `6036` created; the first listing review was rejected on 2026-07-17; endpoint remediation and re-review are pending.
+Status: Agent ID `6036` created; the first listing review was rejected on 2026-07-17; endpoint remediation is deployed and re-review is pending.
 
 ## Listing fields
 

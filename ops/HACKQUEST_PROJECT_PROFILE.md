@@ -25,7 +25,7 @@ The saved rich-text description includes the problem, deterministic audit workfl
 - Project profile: saved.
 - Agent ID: `6036`.
 - OKX.AI marketplace category: `LIFESTYLE`.
-- OKX.AI approval: `Listing rejected` on 2026-07-17; endpoint remediation and re-review pending.
+- OKX.AI approval: `Listing rejected` on 2026-07-17; endpoint remediation deployed; re-review pending.
 - Approved public listing URL: pending.
 - Final demo video URL: `https://x.com/Stetang3438/status/2077807252648656964`.
 - X participation post: published and publicly reachable at `https://x.com/Stetang3438/status/2077807252648656964`.
