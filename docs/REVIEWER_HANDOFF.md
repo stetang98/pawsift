@@ -3,7 +3,7 @@
 ## Competition
 
 - Event: [OKX.AI Genesis Hackathon](https://www.hackquest.io/zh-cn/hackathons/OKXAI-Genesis-Hackathon)
-- Deadline: 2026-07-17 23:59 UTC
+- Deadline: 2026-07-27 23:59 UTC
 - Primary track: Lifestyle Companion
 - Project: PawSift
 
