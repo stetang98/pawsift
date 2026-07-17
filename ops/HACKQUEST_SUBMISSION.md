@@ -24,7 +24,7 @@ Status: product, public deployment, OKX.AI Agent ID, and X participation post re
 | Demo URL | `https://x.com/Stetang3438/status/2077807252648656964` |
 | OKX.AI Agent ID | `6036` |
 | OKX.AI listing | `[PENDING_APPROVED_LISTING_URL]` |
-| OKX.AI review state | `Listing rejected`; endpoint remediation deployed; re-review pending |
+| OKX.AI review state | First review rejected; remediation deployed; resubmission `Listing under review`; `not listed` |
 | OKX.AI marketplace category | `LIFESTYLE` |
 
 ## Short description
@@ -74,11 +74,11 @@ PawSift is not veterinary advice. It does not approve food, treats, supplements,
 
 ## OKX.AI integration
 
-PawSift is registered as a free `A2MCP` service on OKX.AI. The official profile classifies Agent ID `6036` as `LIFESTYLE`; the first listing review was rejected on 2026-07-17, and the endpoint remediation is deployed and publicly verified. The public listing URL remains pending until OKX approves the re-review.
+PawSift is registered as a free `A2MCP` service on OKX.AI. The official profile classifies Agent ID `6036` as `LIFESTYLE`; the first listing review was rejected on 2026-07-17, the endpoint remediation is deployed and publicly verified, and the resubmission now reports `Listing under review` / `not listed`. The public listing URL remains pending until OKX approves the re-review.
 
 - Agent ID: `6036`
 - Listing: `[PENDING_APPROVED_LISTING_URL]`
-- Review state: `Listing rejected`; remediation deployed; re-review pending
+- Review state: first review rejected; remediation deployed; resubmission `Listing under review`; `not listed`
 - Marketplace category: `LIFESTYLE`
 - Endpoint: https://pawsift.vercel.app/api/v1/audit
 

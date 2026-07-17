@@ -21,7 +21,7 @@ PawSift is a deterministic fit and listing-quality audit for non-ingestible cat 
 | Vercel HTTPS deployment | Live and verified: `https://pawsift.vercel.app` |
 | OKX.AI identity and Agent ID | Registered: Agent ID `6036` |
 | OKX.AI marketplace category | Verified by official CLI: `LIFESTYLE` |
-| ASP review/live listing | `Listing rejected` on 2026-07-17; remediation deployed; re-review pending; not publicly listed |
+| ASP review/live listing | First review rejected on 2026-07-17; remediation deployed; resubmission `Listing under review`; `not listed` |
 | Demo | Reviewer-approved and published: `artifacts/demo/pawsift-demo-final-v6-v1.mp4` |
 | X post | Published: `https://x.com/Stetang3438/status/2077807252648656964` |
 | HackQuest and Google Form | Pending |

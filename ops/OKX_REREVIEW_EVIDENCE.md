@@ -68,4 +68,6 @@ The deployed OpenAPI operation reports `requestBody.required: false` and documen
 
 ## Status boundary
 
-These checks prove deployment and endpoint behavior only. Agent `6036` remains `Listing rejected` / `not listed` until OKX completes re-review. This document does not claim approval or a public marketplace listing.
+The service update succeeded in transaction `0xd954678b16a879bb5200b2aac1a6df0c0454b057c1b413e890262424e20b7f11`. The subsequent approval submission returned success, and an immediate official profile check reported `Listing under review` / `not listed`.
+
+These checks prove deployment, endpoint behavior, and successful resubmission only. This document does not claim approval or a public marketplace listing.

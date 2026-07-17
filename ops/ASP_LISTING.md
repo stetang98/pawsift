@@ -1,6 +1,6 @@
 # PawSift OKX.AI ASP listing
 
-Status: Agent ID `6036` created; the first listing review was rejected on 2026-07-17; endpoint remediation is deployed and re-review is pending.
+Status: Agent ID `6036` created; the first listing review was rejected on 2026-07-17; endpoint remediation is deployed; the resubmission is `Listing under review` and `not listed`.
 
 ## Listing fields
 
@@ -16,7 +16,7 @@ Status: Agent ID `6036` created; the first listing review was rejected on 2026-0
 | Avatar | `https://static.okx.com/cdn/web3/wallet/marketplace/headimages/agent/avatar/90713ec2-b8e9-49e2-8a6c-f1d2cf0dcf44.png` |
 | Preferred review language | `en-US` |
 | Agent ID | `6036` |
-| Listing state | `Listing rejected` |
+| Listing state | `Listing under review` after remediation resubmission; `not listed` |
 | Verified marketplace category | `LIFESTYLE` |
 | Registration transaction | `0x25e7dd9f7ca75cd30eaa40fd074a89860442eadfd067d0715a4e08aa4d3869be` |
 | Lifestyle profile update transaction | `0x2d290ec5e689fbf463397446020e290a98c0320d184133e349f22cbbefcaaf1a` |
@@ -91,7 +91,7 @@ Run from the repository root with `/Users/stetang/.local/bin/onchainos` version 
   --preferred-language en-US
 ```
 
-The approval submission succeeded on 2026-07-15. On 2026-07-16, the profile and service descriptions were updated to the exact pet-lifestyle wording above. On 2026-07-17, OKX rejected the first review because its zero-byte endpoint probe received a non-200 response, followed by generic x402 and timeout failures. The registered service remains free at `0 USDT`; OKX's A2MCP guide explicitly says free endpoints return HTTP 200 directly and require no x402. Do not describe PawSift as approved or publicly listed until re-review succeeds and a public listing URL is verified.
+The approval submission succeeded on 2026-07-15. On 2026-07-16, the profile and service descriptions were updated to the exact pet-lifestyle wording above. On 2026-07-17, OKX rejected the first review because its zero-byte endpoint probe received a non-200 response, followed by generic x402 and timeout failures. The registered service remains free at `0 USDT`; OKX's A2MCP guide explicitly says free endpoints return HTTP 200 directly and require no x402. After deployment and public replay, the service was updated in transaction `0xd954678b16a879bb5200b2aac1a6df0c0454b057c1b413e890262424e20b7f11` and resubmitted successfully. The profile now reports `Listing under review` and `not listed`. Do not describe PawSift as approved or publicly listed until re-review succeeds and a public listing URL is verified.
 
 ## Required evidence
 
