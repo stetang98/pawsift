@@ -7,8 +7,8 @@
     "license": "MIT"
   },
   "source": {
-    "auditedCommit": "0a605986ba4b8dffe83a4ec0215fae660ec5d463",
-    "generatedAt": "2026-07-16T03:13:58-04:00",
+    "auditedCommit": "d5e3d37b6877fd3cd305c78f0322615bc49badc6",
+    "generatedAt": "2026-07-22T09:34:39-04:00",
     "rulesetVersion": "2026.07.7",
     "rulesSource": "src/domain/rules.ts",
     "fixtureSource": "src/domain/fixtures.ts",
@@ -25,8 +25,8 @@
       },
       {
         "path": "package.json",
-        "gitBlob": "dd2e3fd570a1edc864490fe1235b97b133d16700",
-        "sha256": "3bb800d1110986a3c8be6d9f570c3de7d1b355c7c8e41dab7a36c249e87ee9f1"
+        "gitBlob": "c6443fa1b9c8e34f46ead01f9f6f069551329a32",
+        "sha256": "212f3ada6d8c4123dd19a085a83249272b1de71054c0230802b618f744d9885d"
       },
       {
         "path": "scripts/export-proof.ts",
@@ -317,5 +317,5 @@
       "npm test -- --run tests/proof/proof.test.ts"
     ]
   },
-  "documentHash": "bf7e83e5eff432b7c473a6af71336cd0e8bcc39b9a28af0ec2c7cf2b75e1dbe8"
+  "documentHash": "b65a1c7be51cfc66374a081e59d75b71efabbf014f0579b6f16a8bfaeaa42abb"
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "auditedCommit": "0a605986ba4b8dffe83a4ec0215fae660ec5d463",
+  "auditedCommit": "d5e3d37b6877fd3cd305c78f0322615bc49badc6",
   "deployment": {
     "status": "live",
     "endpoint": "https://pawsift.vercel.app",
