@@ -62,4 +62,4 @@ The v7 candidate replaces only the final status visual, narration, and subtitles
 - The existing first six narration cues and verified production/proof visuals are byte-identical inputs from v6; only the dated marketplace-state segment changed.
 - Natural pauses of `0.86` and `0.80` seconds remain at the same positions as v6. No synthetic time compression was used.
 
-Publication remains gated on external reviewer approval. Competition eligibility is separately unproven because no timely Google Form receipt has been found.
+Publication remains gated on external reviewer approval. After approval, publish the v7 X post and submit the Google Form before 2026-07-27 23:59 UTC.

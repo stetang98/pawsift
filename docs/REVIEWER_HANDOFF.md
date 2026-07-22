@@ -3,7 +3,7 @@
 ## Competition
 
 - Event: [OKX.AI Genesis Hackathon](https://www.hackquest.io/zh-cn/hackathons/OKXAI-Genesis-Hackathon)
-- Official Google Form deadline: 2026-07-17 23:59 UTC
+- Official Google Form deadline: 2026-07-27 23:59 UTC
 - Primary track: Lifestyle Companion
 - Project: PawSift
 
@@ -24,9 +24,9 @@ PawSift is a deterministic fit and listing-quality audit for non-ingestible cat 
 | ASP review/live listing | Verified 2026-07-22: `Listed — eligible for task recommendations`; Agent `active`; public search returns Service `34579` |
 | Demo | Completed local v7 candidate pending external reviewer approval and publication; v6 is dated historical evidence only |
 | X post | Historical 2026-07-16 post: `https://x.com/Stetang3438/status/2077807252648656964`; current post pending |
-| HackQuest and Google Form | No timely form receipt found; eligibility is not proven |
+| HackQuest and Google Form | Pending; the official submission window remains open until 2026-07-27 23:59 UTC |
 
-The OKX.AI listing blocker is closed by `ops/OKX_LISTING_APPROVAL_EVIDENCE_v1.md`. A separate competition blocker remains: no repository, Gmail, or Drive evidence currently proves submission of the required Google Form before the official deadline.
+The OKX.AI listing blocker is closed by `ops/OKX_LISTING_APPROVAL_EVIDENCE_v1.md`. The remaining submission operations are external approval of v7, publishing the current X demo, and completing the Google Form before the official deadline.
 
 ## Review commands
 

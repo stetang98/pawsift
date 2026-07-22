@@ -2,7 +2,7 @@
 
 Competition: [OKX.AI Genesis Hackathon](https://www.hackquest.io/zh-cn/hackathons/OKXAI-Genesis-Hackathon)
 
-Status: product, public deployment, and OKX.AI listing are verified. No timely Google Form receipt has been found, so competition eligibility is not yet proven. The 2026-07-16 X post and video are historical assets and must be replaced with the current-status v7 post before any update submission.
+Status: product, public deployment, and OKX.AI listing are verified. The completed current-status v7 candidate is pending external reviewer approval; after approval it must be published in a new X post, then the Google Form must be submitted before 2026-07-27 23:59 UTC. The 2026-07-16 X post and video remain historical assets.
 
 ## Core fields
 
@@ -22,7 +22,7 @@ Status: product, public deployment, and OKX.AI listing are verified. No timely G
 | X | `@Stetang3438` |
 | Telegram | `@Stetang` |
 | Historical demo URL | `https://x.com/Stetang3438/status/2077807252648656964` (published 2026-07-16; shows the former review state) |
-| Current demo URL | Pending publication of reviewer-approved v7 |
+| Current demo URL | Pending external approval and publication of v7 |
 | OKX.AI Agent ID | `6036` |
 | OKX.AI listing | Verified by public `onchainos agent search`: Agent `6036`, Service `34579` |
 | OKX.AI review state | `Listed — eligible for task recommendations`; Agent `active` |
@@ -56,7 +56,7 @@ Pet-product listings often hide the facts that determine fit: supported species 
 - Recompute the content-addressed receipts from `proof/proof.json`
 - Review the public MIT repository: https://github.com/stetang98/pawsift
 - Historical 2026-07-16 demo: https://x.com/Stetang3438/status/2077807252648656964
-- Current listed-state demo: pending publication of reviewer-approved v7
+- Current listed-state demo: completed locally; pending external approval and publication
 
 ![PawSift mobile flow](https://raw.githubusercontent.com/stetang98/pawsift/main/public/screens/pawsift-console-mobile-v1.png)
 
@@ -104,7 +104,7 @@ The launch fee is `0` USDT. Observed sales are zero and there are no sales or pa
 
 The live form was inspected on 2026-07-15. Every field below is required.
 
-The official deadline was 2026-07-17 23:59 UTC. As of 2026-07-22, Gmail and Google Drive searches found no receipt proving that this form was submitted before the deadline. Do not represent PawSift as submission-ready unless a timely receipt or written organizer authorization for a late/update submission is obtained.
+The live official HackQuest page was rechecked on 2026-07-22 and requires this form before 2026-07-27 23:59 UTC. The submission window remains open. Preserve the final response receipt and timestamp immediately after submission.
 
 | Google Form field | Exact value |
 | --- | --- |
@@ -113,7 +113,7 @@ The official deadline was 2026-07-17 23:59 UTC. As of 2026-07-22, Gmail and Goog
 | ASP Description | Use the ASP description in `ops/ASP_LISTING.md` verbatim |
 | ASP Type | `A2MCP` |
 | X Account Handle | `@Stetang3438` |
-| X Participation Post (Link) | Pending publication of the reviewer-approved current-status v7 post |
+| X Participation Post (Link) | Pending external approval and publication of the current-status v7 post |
 | Telegram Handle | `@Stetang` |
 
-Do not submit or update the form without preserving the resulting receipt and timestamp. A late submission does not establish eligibility unless the organizer explicitly accepts it.
+Do not mark the competition entry complete until the form response receipt and timestamp are preserved.

@@ -7,7 +7,7 @@ Decision authority: the owner delegated product and implementation choices for t
 
 ## 1. Objective
 
-Build and list a production-quality Agent-to-MCP service on OKX.AI. This historical design draft recorded a 2026-07-27 deadline, but the official HackQuest page later verified the required Google Form deadline as 2026-07-17 23:59 UTC. The service must solve a narrow real-world problem, be callable as a stable HTTPS API, return verifiable structured results, support a polished public demo, and be straightforward for OKX internal reviewers to exercise.
+Build and list a production-quality Agent-to-MCP service on OKX.AI before the 2026-07-27 23:59 UTC deadline. The service must solve a narrow real-world problem, be callable as a stable HTTPS API, return verifiable structured results, support a polished public demo, and be straightforward for OKX internal reviewers to exercise.
 
 Primary award target: Lifestyle Companion.
 
@@ -18,7 +18,7 @@ Revenue Rocket is not the primary target because a paid endpoint requires OKX fa
 ## 2. Verified Competition Constraints
 
 - Total prize pool: 100,000 USDT.
-- Verified official Google Form deadline: 2026-07-17 23:59 UTC. The earlier 2026-07-27 planning date was incorrect.
+- Submission deadline: 2026-07-27 23:59 UTC, verified again against the live official page on 2026-07-22.
 - The ASP must pass OKX.AI internal review and go live; an unapproved listing is ineligible.
 - Required final fields: ASP name, Agent ID, ASP description, ASP type, X handle, X participation post URL, and Telegram handle.
 - The X post must use `#OKXAI`, introduce the ASP, explain its use case, and include a demo or walkthrough no longer than 90 seconds.
