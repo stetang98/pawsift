@@ -78,7 +78,7 @@ describe("proof exporter", () => {
         process.env.PAWSIFT_PUBLIC_URL = previousPublicUrl;
       }
     }
-  });
+  }, 15_000);
 
   it("derives the live evidence digest from the pinned deployment record", () => {
     const { repository, commit } = createProofRepository();

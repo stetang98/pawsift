@@ -83,6 +83,7 @@ Requirements: Node.js 22 or newer and npm.
 
 ```bash
 npm ci
+npx playwright install chromium
 npm run dev
 ```
 
