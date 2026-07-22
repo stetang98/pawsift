@@ -20,7 +20,7 @@ An 89-second walkthrough of PawSift showing the Bybit-inspired web console, curr
 
 ## Current listed-state post draft
 
-Attach the reviewer-approved v7 MP4 and publish as a new post; do not edit or delete the historical post.
+Attach the reviewer-approved v8 MP4 and publish as a new post; do not edit or delete the historical post.
 
 ```text
 PawSift is now listed on OKX.AI as active Agent 6036. This free Lifestyle A2MCP audit turns pet + listing facts into fit verdicts, rule evidence, seller-ready fixes and reproducible SHA-256 receipts. Try it: https://pawsift.vercel.app Code: https://github.com/stetang98/pawsift #OKXAI
@@ -35,7 +35,7 @@ An under-90-second walkthrough of PawSift showing the production audit console, 
 ## Optional first reply
 
 ```text
-PawSift is intentionally narrow: non-ingestible cat and dog supplies only. Medical, treatment, food, medication and pesticide wording anywhere in a submitted product listing routes to HUMAN_REVIEW. The full proof and 201-test suite are public in the repository.
+PawSift is intentionally narrow: non-ingestible cat and dog supplies only. Medical, treatment, food, medication and pesticide wording anywhere in a submitted product listing routes to HUMAN_REVIEW. The full proof and 203-test suite are public in the repository.
 ```
 
 ## Publication checks

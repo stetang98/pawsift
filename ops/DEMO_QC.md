@@ -37,7 +37,7 @@ Published post: https://x.com/Stetang3438/status/2077807252648656964
 
 OKX.AI listing approval changed on 2026-07-22. This v6 artifact remains valid dated evidence but is no longer the final current-status demo.
 
-## Current v7 candidate
+## Superseded v7 candidate
 
 Date: 2026-07-22
 
@@ -62,4 +62,32 @@ The v7 candidate replaces only the final status visual, narration, and subtitles
 - The existing first six narration cues and verified production/proof visuals are byte-identical inputs from v6; only the dated marketplace-state segment changed.
 - Natural pauses of `0.86` and `0.80` seconds remain at the same positions as v6. No synthetic time compression was used.
 
-Publication remains gated on external reviewer approval. After approval, publish the v7 X post and submit the Google Form before 2026-07-27 23:59 UTC.
+The v7 file was not published. It was superseded after the proof source moved to the test-stability commit and review found a small closing-caption/footer overlap.
+
+## Current v8 candidate
+
+Date: 2026-07-22
+
+Candidate: `artifacts/demo/pawsift-demo-final-v8-v2.mp4`
+
+| Field | Verified value |
+| --- | --- |
+| Duration | `88.900000` seconds |
+| File size | `6,799,677` bytes |
+| Video | H.264 High, `1920 x 1080`, `30 fps`, BT.709 TV range |
+| Audio | AAC LC, `48 kHz`, stereo |
+| Measured integrated loudness | `-16.6 LUFS` |
+| Measured true peak | `-1.9 dBTP` |
+| SHA-256 | `33733d119e5e1c3c0fa4fea3af7085a8e090689f1b63d562a96099b48dd253d3` |
+
+The v8 candidate retains the reviewed v7 narration and current listed-state evidence while replacing the proof frame with the public proof bound to audited source commit `d5e3d37b6877fd3cd305c78f0322615bc49badc6`. Proof SHA-256 `dab43bdf8b8ee0bd5fb6adea781a1afd0020d4ac599fac6701a54e64a3799c46` was identical across two default exports.
+
+- Default `npm run check` passed with all 203 tests and the production build.
+- `npm run test:e2e` ran directly without a forced browser reinstall and passed 9/9 flows.
+- Full H.264/AAC decode completed with no error.
+- `blackdetect` reported no interval of `0.45` seconds or longer.
+- The final listed-state screen keeps Agent `6036`, `active`, approval, Service `34579`, endpoint, and public-search evidence visible.
+- The nonessential bottom privacy footer is omitted only from the final status projection, leaving a dedicated subtitle-safe region; the closing caption no longer overlaps provenance or status evidence.
+- The proof frame and final frame were inspected at full resolution after the final encode.
+
+Publication remains gated on external reviewer approval. After approval, publish the v8 X post and submit the Google Form before 2026-07-27 23:59 UTC.

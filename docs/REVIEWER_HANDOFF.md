@@ -22,11 +22,11 @@ PawSift is a deterministic fit and listing-quality audit for non-ingestible cat 
 | OKX.AI identity and Agent ID | Registered: Agent ID `6036` |
 | OKX.AI marketplace category | Verified by official CLI: `LIFESTYLE` |
 | ASP review/live listing | Verified 2026-07-22: `Listed — eligible for task recommendations`; Agent `active`; public search returns Service `34579` |
-| Demo | Completed local v7 candidate pending external reviewer approval and publication; v6 is dated historical evidence only |
+| Demo | Completed local v8 candidate pending external reviewer approval and publication; v6/v7 are dated historical evidence only |
 | X post | Historical 2026-07-16 post: `https://x.com/Stetang3438/status/2077807252648656964`; current post pending |
 | HackQuest and Google Form | Pending; the official submission window remains open until 2026-07-27 23:59 UTC |
 
-The OKX.AI listing blocker is closed by `ops/OKX_LISTING_APPROVAL_EVIDENCE_v1.md`. The remaining submission operations are external approval of v7, publishing the current X demo, and completing the Google Form before the official deadline.
+The OKX.AI listing blocker is closed by `ops/OKX_LISTING_APPROVAL_EVIDENCE_v1.md`. The remaining submission operations are external approval of v8, publishing the current X demo, and completing the Google Form before the official deadline.
 
 ## Review commands
 
@@ -51,7 +51,7 @@ git diff --check
 8. Check that deployment, listing, sales, payment, and transaction claims match public evidence.
 9. Exercise desktop plus 320 px and 390 px mobile layouts for overflow, overlap, keyboard use, and 44 px controls.
 10. Scan tracked text for secrets, private keys, wallet material, and real API tokens.
-11. Inspect `ops/DEMO_QC.md`, play the complete local v7 video, verify the live HTTP 200 response, current ruleset/receipts, official `LIFESTYLE` category, listed/active CLI evidence, full BT.709 signaling, and caption/narration alignment.
+11. Inspect `ops/DEMO_QC.md`, play the complete local v8 video, verify the live HTTP 200 response, current ruleset/receipts, audited source `d5e3d37b6877fd3cd305c78f0322615bc49badc6`, official `LIFESTYLE` category, listed/active CLI evidence, full BT.709 signaling, and caption/narration alignment.
 
 ## Expected honest launch state
 

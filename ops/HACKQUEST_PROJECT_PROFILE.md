@@ -28,7 +28,7 @@ The saved rich-text description includes the problem, deterministic audit workfl
 - OKX.AI approval: verified `Listed — eligible for task recommendations`; Agent `active`; public search returns Service `34579`.
 - Approved public listing evidence: `ops/OKX_LISTING_APPROVAL_EVIDENCE_v1.md`; browser-facing detail URL still to capture if required by the form.
 - Historical demo and X post: published 2026-07-16 at `https://x.com/Stetang3438/status/2077807252648656964`; it accurately records the former under-review state but is not the current final demo.
-- Current listed-state v7 demo: completed locally; external review and publication pending.
+- Current listed-state v8 demo: completed locally; external review and publication pending.
 - Final Google Form receipt: pending. The live official page currently requires submission before 2026-07-27 23:59 UTC.
 
 No deployment-contract fields were fabricated because PawSift is an offchain A2MCP service. No revenue, payment, sale, or transaction-volume claim is made.
