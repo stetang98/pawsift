@@ -156,14 +156,14 @@ main.audit-page > h1 {
   color: rgba(255, 255, 255, 0.72);
 }
 
-.audit-status-pill-review {
-  border-color: rgba(255, 190, 99, 0.22);
-  background: rgba(255, 190, 99, 0.08);
-  color: #ffbe63;
+.audit-status-pill-listed {
+  border-color: rgba(59, 214, 138, 0.28);
+  background: rgba(59, 214, 138, 0.1);
+  color: #68e0a3;
 }
 
-.audit-status-pill-review:hover {
-  background: rgba(255, 190, 99, 0.14);
+.audit-status-pill-listed:hover {
+  background: rgba(59, 214, 138, 0.16);
 }
 
 .audit-workspace {

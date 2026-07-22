@@ -1,6 +1,6 @@
 # PawSift OKX.AI ASP listing
 
-Status: Agent ID `6036` created; the first listing review was rejected on 2026-07-17; endpoint remediation is deployed; the resubmission is `Listing under review` and `not listed`.
+Status: Agent ID `6036` is `active` and officially `Listed — eligible for task recommendations`; public agent search returns PawSift and Service `34579`.
 
 ## Listing fields
 
@@ -16,7 +16,7 @@ Status: Agent ID `6036` created; the first listing review was rejected on 2026-0
 | Avatar | `https://static.okx.com/cdn/web3/wallet/marketplace/headimages/agent/avatar/90713ec2-b8e9-49e2-8a6c-f1d2cf0dcf44.png` |
 | Preferred review language | `en-US` |
 | Agent ID | `6036` |
-| Listing state | `Listing under review` after remediation resubmission; `not listed` |
+| Listing state | `Listed — eligible for task recommendations`; `active` |
 | Verified marketplace category | `LIFESTYLE` |
 | Registration transaction | `0x25e7dd9f7ca75cd30eaa40fd074a89860442eadfd067d0715a4e08aa4d3869be` |
 | Lifestyle profile update transaction | `0x2d290ec5e689fbf463397446020e290a98c0320d184133e349f22cbbefcaaf1a` |
@@ -91,7 +91,9 @@ Run from the repository root with `/Users/stetang/.local/bin/onchainos` version 
   --preferred-language en-US
 ```
 
-The approval submission succeeded on 2026-07-15. On 2026-07-16, the profile and service descriptions were updated to the exact pet-lifestyle wording above. On 2026-07-17, OKX rejected the first review because its zero-byte endpoint probe received a non-200 response, followed by generic x402 and timeout failures. The registered service remains free at `0 USDT`; OKX's A2MCP guide explicitly says free endpoints return HTTP 200 directly and require no x402. After deployment and public replay, the service was updated in transaction `0xd954678b16a879bb5200b2aac1a6df0c0454b057c1b413e890262424e20b7f11` and resubmitted successfully. The profile now reports `Listing under review` and `not listed`. Do not describe PawSift as approved or publicly listed until re-review succeeds and a public listing URL is verified.
+The approval submission succeeded on 2026-07-15. On 2026-07-16, the profile and service descriptions were updated to the exact pet-lifestyle wording above. On 2026-07-17, OKX rejected the first review because its zero-byte endpoint probe received a non-200 response, followed by generic x402 and timeout failures. The registered service remained free at `0 USDT`; OKX's A2MCP guide explicitly says free endpoints return HTTP 200 directly and require no x402. After deployment and public replay, the service was updated in transaction `0xd954678b16a879bb5200b2aac1a6df0c0454b057c1b413e890262424e20b7f11` and resubmitted. At that dated stage the profile reported `Listing under review` and `not listed`.
+
+On 2026-07-22, independent official CLI checks closed that historical review state: Agent `6036` is `active`, the approval label is `Listed — eligible for task recommendations`, Service `34579` remains the single free A2MCP service, and public agent search returns PawSift. See `ops/OKX_LISTING_APPROVAL_EVIDENCE_v1.md`.
 
 ## Required evidence
 
@@ -99,5 +101,5 @@ The approval submission succeeded on 2026-07-15. On 2026-07-16, the profile and 
 - `agent profile` output for that ID.
 - `agent service-list` output showing one free A2MCP service and the production endpoint.
 - Current profile output showing the exact approval label and listing status.
-- Public OKX.AI listing URL after approval.
+- Public official CLI search evidence for the listed agent and service; capture a browser detail URL only if a form specifically requires one.
 - Signed-out endpoint replay matching the checked-in clear fixture receipt.

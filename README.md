@@ -106,7 +106,7 @@ PawSift is designed as a free A2MCP service:
 
 Calling PawSift needs no wallet, private key, model key, or third-party API. Registering the ASP identity used the official Agentic Wallet flow; a paid x402 adapter is intentionally not claimed or simulated.
 
-OKX.AI registration is complete as Agent ID `6036`. The first listing review was rejected on 2026-07-17 after the availability probe received a non-200 response. The endpoint compatibility fix is deployed and publicly verified, and the resubmission now reports `Listing under review`; the Agent remains `not listed`. No approved-listing claim is made until OKX approves it and a public listing URL is verified.
+OKX.AI registration and listing are complete. On 2026-07-22, the official CLI reported Agent ID `6036` as `active` with approval status `Listed — eligible for task recommendations`; public agent search returned PawSift and Service `34579`. The registered service remains a free `A2MCP` endpoint at `0 USDT`. See `ops/OKX_LISTING_APPROVAL_EVIDENCE_v1.md` for the verification record.
 
 ## License
 

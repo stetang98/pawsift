@@ -146,14 +146,14 @@ test("mobile keeps the console usable with 44 px command targets and no overflow
   expect(hasOverflow).toBe(false);
 });
 
-test("320 px mobile keeps the OKX.AI status visible without horizontal overflow", async ({
+test("320 px mobile keeps the listed OKX.AI status visible without horizontal overflow", async ({
   page
 }) => {
   await page.setViewportSize({ width: 320, height: 720 });
   await page.goto("/");
 
   await expect(
-    page.getByRole("link", { name: "Agent 6036 · Listing under review" })
+    page.getByRole("link", { name: "Agent 6036 · Listed on OKX.AI" })
   ).toBeVisible();
 
   const hasOverflow = await page.evaluate(() => {

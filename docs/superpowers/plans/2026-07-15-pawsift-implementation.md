@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Submit before 2026-07-27 23:59 UTC.
+- Submit before the verified official Google Form deadline, 2026-07-17 23:59 UTC. The earlier 2026-07-27 planning date was incorrect.
 - The production A2MCP endpoint must return HTTP 200 directly and require no secret.
 - Supported products are non-ingestible pet supplies only.
 - The service must not make veterinary, medical, food, supplement, pesticide, or treatment claims.

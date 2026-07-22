@@ -12,12 +12,14 @@ Target runtime: at most 90 seconds. Language: English. Delivery: calm, natural p
 | 0:37-0:49 | Show the current clear receipt followed by public `proof/proof.json`, audited commit, and ruleset. | Every result includes canonical SHA-256 input and report hashes. The checked-in proof binds these receipts to the audited Git commit and hosted fixture response. |
 | 0:49-1:02 | Show a real public `curl -i -X POST` response with `HTTP/2 200`, the current ruleset and receipt, followed by the current public OpenAPI source. | The endpoint is public, schema-strict, OpenAPI documented, and needs no wallet, account, model key, or private data. Shopping agents can call it directly. |
 | 1:02-1:15 | Show a zero-width-obfuscated product name returning PS-008 `HUMAN_REVIEW` with `product.name` and `normalized=...` evidence. | PawSift stays narrow. Food or medical wording, even when hidden with zero-width text in the product name, is normalized and routed to human review. |
-| 1:15-1:26 | Show a public-safe projection of the official OKX CLI response with Agent ID `6036`, marketplace category `LIFESTYLE`, `Listing under review`, `not listed`, A2MCP, `0 USDT`, endpoint, and service record ID. | PawSift is registered on OKX.AI as Agent six zero three six and is now under review. Know what fits before your pet finds out. |
+| 1:15-1:26 | Show a public-safe projection of the 2026-07-22 official CLI checks with Agent ID `6036`, marketplace category `LIFESTYLE`, `active`, `Listed — eligible for task recommendations`, public-search visibility, A2MCP, `0 USDT`, endpoint, and service record ID. | PawSift is now listed on OKX A I as active Agent six zero three six, with its free Lifestyle service publicly searchable. Know what fits before your pet finds out. |
 | 1:26-1:29 | Return to the production console for a clean silent outro. | No narration. |
 
 The final edit remains at or below 90 seconds without accelerating speech unnaturally.
 
-Final local candidate: `artifacts/demo/pawsift-demo-final-v6-v1.mp4` (`88.9` seconds, SHA-256 `0e6dfee83f0f4d9c2a9e3c8630344406c2ec1b6d548cfdfa4916210177919623`). See `ops/DEMO_QC.md` for the verification record.
+Historical published candidate: `artifacts/demo/pawsift-demo-final-v6-v1.mp4` (`88.9` seconds, SHA-256 `0e6dfee83f0f4d9c2a9e3c8630344406c2ec1b6d548cfdfa4916210177919623`). It accurately records the 2026-07-16 under-review state but is stale after listing approval.
+
+Current local candidate: `artifacts/demo/pawsift-demo-final-v7-v1.mp4` (`88.9` seconds, SHA-256 `3533360fa6b6181e3681fb7de4d7f97d25be54071564e06c9b67ca4908a67008`). See `ops/DEMO_QC.md` for its independent verification gate.
 
 ## Capture contract
 

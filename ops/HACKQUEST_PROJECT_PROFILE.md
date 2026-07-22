@@ -25,10 +25,10 @@ The saved rich-text description includes the problem, deterministic audit workfl
 - Project profile: saved.
 - Agent ID: `6036`.
 - OKX.AI marketplace category: `LIFESTYLE`.
-- OKX.AI approval: first review rejected on 2026-07-17; endpoint remediation deployed; resubmission `Listing under review`; `not listed`.
-- Approved public listing URL: pending.
-- Final demo video URL: `https://x.com/Stetang3438/status/2077807252648656964`.
-- X participation post: published and publicly reachable at `https://x.com/Stetang3438/status/2077807252648656964`.
-- Final submission receipts: pending.
+- OKX.AI approval: verified `Listed — eligible for task recommendations`; Agent `active`; public search returns Service `34579`.
+- Approved public listing evidence: `ops/OKX_LISTING_APPROVAL_EVIDENCE_v1.md`; browser-facing detail URL still to capture if required by the form.
+- Historical demo and X post: published 2026-07-16 at `https://x.com/Stetang3438/status/2077807252648656964`; it accurately records the former under-review state but is not the current final demo.
+- Current listed-state demo and X post: pending publication of reviewer-approved v7.
+- Final Google Form receipt: not found. The official 2026-07-17 23:59 UTC deadline has passed, so eligibility remains unproven without a timely receipt or written organizer authorization.
 
 No deployment-contract fields were fabricated because PawSift is an offchain A2MCP service. No revenue, payment, sale, or transaction-volume claim is made.

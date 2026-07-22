@@ -38,14 +38,14 @@ describe("application shell", () => {
     expect(markup).toContain('id="audit-console-root"');
   });
 
-  it("shows the verified OKX.AI registration without claiming approval", () => {
+  it("shows the verified OKX.AI listing with public evidence", () => {
     const markup = renderToStaticMarkup(HomePage());
 
     expect(markup).toContain("Agent 6036");
-    expect(markup).toContain("Listing under review");
+    expect(markup).toContain("Listed on OKX.AI");
     expect(markup).toContain(
-      "https://github.com/stetang98/pawsift/blob/main/ops/OKX_REGISTRATION_EVIDENCE.md"
+      "https://github.com/stetang98/pawsift/blob/main/ops/OKX_LISTING_APPROVAL_EVIDENCE_v1.md"
     );
-    expect(markup).not.toContain("Approved on OKX.AI");
+    expect(markup).not.toContain("Listing under review");
   });
 });

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import {
   Activity,
-  Clock3,
+  BadgeCheck,
   RotateCcw,
   ScanSearch,
   ShieldCheck
@@ -487,14 +487,14 @@ export function AuditConsole() {
             Ruleset {rulesetVersion}
           </span>
           <a
-            className="audit-status-pill audit-status-pill-review"
-            href="https://github.com/stetang98/pawsift/blob/main/ops/OKX_REGISTRATION_EVIDENCE.md"
+            className="audit-status-pill audit-status-pill-listed"
+            href="https://github.com/stetang98/pawsift/blob/main/ops/OKX_LISTING_APPROVAL_EVIDENCE_v1.md"
             target="_blank"
             rel="noreferrer"
-            title="View public OKX.AI registration evidence"
+            title="View verified OKX.AI listing evidence"
           >
-            <Clock3 size={16} aria-hidden="true" />
-            Agent 6036 · Listing under review
+            <BadgeCheck size={16} aria-hidden="true" />
+            Agent 6036 · Listed on OKX.AI
           </a>
         </div>
         <nav className="audit-command-links" aria-label="Machine contract links">

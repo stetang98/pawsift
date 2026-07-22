@@ -2,7 +2,7 @@
 
 Competition: [OKX.AI Genesis Hackathon](https://www.hackquest.io/zh-cn/hackathons/OKXAI-Genesis-Hackathon)
 
-Status: product, public deployment, OKX.AI Agent ID, and X participation post ready; listing approval and final form receipt remain pending.
+Status: product, public deployment, and OKX.AI listing are verified. No timely Google Form receipt has been found, so competition eligibility is not yet proven. The 2026-07-16 X post and video are historical assets and must be replaced with the current-status v7 post before any update submission.
 
 ## Core fields
 
@@ -21,10 +21,11 @@ Status: product, public deployment, OKX.AI Agent ID, and X participation post re
 | GitHub | `stetang98` |
 | X | `@Stetang3438` |
 | Telegram | `@Stetang` |
-| Demo URL | `https://x.com/Stetang3438/status/2077807252648656964` |
+| Historical demo URL | `https://x.com/Stetang3438/status/2077807252648656964` (published 2026-07-16; shows the former review state) |
+| Current demo URL | Pending publication of reviewer-approved v7 |
 | OKX.AI Agent ID | `6036` |
-| OKX.AI listing | `[PENDING_APPROVED_LISTING_URL]` |
-| OKX.AI review state | First review rejected; remediation deployed; resubmission `Listing under review`; `not listed` |
+| OKX.AI listing | Verified by public `onchainos agent search`: Agent `6036`, Service `34579` |
+| OKX.AI review state | `Listed — eligible for task recommendations`; Agent `active` |
 | OKX.AI marketplace category | `LIFESTYLE` |
 
 ## Short description
@@ -54,7 +55,8 @@ Pet-product listings often hide the facts that determine fit: supported species 
 - Replay twelve checked-in fixtures: https://pawsift.vercel.app/api/v1/examples
 - Recompute the content-addressed receipts from `proof/proof.json`
 - Review the public MIT repository: https://github.com/stetang98/pawsift
-- Watch the public demo: https://x.com/Stetang3438/status/2077807252648656964
+- Historical 2026-07-16 demo: https://x.com/Stetang3438/status/2077807252648656964
+- Current listed-state demo: pending publication of reviewer-approved v7
 
 ![PawSift mobile flow](https://raw.githubusercontent.com/stetang98/pawsift/main/public/screens/pawsift-console-mobile-v1.png)
 
@@ -70,15 +72,15 @@ PawSift is not veterinary advice. It does not approve food, treats, supplements,
 - RFC 8785-aligned canonical JSON behavior and SHA-256 receipts
 - Public CORS, payload limits, sanitized errors, HSTS, and no request persistence
 - Reproducible proof bound to a pinned Git commit, Git blobs, deployment health, and hosted fixture hashes
-- 201 automated tests plus 9 desktop/mobile browser flows
+- 203 automated tests plus 9 desktop/mobile browser flows
 
 ## OKX.AI integration
 
-PawSift is registered as a free `A2MCP` service on OKX.AI. The official profile classifies Agent ID `6036` as `LIFESTYLE`; the first listing review was rejected on 2026-07-17, the endpoint remediation is deployed and publicly verified, and the resubmission now reports `Listing under review` / `not listed`. The public listing URL remains pending until OKX approves the re-review.
+PawSift is listed as a free `A2MCP` service on OKX.AI. The official profile classifies Agent ID `6036` as `LIFESTYLE`, `active`, and `Listed — eligible for task recommendations`; public agent search returns Service `34579`. The endpoint remediation and approval evidence are recorded in `ops/OKX_REREVIEW_EVIDENCE.md` and `ops/OKX_LISTING_APPROVAL_EVIDENCE_v1.md`.
 
 - Agent ID: `6036`
-- Listing: `[PENDING_APPROVED_LISTING_URL]`
-- Review state: first review rejected; remediation deployed; resubmission `Listing under review`; `not listed`
+- Listing: public agent search result for Agent `6036`, Service `34579`
+- Review state: `Listed — eligible for task recommendations`; Agent `active`
 - Marketplace category: `LIFESTYLE`
 - Endpoint: https://pawsift.vercel.app/api/v1/audit
 
@@ -102,6 +104,8 @@ The launch fee is `0` USDT. Observed sales are zero and there are no sales or pa
 
 The live form was inspected on 2026-07-15. Every field below is required.
 
+The official deadline was 2026-07-17 23:59 UTC. As of 2026-07-22, Gmail and Google Drive searches found no receipt proving that this form was submitted before the deadline. Do not represent PawSift as submission-ready unless a timely receipt or written organizer authorization for a late/update submission is obtained.
+
 | Google Form field | Exact value |
 | --- | --- |
 | ASP Name | `PawSift` |
@@ -109,7 +113,7 @@ The live form was inspected on 2026-07-15. Every field below is required.
 | ASP Description | Use the ASP description in `ops/ASP_LISTING.md` verbatim |
 | ASP Type | `A2MCP` |
 | X Account Handle | `@Stetang3438` |
-| X Participation Post (Link) | `https://x.com/Stetang3438/status/2077807252648656964` |
+| X Participation Post (Link) | Pending publication of the reviewer-approved current-status v7 post |
 | Telegram Handle | `@Stetang` |
 
-Do not submit either platform form while any bracketed value remains unresolved.
+Do not submit or update the form without preserving the resulting receipt and timestamp. A late submission does not establish eligibility unless the organizer explicitly accepts it.

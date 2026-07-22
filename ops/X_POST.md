@@ -1,21 +1,35 @@
 # PawSift X participation post
 
-Status: published on 2026-07-16 after reviewer approval.
+Status: the first post was published on 2026-07-16 after reviewer approval and is retained as historical evidence. It shows the then-current under-review state and must not be used as the final current-status demo after the 2026-07-22 listing approval.
 
 Public post: https://x.com/Stetang3438/status/2077807252648656964
 
-## Main post
+## Historical 2026-07-16 post
 
-Attach `artifacts/demo/pawsift-demo-final-v6-v1.mp4` directly to this post. Agent ID `6036` and marketplace category `LIFESTYLE` are verified; preserve honest review-state wording until approval is confirmed.
+Attached asset: `artifacts/demo/pawsift-demo-final-v6-v1.mp4`.
 
 ```text
 PawSift is submitted to OKX.AI review (Agent ID: 6036). This free A2MCP audit turns pet + listing facts into fit verdicts, rule evidence, fixes and SHA-256 receipts. Try it: https://pawsift.vercel.app Code: github.com/stetang98/pawsift #OKXAI
 ```
 
-## Video alt text
+## Historical video alt text
 
 ```text
 An 89-second walkthrough of PawSift showing the Bybit-inspired web console, current CLEAR and PS-011 CAUTION audits, normalized PS-008 HUMAN_REVIEW evidence, reproducible SHA-256 proof, a live public API HTTP 200 response, and real OKX.AI Agent ID 6036 under review.
+```
+
+## Current listed-state post draft
+
+Attach the reviewer-approved v7 MP4 and publish as a new post; do not edit or delete the historical post.
+
+```text
+PawSift is now listed on OKX.AI as active Agent 6036. This free Lifestyle A2MCP audit turns pet + listing facts into fit verdicts, rule evidence, seller-ready fixes and reproducible SHA-256 receipts. Try it: https://pawsift.vercel.app Code: https://github.com/stetang98/pawsift #OKXAI
+```
+
+Current video alt text:
+
+```text
+An under-90-second walkthrough of PawSift showing the production audit console, CLEAR and PS-011 CAUTION results, normalized PS-008 HUMAN_REVIEW evidence, reproducible SHA-256 proof, a live HTTP 200 API response, and official CLI evidence that OKX.AI Agent 6036 is active, listed and publicly searchable.
 ```
 
 ## Optional first reply
