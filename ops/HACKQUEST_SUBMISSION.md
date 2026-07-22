@@ -2,7 +2,7 @@
 
 Competition: [OKX.AI Genesis Hackathon](https://www.hackquest.io/zh-cn/hackathons/OKXAI-Genesis-Hackathon)
 
-Status: product, public deployment, and OKX.AI listing are verified. The completed current-status v8 candidate is pending external reviewer approval; after approval it must be published in a new X post, then the Google Form must be submitted before 2026-07-27 23:59 UTC. The 2026-07-16 X post and video remain historical assets.
+Status: submitted. Product, public deployment, OKX.AI listing, the reviewer-approved current-status v8 demo post, and the Google Form response are verified. The form confirmed that the response was recorded on 2026-07-22 at 14:14 UTC, before the 2026-07-27 23:59 UTC deadline. The 2026-07-16 X post and video remain historical assets.
 
 ## Core fields
 
@@ -22,7 +22,7 @@ Status: product, public deployment, and OKX.AI listing are verified. The complet
 | X | `@Stetang3438` |
 | Telegram | `@Stetang` |
 | Historical demo URL | `https://x.com/Stetang3438/status/2077807252648656964` (published 2026-07-16; shows the former review state) |
-| Current demo URL | Pending external approval and publication of v8 |
+| Current demo URL | `https://x.com/Stetang3438/status/2079931011601965205` |
 | OKX.AI Agent ID | `6036` |
 | OKX.AI listing | Verified by public `onchainos agent search`: Agent `6036`, Service `34579` |
 | OKX.AI review state | `Listed — eligible for task recommendations`; Agent `active` |
@@ -56,7 +56,7 @@ Pet-product listings often hide the facts that determine fit: supported species 
 - Recompute the content-addressed receipts from `proof/proof.json`
 - Review the public MIT repository: https://github.com/stetang98/pawsift
 - Historical 2026-07-16 demo: https://x.com/Stetang3438/status/2077807252648656964
-- Current listed-state demo: completed locally; pending external approval and publication
+- Current listed-state demo: https://x.com/Stetang3438/status/2079931011601965205
 
 ![PawSift mobile flow](https://raw.githubusercontent.com/stetang98/pawsift/main/public/screens/pawsift-console-mobile-v1.png)
 
@@ -113,7 +113,7 @@ The live official HackQuest page was rechecked on 2026-07-22 and requires this f
 | ASP Description | Use the ASP description in `ops/ASP_LISTING.md` verbatim |
 | ASP Type | `A2MCP` |
 | X Account Handle | `@Stetang3438` |
-| X Participation Post (Link) | Pending external approval and publication of the current-status v8 post |
+| X Participation Post (Link) | `https://x.com/Stetang3438/status/2079931011601965205` |
 | Telegram Handle | `@Stetang` |
 
-Do not mark the competition entry complete until the form response receipt and timestamp are preserved.
+Submission completed on 2026-07-22 at 14:14 UTC. The Google Form displayed `Your response has been recorded` / `您的回复已记录`; the confirmation screenshot is preserved at `artifacts/submission/google-form-confirmation-2026-07-22.png`. See `ops/HACKQUEST_SUBMISSION_RECEIPT_2026-07-22.md` for the submitted values and evidence boundary.

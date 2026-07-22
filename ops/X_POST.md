@@ -1,8 +1,10 @@
 # PawSift X participation post
 
-Status: the first post was published on 2026-07-16 after reviewer approval and is retained as historical evidence. It shows the then-current under-review state and must not be used as the final current-status demo after the 2026-07-22 listing approval.
+Status: the current listed-state v8 post was published on 2026-07-22 after external reviewer approval. The first post from 2026-07-16 is retained as dated historical evidence of the former review state.
 
-Public post: https://x.com/Stetang3438/status/2077807252648656964
+Current public post: https://x.com/Stetang3438/status/2079931011601965205
+
+Historical public post: https://x.com/Stetang3438/status/2077807252648656964
 
 ## Historical 2026-07-16 post
 
@@ -18,12 +20,12 @@ PawSift is submitted to OKX.AI review (Agent ID: 6036). This free A2MCP audit tu
 An 89-second walkthrough of PawSift showing the Bybit-inspired web console, current CLEAR and PS-011 CAUTION audits, normalized PS-008 HUMAN_REVIEW evidence, reproducible SHA-256 proof, a live public API HTTP 200 response, and real OKX.AI Agent ID 6036 under review.
 ```
 
-## Current listed-state post draft
+## Current listed-state post
 
-Attach the reviewer-approved v8 MP4 and publish as a new post; do not edit or delete the historical post.
+Published with the reviewer-approved `artifacts/demo/pawsift-demo-final-v8-v2.mp4` on 2026-07-22.
 
 ```text
-PawSift is now listed on OKX.AI as active Agent 6036. This free Lifestyle A2MCP audit turns pet + listing facts into fit verdicts, rule evidence, seller-ready fixes and reproducible SHA-256 receipts. Try it: https://pawsift.vercel.app Code: https://github.com/stetang98/pawsift #OKXAI
+PawSift is listed on OKX.AI as active Agent 6036. This free Lifestyle A2MCP turns pet + listing facts into fit verdicts, rule evidence, seller-ready fixes and SHA-256 receipts. Try it: https://pawsift.vercel.app Code: https://github.com/stetang98/pawsift #OKXAI
 ```
 
 Current video alt text:

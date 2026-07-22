@@ -26,9 +26,9 @@ The saved rich-text description includes the problem, deterministic audit workfl
 - Agent ID: `6036`.
 - OKX.AI marketplace category: `LIFESTYLE`.
 - OKX.AI approval: verified `Listed — eligible for task recommendations`; Agent `active`; public search returns Service `34579`.
-- Approved public listing evidence: `ops/OKX_LISTING_APPROVAL_EVIDENCE_v1.md`; browser-facing detail URL still to capture if required by the form.
+- Approved public listing evidence: `ops/OKX_LISTING_APPROVAL_EVIDENCE_v1.md`; the final form required the Agent ID rather than a browser-facing listing URL.
 - Historical demo and X post: published 2026-07-16 at `https://x.com/Stetang3438/status/2077807252648656964`; it accurately records the former under-review state but is not the current final demo.
-- Current listed-state v8 demo: completed locally; external review and publication pending.
-- Final Google Form receipt: pending. The live official page currently requires submission before 2026-07-27 23:59 UTC.
+- Current listed-state v8 demo: externally reviewed and published 2026-07-22 at `https://x.com/Stetang3438/status/2079931011601965205`.
+- Final Google Form receipt: submitted 2026-07-22 at 14:14 UTC and preserved in `ops/HACKQUEST_SUBMISSION_RECEIPT_2026-07-22.md` plus `artifacts/submission/google-form-confirmation-2026-07-22.png`.
 
 No deployment-contract fields were fabricated because PawSift is an offchain A2MCP service. No revenue, payment, sale, or transaction-volume claim is made.

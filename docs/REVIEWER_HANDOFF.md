@@ -22,11 +22,11 @@ PawSift is a deterministic fit and listing-quality audit for non-ingestible cat 
 | OKX.AI identity and Agent ID | Registered: Agent ID `6036` |
 | OKX.AI marketplace category | Verified by official CLI: `LIFESTYLE` |
 | ASP review/live listing | Verified 2026-07-22: `Listed — eligible for task recommendations`; Agent `active`; public search returns Service `34579` |
-| Demo | Completed local v8 candidate pending external reviewer approval and publication; v6/v7 are dated historical evidence only |
-| X post | Historical 2026-07-16 post: `https://x.com/Stetang3438/status/2077807252648656964`; current post pending |
-| HackQuest and Google Form | Pending; the official submission window remains open until 2026-07-27 23:59 UTC |
+| Demo | Reviewer-approved v8 published at `https://x.com/Stetang3438/status/2079931011601965205`; v6/v7 are dated historical evidence only |
+| X post | Current 2026-07-22 post: `https://x.com/Stetang3438/status/2079931011601965205`; historical 2026-07-16 post retained separately |
+| HackQuest and Google Form | Submitted 2026-07-22 at 14:14 UTC; confirmation receipt preserved before the 2026-07-27 23:59 UTC deadline |
 
-The OKX.AI listing blocker is closed by `ops/OKX_LISTING_APPROVAL_EVIDENCE_v1.md`. The remaining submission operations are external approval of v8, publishing the current X demo, and completing the Google Form before the official deadline.
+The OKX.AI listing blocker is closed by `ops/OKX_LISTING_APPROVAL_EVIDENCE_v1.md`. The code, listing, current X demo, and Google Form submission are complete; the submitted values and confirmation boundary are recorded in `ops/HACKQUEST_SUBMISSION_RECEIPT_2026-07-22.md`.
 
 ## Review commands
 
